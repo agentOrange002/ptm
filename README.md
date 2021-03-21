@@ -54,7 +54,7 @@ You will also see any lint errors in the console.
 
 ### `docker-compose build`
 
-Builds the app docker imageimage .\
+Builds the app docker image.
 
 
 The build is minified and the filenames include the hashes.\
