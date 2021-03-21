@@ -44,7 +44,7 @@ It's an application that can administer and manage Boards and BoardMembers. It a
 
 In the project directory, you can run:
 
-### `docker-compose up 
+### `docker-compose up` 
 
 Runs the app in the docker container.\
 Open [http://localhost](http://localhost) to view it in the browser.
@@ -54,7 +54,7 @@ You will also see any lint errors in the console.
 
 ### `docker-compose build`
 
-Builds the app docker imageimage ..\
+Builds the app docker imageimage .\
 
 
 The build is minified and the filenames include the hashes.\
