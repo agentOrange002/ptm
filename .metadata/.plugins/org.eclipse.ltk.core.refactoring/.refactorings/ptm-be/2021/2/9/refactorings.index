@@ -1,0 +1,23 @@
+1613976781014	Rename compilation unit 'TeamMemberEntity.java'
+1613976928252	Delete element
+1613977055481	Rename type 'TeamDto'
+1613977826736	Rename compilation unit 'TeamMemberModelRequest.java'
+1613977847636	Rename type 'TeamMemberPutRequest'
+1613977861105	Rename type 'TeamModelRequest'
+1613977917894	Rename type 'TeamMemberModelResponse'
+1613977931142	Rename type 'TeamModelResponse'
+1613977958709	Rename type 'ShortTeamMemberModelResponse'
+1613977987254	Rename type 'TeamAspect'
+1613979833654	Rename type 'TeamCategoryEntity'
+1613980004715	Rename type 'TeamMemberDto'
+1613980558830	Rename type 'TeamRepository'
+1613980781438	Rename compilation unit 'TeamService.java'
+1613980916557	Rename type 'TeamMemberService'
+1613980985735	Rename compilation unit 'TeamMemberRepository.java'
+1613981283597	Rename type 'TeamServiceImplementation'
+1613982108614	Rename compilation unit 'TeamMemberServiceImplementation.java'
+1613982254860	Rename compilation unit 'TeamController.java'
+1613982383352	Rename type 'TeamMemberController'
+1614002495815	Delete element
+1614004645409	Rename resource 'TeamInfo.jrxml'
+1614004656939	Delete element

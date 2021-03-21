@@ -1,0 +1,3 @@
+eclipse.preferences.version=1
+org.eclipse.jdt.launching.PREF_DEFAULT_ENVIRONMENTS_XML=
+org.eclipse.jdt.launching.PREF_VM_XML=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?>\n<vmSettings defaultVM\="57,org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType13,1615636194409" defaultVMConnector\="">\n    <vmType id\="org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType">\n        <vm id\="1613902870762" name\="jre" path\="/home/agentorange002/Desktop/sts-4.9.0.RELEASE/plugins/org.eclipse.justj.openjdk.hotspot.jre.full.linux.x86_64_15.0.1.v20201027-0507/jre"/>\n        <vm id\="1615636194409" name\="11.0.10.9.1-amzn" path\="/home/agentorange002/.sdkman/candidates/java/11.0.10.9.1-amzn"/>\n    </vmType>\n</vmSettings>\n

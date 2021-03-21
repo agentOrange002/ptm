@@ -1,0 +1,42 @@
+.layout-sidebar {
+    position: fixed;
+    width: 250px;
+    height: 110vh;
+    min-height: 110vh;
+    z-index: 999;
+   // z-index: 1;
+   // overflow-y: auto;
+    overflow-y:scroll;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    @include transition(left $transitionDuration);
+    @include shadow(0 0 6px 0 rgba(0, 0, 0, 0.16));
+
+    .layout-logo {
+        text-align: center;
+        margin-top: 24px;
+    }
+
+    .layout-logo img {
+       // display: block;
+        max-width:230px;
+        max-height:95px;
+        width: auto;
+        height: auto;
+        border: 1px solid white;
+      }
+
+    .menuitem-badge {
+        display: inline-block;
+        margin-left: 4px;
+        font-size: 10px;
+        width: 16px;
+        height: 16px;
+        line-height: 16px;
+        text-align: center;
+        color: $menuitemBadgeColor;
+        background-color: $menuitemBadgeBgColor;
+        @include border-radius(50%);
+    }
+}

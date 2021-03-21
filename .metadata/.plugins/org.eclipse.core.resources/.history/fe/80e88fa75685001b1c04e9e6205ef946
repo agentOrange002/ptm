@@ -1,0 +1,81 @@
+package sys.app.ptm.tool;
+
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.temporal.TemporalAdjusters;
+import java.util.Locale;
+
+import org.springframework.stereotype.Component;
+
+import java.time.temporal.WeekFields;
+
+@Component
+public class ThisLocalizedWeek {
+
+    // Try and always specify the time zone you're working with
+    private final static ZoneId TZ = ZoneId.of("Asia/Manila");
+
+    private final Locale locale;
+    private final DayOfWeek firstDayOfWeek;   
+    private final DayOfWeek lastDayOfWeek;
+    private final DayOfWeek secondDayOfWeek;
+    private final DayOfWeek thirdDayOfWeek;
+    private final DayOfWeek fourthDayOfWeek;
+    private final DayOfWeek fifthDayOfWeek;
+    private final DayOfWeek sixthDayOfWeek;
+
+    public ThisLocalizedWeek(final Locale locale) {
+        this.locale = locale;
+        this.firstDayOfWeek = WeekFields.of(locale).getFirstDayOfWeek();
+        this.lastDayOfWeek = DayOfWeek.of(((this.firstDayOfWeek.getValue() + 5) % DayOfWeek.values().length) + 1);
+        this.secondDayOfWeek = DayOfWeek.of(((this.lastDayOfWeek.getValue() + 7) % DayOfWeek.values().length) -1); 
+        
+        this.thirdDayOfWeek = DayOfWeek.of(((this.firstDayOfWeek.getValue() + 7 ) % DayOfWeek.values().length) + 1);   
+        this.fourthDayOfWeek = DayOfWeek.of(((this.firstDayOfWeek.getValue() + 3) % DayOfWeek.values().length) + 1);   
+        this.fifthDayOfWeek = DayOfWeek.of(((this.firstDayOfWeek.getValue() + 4) % DayOfWeek.values().length) + 1);        
+        this.sixthDayOfWeek = DayOfWeek.of(((this.secondDayOfWeek.getValue() + 5) % DayOfWeek.values().length) + 1);   
+       
+    }
+
+    public LocalDate getFirstDay() {
+        return LocalDate.now(TZ).with(TemporalAdjusters.previousOrSame(this.firstDayOfWeek));
+    }
+
+    public LocalDate getLastDay() {
+        return LocalDate.now(TZ).with(TemporalAdjusters.nextOrSame(this.lastDayOfWeek));
+    }
+    
+    public LocalDate getSecondDay() {
+    	 return LocalDate.now(TZ).with(TemporalAdjusters.previousOrSame(this.secondDayOfWeek));
+    }
+    
+    public LocalDate getThirdDay() {
+   	 return LocalDate.now(TZ).with(TemporalAdjusters.previousOrSame(this.thirdDayOfWeek));
+   }
+    
+    public LocalDate getFourthDay() {
+   	 return LocalDate.now(TZ).with(TemporalAdjusters.previousOrSame(this.fourthDayOfWeek));
+   }
+    
+    public LocalDate getFifthDay() {
+   	 return LocalDate.now(TZ).with(TemporalAdjusters.previousOrSame(this.fifthDayOfWeek));
+   }
+    
+    public LocalDate getSixthDay() {
+   	 return LocalDate.now(TZ).with(TemporalAdjusters.previousOrSame(this.sixthDayOfWeek));
+   }
+
+    @Override
+    public String toString() {
+        return String.format(   "The %s week starts on %s and ends on %s",
+                                this.locale.getDisplayName(),
+                                this.firstDayOfWeek,
+                                this.lastDayOfWeek,
+                                this.secondDayOfWeek,
+                                this.thirdDayOfWeek,
+                                this.fourthDayOfWeek,
+                                this.fifthDayOfWeek,
+                                this.sixthDayOfWeek);
+    }
+}

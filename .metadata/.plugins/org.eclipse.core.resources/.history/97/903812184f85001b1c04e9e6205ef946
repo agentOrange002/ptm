@@ -1,0 +1,39 @@
+package sys.app.ptm.mockito.service.impl;
+
+//import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+
+import sys.app.ptm.repository.BoardRepository;
+import sys.app.ptm.service.implementation.BoardServiceImplementation;
+import sys.app.ptm.utility.Utility;
+
+class BoarderviceTest {
+
+	@InjectMocks
+	BoardServiceImplementation boardService;
+	
+	@Mock
+	BoardRepository boardRepository;
+	
+	@Mock
+	Utility utils;
+	
+	@SuppressWarnings("deprecation")
+	@BeforeEach
+	void setUp() throws Exception {
+		MockitoAnnotations.initMocks(this);
+	}
+
+
+	@Test
+	final void test() {
+		final DayOfWeek firstDayOfWeek = WeekFields.of(locale).getFirstDayOfWeek();
+		final DayOfWeek lastDayOfWeek = DayOfWeek.of(((firstDayOfWeek.getValue() + 5) % DayOfWeek.values().length) + 1);
+	}
+
+}

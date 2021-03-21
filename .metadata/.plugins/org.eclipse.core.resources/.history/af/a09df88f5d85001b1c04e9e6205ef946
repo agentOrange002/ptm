@@ -1,0 +1,102 @@
+package sys.app.ptm.service.implementation;
+
+import java.time.ZoneId;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import lombok.AllArgsConstructor;
+import lombok.extern.log4j.Log4j;
+import sys.app.ptm.dto.ChartDto;
+import sys.app.ptm.dto.DashboardDto;
+import sys.app.ptm.repository.BoardMemberRepository;
+import sys.app.ptm.repository.BoardRepository;
+import sys.app.ptm.repository.MemberRepository;
+import sys.app.ptm.service.DashboardService;
+import sys.app.ptm.tool.ThisLocalizedWeek;
+
+@Log4j
+@AllArgsConstructor
+@Service
+public class DashboardServiceImplementation implements DashboardService {
+	
+	private MemberRepository memberRepository;
+	private BoardRepository boardRepository;
+	private BoardMemberRepository bmRepository;	
+	private ThisLocalizedWeek thisWeek;
+	private org.apache.log4j.Logger log;
+	
+	/*
+	private Long totalMembers;
+	private Long totalBoards;
+	private Long totalMembers_Payout;
+	private Long totalBoards_Payout;
+	private Long totalMembers_Created_Today;
+	private Long totalBoards_Created_Today;
+	private Long totalBoards_Payout_Today;	
+	private Long unassigned_Members;	
+    */
+
+	@Override
+	public DashboardDto getDashboard() {
+		DashboardDto dto = new DashboardDto();
+		dto.setTotalMembers(memberRepository.count());
+		dto.setTotalBoards(boardRepository.count());
+		dto.setTotalMembers_Payout(bmRepository.countByStatus("PAYOUT"));
+		dto.setTotalBoards_Payout(boardRepository.countByBoardStatus("PAYOUT"));
+		dto.setTotalMembers_Created_Today(memberRepository.countByDateJoined(new Date()));
+		dto.setTotalBoards_Created_Today(boardRepository.countByLoggedDate(new Date()));
+		dto.setTotalBoards_Payout_Today(boardRepository.countByBoardStatusAndLoggedDate("PAYOUT",new Date()));
+		dto.setUnassigned_Members(memberRepository.countByBoardMemberNull());
+		return dto;
+	}
+
+	@Override
+	public ChartDto getChart() {
+		ZoneId TZ = ZoneId.of("Asia/Manila");
+			
+		Date sunday = Date.from(thisWeek.getFirstDay().atStartOfDay(TZ).toInstant());
+		Date monday = Date.from(thisWeek.getSecondDay().atStartOfDay(TZ).toInstant());
+		Date tuesday = Date.from(thisWeek.getThirdDay().atStartOfDay(TZ).toInstant());
+		Date wednesday = Date.from(thisWeek.getFourthDay().atStartOfDay(TZ).toInstant());
+		Date thursday = Date.from(thisWeek.getFifthDay().atStartOfDay(TZ).toInstant());
+		Date friday = Date.from(thisWeek.getSixthDay().atStartOfDay(TZ).toInstant());
+		Date saturday = Date.from(thisWeek.getLastDay().atStartOfDay(TZ).toInstant());
+		
+		
+		System.out.println("Sunday:"+sunday);
+		System.out.println("Monday:"+monday);
+		 System.out.println("Tuesday:"+tuesday);
+		System.out.println("Wednesday:"+wednesday);
+		 System.out.println("Thursday:"+thursday);
+		System.out.println("Friday:"+friday);
+		 System.out.println("Saturday:"+saturday);
+		
+		Long c1 = boardRepository.countByBoardStatusAndLoggedDate("CREATED",sunday);
+		Long c2 = boardRepository.countByBoardStatusAndLoggedDate("CREATED",monday);
+		Long c3 = boardRepository.countByBoardStatusAndLoggedDate("CREATED",tuesday);
+		Long c4 = boardRepository.countByBoardStatusAndLoggedDate("CREATED",wednesday);
+		Long c5 = boardRepository.countByBoardStatusAndLoggedDate("CREATED",thursday);
+		Long c6 = boardRepository.countByBoardStatusAndLoggedDate("CREATED",friday);
+		Long c7 = boardRepository.countByBoardStatusAndLoggedDate("CREATED",saturday);
+		
+		Long p1 = boardRepository.countByBoardStatusAndLoggedDate("PAYOUT",sunday);
+		Long p2 = boardRepository.countByBoardStatusAndLoggedDate("PAYOUT",monday);
+		Long p3 = boardRepository.countByBoardStatusAndLoggedDate("PAYOUT",tuesday);
+		Long p4 = boardRepository.countByBoardStatusAndLoggedDate("PAYOUT",wednesday);
+		Long p5 = boardRepository.countByBoardStatusAndLoggedDate("PAYOUT",thursday);
+		Long p6 = boardRepository.countByBoardStatusAndLoggedDate("PAYOUT",friday);
+		Long p7 = boardRepository.countByBoardStatusAndLoggedDate("PAYOUT",saturday);
+		
+		List<Long> CreatedList = Arrays.asList(c1,c2,c3,c4,c5,c6,c7) ;
+		List<Long> PayoutList = Arrays.asList(p1,p2,p3,p4,p5,p6,p7) ;
+		
+		ChartDto dto = new ChartDto();
+		dto.setCreated(CreatedList);
+		dto.setPayout(PayoutList);
+		return dto;
+	}
+
+}

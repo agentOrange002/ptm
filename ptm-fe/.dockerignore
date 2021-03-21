@@ -1,0 +1,7 @@
+node_modules
+.dockerignore
+Dockerfile
+package-lock.json
+.vscode
+docker-compose.yml
+dist

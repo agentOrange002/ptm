@@ -1,0 +1,23 @@
+.memberstatus-badge {
+    border-radius: 2px;
+    padding: .25em .5rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: .3px;
+}
+
+.memberstatus-badge.status-created {
+    background: #c8e6c9;
+    color: #256029;
+}
+
+.memberstatus-badge.status-payout {
+    background: #ffcdd2;
+    color: #c63737;
+}
+
+.memberstatus-badge.status-applied {
+    background: #feedaf;
+    color: #8a5340;
+}

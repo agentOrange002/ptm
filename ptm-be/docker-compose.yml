@@ -1,0 +1,13 @@
+version: '3.7'
+
+services:
+  ptm-be:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ptm-be:latest
+    container_name: ptm-be-compose
+    network_mode: "host"
+    tty: true 
+
+

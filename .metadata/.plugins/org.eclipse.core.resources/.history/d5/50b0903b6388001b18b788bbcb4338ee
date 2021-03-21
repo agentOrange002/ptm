@@ -1,0 +1,5 @@
+package sys.app.ptm.model.request;
+
+public class ApplyUserRoleModelRequest {
+
+}
