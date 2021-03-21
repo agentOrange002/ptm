@@ -3,7 +3,7 @@
 [![Website](https://img.shields.io/website?label=agentOrange002.com&style=for-the-badge&url=https%3A%2F%2Fdistracted-einstein-e83f94.netlify.app)](https://distracted-einstein-e83f94.netlify.app/)
 
 
-<img src="public/readme.png" align="right" />
+<img src="readme.png" align="right" />
 
 # PTM Full Stack [![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/agentOrange002/ptm#readme)
 > PTM Full Stack
