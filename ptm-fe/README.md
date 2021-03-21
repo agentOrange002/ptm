@@ -5,12 +5,12 @@
 
 <img src="public/readme.png" align="right" />
 
-# ITS - Front End [![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/agentOrange002/itsystem#readme)
-> Issue Tracking System Front End
+# PTM - Front End [![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/agentOrange002/ptm#readme)
+> PTM Front End
 
-Issue Tracking System - Front End is a Web Application built with WebPack 5, ReactJS, Redux-Thunk and Primereact UI.
+Payout Team Management - Front End is a Web Application built with WebPack 5, ReactJS, Redux-Thunk and Primereact UI.
 
-It's an application that can track issues that being reported. It allows users, supports and administrators to manage issues.
+It's an application that can administer and manage Boards and BoardMembers. It allows users, supports and administrators to manage issues.
 
 <br />
 
