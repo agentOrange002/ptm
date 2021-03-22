@@ -415,7 +415,7 @@
 								<textElement textAlignment="Left" verticalAlignment="Middle">
 									<font size="8"/>
 								</textElement>
-								<textFieldExpression><![CDATA[$F{addressId}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{city}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>

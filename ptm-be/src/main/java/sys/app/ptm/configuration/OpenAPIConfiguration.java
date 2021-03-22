@@ -7,9 +7,14 @@ import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.security.SecurityRequirement;
+import io.swagger.v3.oas.models.security.SecurityScheme;
 
 @Configuration
-public class OpenAPIConfiguration {
+public class OpenAPIConfiguration {	
+	
+	final String securitySchemeName = "bearerAuth";
+	
 	Contact contact = new Contact()
 						.name("Nehemias C. Belong JR.")
 						.email("nehemiasbelong@gmail.com")
@@ -17,13 +22,17 @@ public class OpenAPIConfiguration {
 
 	@Bean
 	public OpenAPI customConfiguration() {
-		return new OpenAPI()
-				.components(new Components())
-					.info(new Info()
-							.title("Payout Team Management")
-							.version("v.0.1.0")
-							.description("Payout Team Management REST API Services - BackEnd")
-							.contact(contact));
+		return new OpenAPI().info(new Info()
+				.title("Payout Team Management")
+				.version("v.0.1.0")
+				.description("Payout Team Management REST API Services - BackEnd")
+				.contact(contact))
+				.addSecurityItem(new SecurityRequirement().addList(securitySchemeName))
+				.components(new Components().addSecuritySchemes(securitySchemeName,
+						new SecurityScheme()
+						.type(SecurityScheme.Type.HTTP)
+						.scheme("bearer")
+						.bearerFormat("JWT")));
 	}
 
 }
