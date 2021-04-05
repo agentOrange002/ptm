@@ -1,5 +1,5 @@
 package sys.app.ptm;
-///****
+/****
 import java.util.Arrays;
 import java.util.Collection;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -31,8 +31,7 @@ public class InitialSetup {
 
 	@EventListener 
 	@Transactional 
-	public void onApplicationEvent(ApplicationReadyEvent event) {
- 
+	public void onApplicationEvent(ApplicationReadyEvent event) { 
 		
 		AuthorityEntity a1 = createAuthority("DASHBOARD"); 
 		AuthorityEntity a2 = createAuthority("REPORTS"); 
@@ -158,4 +157,4 @@ public class InitialSetup {
 		return resultEntity; 
 	}
  
- } ///****/
+ } ****/

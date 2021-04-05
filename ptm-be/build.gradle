@@ -1,9 +1,8 @@
 plugins {	
- 	id 'org.springframework.boot' version '2.4.3'	
-	id 'io.spring.dependency-management' version '1.0.11.RELEASE'					
-	id 'com.github.johnrengelman.shadow' version '6.1.0'	
-	id 'java'			
-	//id 'org.springframework.experimental.aot' version '0.9.0'
+	id 'org.springframework.boot' version '2.4.4'
+  	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+  	id 'java'  	
+  	id 'com.github.johnrengelman.shadow' version '6.1.0'	
 }
 
 group = 'sys.app'
@@ -16,12 +15,12 @@ configurations {
 	}
 }
 
-repositories { 	
+repositories { 		
 	maven { url 'https://repo.spring.io/milestone' }	
 	jcenter()	
-	mavenCentral()			
+	mavenCentral()	
 	maven { url "http://jasperreports.sourceforge.net/maven2/" }
-   	maven { url "http://jaspersoft.artifactoryonline.com/jaspersoft/third-party-ce-artifacts/" }   	
+    maven { url "http://jaspersoft.artifactoryonline.com/jaspersoft/third-party-ce-artifacts/" }   	
 }
 
 dependencies {
@@ -29,14 +28,12 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml' 
-	implementation 'org.modelmapper:modelmapper:2.3.9'
-	implementation 'net.sf.jasperreports:jasperreports:6.16.0'
-	//implementation 'net.sf.jasperreports:jasperreports:6.12.2'		
+	implementation 'org.modelmapper:modelmapper:2.3.9'	
 	implementation 'org.springdoc:springdoc-openapi-ui:1.5.6'
 	implementation 'io.jsonwebtoken:jjwt:0.9.1'			
-	implementation 'org.springframework.experimental:spring-graalvm-native:0.8.5'
-	//implementation 'org.springframework.experimental:spring-native:0.9.0'
-	compile group: 'xerces', name: 'xercesImpl', version: '2.12.0'		
+	implementation 'org.springframework.experimental:spring-graalvm-native:0.8.5'		
+	compile group: 'xerces', name: 'xercesImpl', version: '2.12.1'	
+	implementation 'net.sf.jasperreports:jasperreports:6.16.0'	
 	compileOnly 'org.projectlombok:lombok'	
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'org.postgresql:postgresql'
@@ -67,7 +64,6 @@ shadowJar {
         	attributes "Main-Class": "sys.app.ptm.PtmApplication"
 	}   	
 }
-
 
 
 
