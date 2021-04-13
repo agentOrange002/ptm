@@ -1,12 +1,21 @@
+FROM amazoncorretto:11.0.10-alpine
+RUN mkdir /app
+COPY build/libs/*.jar /app/ptm.jar
+CMD ["java","-jar","/app/ptm.jar"]
+RUN apk --update add fontconfig ttf-dejavu
+
+
+
 #########---5TH--------------
 ##FROM findepi/graalvm:java11-native
 ##FROM ghcr.io/graalvm/graalvm-ce:java11-21.0.0
-FROM ghcr.io/graalvm/graalvm-ce:latest
-RUN gu install native-image
-RUN mkdir /app
-COPY build/libs/*.jar /app/ptm.jar
-RUN native-image -jar ./app/ptm.jar 
-CMD [ "sh", "-c", "./ptm" ]
+
+##FROM ghcr.io/graalvm/graalvm-ce:latest
+##RUN gu install native-image
+##RUN mkdir /app
+##COPY build/libs/*.jar /app/ptm.jar
+##RUN native-image -jar ./app/ptm.jar 
+##CMD [ "sh", "-c", "./ptm" ]
 
 #########---3RD--------------
 #FROM gradle:6.8.0-jdk11 AS stage1

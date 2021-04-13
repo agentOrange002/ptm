@@ -1,5 +1,5 @@
 package sys.app.ptm;
-/****
+
 import java.util.Arrays;
 import java.util.Collection;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -157,4 +157,4 @@ public class InitialSetup {
 		return resultEntity; 
 	}
  
- } ****/
+ } 

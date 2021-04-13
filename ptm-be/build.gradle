@@ -1,8 +1,11 @@
+//import org.springframework.aot.gradle.dsl.AotMode
+
 plugins {	
 	id 'org.springframework.boot' version '2.4.4'
   	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
-  	id 'java'  	
-  	id 'com.github.johnrengelman.shadow' version '6.1.0'	
+  	id 'java'  	  	
+  	id 'com.github.johnrengelman.shadow' version '6.1.0'
+  	//id 'org.springframework.experimental.aot' version '0.9.1'
 }
 
 group = 'sys.app'
@@ -15,12 +18,19 @@ configurations {
 	}
 }
 
-repositories { 		
-	maven { url 'https://repo.spring.io/milestone' }	
-	jcenter()	
-	mavenCentral()	
-	maven { url "http://jasperreports.sourceforge.net/maven2/" }
-    maven { url "http://jaspersoft.artifactoryonline.com/jaspersoft/third-party-ce-artifacts/" }   	
+repositories { 		 	
+	//maven { url 'https://repo.spring.io/release' }
+	mavenCentral()			
+	maven { 
+		url = uri("http://jasperreports.sourceforge.net/maven2/") 
+		allowInsecureProtocol = true 
+	}
+    maven { 
+    	url = uri("http://jaspersoft.artifactoryonline.com/jaspersoft/third-party-ce-artifacts/") 
+    	allowInsecureProtocol = true  
+    }   	
+    jcenter()
+    maven { url "https://plugins.gradle.org/m2/" }
 }
 
 dependencies {
@@ -30,15 +40,14 @@ dependencies {
 	implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml' 
 	implementation 'org.modelmapper:modelmapper:2.3.9'	
 	implementation 'org.springdoc:springdoc-openapi-ui:1.5.6'
-	implementation 'io.jsonwebtoken:jjwt:0.9.1'			
-	implementation 'org.springframework.experimental:spring-graalvm-native:0.8.5'		
-	compile group: 'xerces', name: 'xercesImpl', version: '2.12.1'	
-	implementation 'net.sf.jasperreports:jasperreports:6.16.0'	
+	implementation 'io.jsonwebtoken:jjwt:0.9.1'				
+	implementation 'net.sf.jasperreports:jasperreports:6.16.0'
+	implementation 'xerces:xercesImpl:2.12.1'
 	compileOnly 'org.projectlombok:lombok'	
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'org.postgresql:postgresql'
 	annotationProcessor 'org.projectlombok:lombok'	
-	testCompile group: 'org.mockito', name: 'mockito-core', version: '3.6.28'
+	testImplementation group: 'org.mockito', name: 'mockito-core', version: '2.8.8'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
 }
@@ -47,13 +56,27 @@ test {
 	useJUnitPlatform()
 }
 
-sourceSets {
-    main {
-        resources {
-            srcDirs "src/main/resources"
-        }
-    }
-}
+//springAot {
+//	mode = AotMode.NATIVE
+//	debugVerify = false
+//	removeXmlSupport = true
+//	removeSpelSupport = false
+//	removeYamlSupport = false
+//	removeJmxSupport = true
+//	verify = true
+//	removeUnusedConfig = true
+//	failOnMissingSelectorHint = true
+//	buildTimePropertiesMatchIfMissing = true
+	//buildTimePropertiesChecks = ["default-include-all","!spring.dont.include.these.","!or.these"]
+//}
+
+//sourceSets {
+//    main {
+//        resources {
+//            srcDirs "src/main/resources"
+//        }
+//    }
+//}
 
 shadowJar {	
 	mergeServiceFiles('META-INF/spring.*')		
@@ -65,5 +88,7 @@ shadowJar {
 	}   	
 }
 
-
-
+//bootBuildImage {
+//  builder = 'paketobuildpacks/builder:tiny'
+//  environment = ['BP_NATIVE_IMAGE': 'true']
+//}

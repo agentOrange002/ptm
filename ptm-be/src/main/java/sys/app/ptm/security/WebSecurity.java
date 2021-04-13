@@ -19,7 +19,6 @@ import sys.app.ptm.exception.FilterChainExceptionHandler;
 import sys.app.ptm.repository.UserRepository;
 import sys.app.ptm.service.UserService;
 
-//@EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
 @EnableWebSecurity
 public class WebSecurity extends WebSecurityConfigurerAdapter {	
 	
@@ -48,7 +47,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.GET, SecurityConstants.DASHBOARD).hasAuthority("DASHBOARD")
 				.antMatchers(HttpMethod.GET, SecurityConstants.DASHBOARD_CHART).hasAuthority("DASHBOARD_CHART")
 				.antMatchers(HttpMethod.GET, SecurityConstants.REPORT_MEMBER).hasAuthority("REPORT_MEMBER")
-				.antMatchers(HttpMethod.GET, SecurityConstants.REPORT_BOARD).hasAuthority("REPORT_MEMBER")
+				.antMatchers(HttpMethod.GET, SecurityConstants.REPORT_BOARD).hasAuthority("REPORT_BOARD")
 				.antMatchers(HttpMethod.GET, SecurityConstants.CATEGORY_GETBY_CATEGORYID).hasAuthority("CATEGORY_GETBY_CATEGORYID")
 				.antMatchers(HttpMethod.GET, SecurityConstants.CATEGORY_ALL).hasAuthority("CATEGORY_ALL")
 				.antMatchers(HttpMethod.POST, SecurityConstants.CATEGORY_SAVE).hasAuthority("CATEGORY_SAVE")

@@ -27,7 +27,7 @@ class BoardServiceTest {
 	@Mock
 	Utility utils;
 	
-	@SuppressWarnings("deprecation")
+	
 	@BeforeEach
 	void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
