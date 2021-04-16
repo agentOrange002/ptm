@@ -264,4 +264,13 @@ public class UserServiceImplementation implements UserService {
 		return new ModelMapper().map(updatedUser, UserDto.class);
 	}
 
+	@Override
+	public ShortUserDto getShortUser(String userName) {
+		ShortUserDto returnValue = new ShortUserDto();
+		UserEntity userEntity = userRepository.findByEmail(userName);
+		if (userEntity == null)throw new UsernameNotFoundException(userName);		
+		BeanUtils.copyProperties(userEntity,returnValue);	
+		return returnValue;
+	}
+
 }

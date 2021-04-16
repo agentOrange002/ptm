@@ -1,5 +1,7 @@
 package sys.app.ptm.mockito.service.impl;
 
+import java.util.List;
+
 //import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -8,6 +10,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import sys.app.ptm.entity.BoardEntity;
 import sys.app.ptm.repository.BoardRepository;
 import sys.app.ptm.service.implementation.BoardServiceImplementation;
 import sys.app.ptm.tool.ThisLocalizedWeek;
@@ -25,8 +28,7 @@ class BoardServiceTest {
 	ThisLocalizedWeek thisLocalizeWeek;
 	
 	@Mock
-	Utility utils;
-	
+	Utility utils;	
 	
 	@BeforeEach
 	void setUp() throws Exception {
@@ -34,19 +36,11 @@ class BoardServiceTest {
 	}
 
 	@Test
-	final void test() {
-		/*
-		 * final ThisLocalizedWeek usWeek = new ThisLocalizedWeek(Locale.US);
-		 * System.out.println(usWeek);
-		 * System.out.println("Sunday:"+usWeek.getFirstDay());
-		 * System.out.println("Monday:"+usWeek.getSecondDay());
-		 * System.out.println("Tuesday:"+usWeek.getThirdDay());
-		 * System.out.println("Wednesday:"+usWeek.getFourthDay());
-		 * System.out.println("Thursday:"+usWeek.getFifthDay());
-		 * System.out.println("Friday:"+usWeek.getSixthDay());
-		 * System.out.println("Saturday:"+usWeek.getLastDay());
-		 */
-		/* assertNotNull(usWeek); */
+	final void testBoard() {
+		
+		List<BoardEntity> list = boardRepository.findByBoardMembers_MemberIsNotNullAndBoardMembers_Status("APPLIED SUCCESS");
+	
+		System.out.println(" LIST BOARD: "+ list);
 	}
 
 }

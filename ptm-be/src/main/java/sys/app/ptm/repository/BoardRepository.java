@@ -23,5 +23,10 @@ public interface BoardRepository extends JpaRepository<BoardEntity, Long> {
 	Long countByBoardStatus(String boardStatus);
 	Long countByLoggedDate(LocalDate loggedDate);
 	Long countByBoardStatusAndLoggedDate(String boardStatus, LocalDate loggedDate);
+	
+	/*
+	 * //look for board that ready for payout
+	 */	
+	List<BoardEntity> findByBoardMembers_MemberIsNotNullAndBoardMembers_Status(String status);
 
 }

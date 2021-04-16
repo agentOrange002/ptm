@@ -1,11 +1,8 @@
-//import org.springframework.aot.gradle.dsl.AotMode
-
 plugins {	
-	id 'org.springframework.boot' version '2.4.4'
+	id 'org.springframework.boot' version '2.4.5'
   	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
   	id 'java'  	  	
-  	id 'com.github.johnrengelman.shadow' version '6.1.0'
-  	//id 'org.springframework.experimental.aot' version '0.9.1'
+  	id 'com.github.johnrengelman.shadow' version '6.1.0'  
 }
 
 group = 'sys.app'
@@ -19,7 +16,6 @@ configurations {
 }
 
 repositories { 		 	
-	//maven { url 'https://repo.spring.io/release' }
 	mavenCentral()			
 	maven { 
 		url = uri("http://jasperreports.sourceforge.net/maven2/") 
@@ -33,7 +29,7 @@ repositories {
     maven { url "https://plugins.gradle.org/m2/" }
 }
 
-dependencies {
+dependencies {	
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -42,7 +38,7 @@ dependencies {
 	implementation 'org.springdoc:springdoc-openapi-ui:1.5.6'
 	implementation 'io.jsonwebtoken:jjwt:0.9.1'				
 	implementation 'net.sf.jasperreports:jasperreports:6.16.0'
-	implementation 'xerces:xercesImpl:2.12.1'
+	implementation 'xerces:xercesImpl:2.12.1'	
 	compileOnly 'org.projectlombok:lombok'	
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'org.postgresql:postgresql'
@@ -55,20 +51,6 @@ dependencies {
 test {
 	useJUnitPlatform()
 }
-
-//springAot {
-//	mode = AotMode.NATIVE
-//	debugVerify = false
-//	removeXmlSupport = true
-//	removeSpelSupport = false
-//	removeYamlSupport = false
-//	removeJmxSupport = true
-//	verify = true
-//	removeUnusedConfig = true
-//	failOnMissingSelectorHint = true
-//	buildTimePropertiesMatchIfMissing = true
-	//buildTimePropertiesChecks = ["default-include-all","!spring.dont.include.these.","!or.these"]
-//}
 
 //sourceSets {
 //    main {
@@ -88,7 +70,4 @@ shadowJar {
 	}   	
 }
 
-//bootBuildImage {
-//  builder = 'paketobuildpacks/builder:tiny'
-//  environment = ['BP_NATIVE_IMAGE': 'true']
-//}
+

@@ -2,6 +2,7 @@ package sys.app.ptm;
 
 import java.util.Arrays;
 import java.util.Collection;
+
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -31,7 +32,7 @@ public class InitialSetup {
 
 	@EventListener 
 	@Transactional 
-	public void onApplicationEvent(ApplicationReadyEvent event) { 
+	public void onApplicationEvent(ApplicationReadyEvent event) { 		
 		
 		AuthorityEntity a1 = createAuthority("DASHBOARD"); 
 		AuthorityEntity a2 = createAuthority("REPORTS"); 
