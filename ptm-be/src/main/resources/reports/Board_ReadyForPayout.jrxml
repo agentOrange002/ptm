@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.16.0.final using JasperReports Library version 6.16.0-48579d909b7943b64690c65c71e07e0b80981928  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Board_ReadyForPayout" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b7b94447-5368-4172-993a-60488849759f">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<property name="net.sf.jasperreports.compiler.xml.parser.cache.schemas" value="false"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="boardStatus" class="java.lang.String">
+		<fieldDescription><![CDATA[boardStatus]]></fieldDescription>
+	</field>
+	<field name="boardCategoryDetails" class="sys.app.ptm.entity.CategoryEntity">
+		<fieldDescription><![CDATA[boardCategoryDetails]]></fieldDescription>
+	</field>
+	<field name="boardMembers" class="java.util.List">
+		<fieldDescription><![CDATA[boardMembers]]></fieldDescription>
+	</field>
+	<field name="userDetails_Board" class="sys.app.ptm.entity.UserEntity">
+		<fieldDescription><![CDATA[userDetails_Board]]></fieldDescription>
+	</field>
+	<field name="boardId" class="java.lang.String">
+		<fieldDescription><![CDATA[boardId]]></fieldDescription>
+	</field>
+	<field name="remark" class="java.lang.String">
+		<fieldDescription><![CDATA[remark]]></fieldDescription>
+	</field>
+	<field name="id" class="java.lang.String">
+		<fieldDescription><![CDATA[id]]></fieldDescription>
+	</field>
+	<field name="loggedDate" class="java.time.LocalDate">
+		<fieldDescription><![CDATA[loggedDate]]></fieldDescription>
+	</field>
+	<field name="boardName" class="java.lang.String">
+		<fieldDescription><![CDATA[boardName]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="38" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="29" width="555" height="5" backcolor="#030202" uuid="74cb45e1-a7f0-426f-af04-338bd120c09e">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineColor="#000000"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="0" width="270" height="20" uuid="c5835142-7d3c-41cb-b439-5d2481f7ea6d">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Board - Ready for Payout Report]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="32" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="5" width="100" height="20" uuid="5f00d409-87ca-42e8-b512-fa1c2106d3d7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup=""/>
+				<text><![CDATA[ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="5" width="100" height="20" uuid="60b35027-a624-43bc-a5a2-eea56baf216b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup=""/>
+				<text><![CDATA[Board ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="200" y="5" width="100" height="20" uuid="0bcd68f9-7bbe-4162-bb89-0501e2e2bf75"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup=""/>
+				<text><![CDATA[Board Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="300" y="5" width="100" height="20" uuid="59ad1016-7797-4aa1-9e4c-f437b3d12971"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup=""/>
+				<text><![CDATA[Board Status]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="400" y="5" width="100" height="20" uuid="45992bb3-e863-4d82-9256-ae446b168693"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup=""/>
+				<text><![CDATA[Category]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="19" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

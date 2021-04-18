@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import sys.app.ptm.entity.BoardEntity;
 import sys.app.ptm.entity.BoardMemberEntity;
+import sys.app.ptm.entity.CategoryEntity;
 import sys.app.ptm.entity.MemberEntity;
 
 @Repository
@@ -27,5 +28,7 @@ public interface BoardMemberRepository extends JpaRepository<BoardMemberEntity, 
 	List<BoardMemberEntity> findByBoardOrderByMemberNumberAsc(BoardEntity board);
 
 	Long countByStatus(String status);
+	
+	BoardMemberEntity findByMemberAndStatusNotAndBoard_BoardCategoryDetails(MemberEntity member, String status,CategoryEntity category);
 
 }

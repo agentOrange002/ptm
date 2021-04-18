@@ -12,6 +12,7 @@ import sys.app.ptm.dto.BoardMemberDto;
 import sys.app.ptm.dto.shortdto.ShortBoardMemberDto;
 import sys.app.ptm.entity.BoardEntity;
 import sys.app.ptm.entity.BoardMemberEntity;
+import sys.app.ptm.entity.CategoryEntity;
 import sys.app.ptm.entity.MemberEntity;
 import sys.app.ptm.entity.UserEntity;
 import sys.app.ptm.exception.ApplicationServiceException;
@@ -80,13 +81,17 @@ public class BoardMemberServiceImplementation implements BoardMemberService {
 	public BoardMemberDto save1(String boardMemberId,String memberId,String userId) {
 		BoardMemberEntity tm = boardMemberRepository.findByBoardMemberId(boardMemberId);
 		MemberEntity member = memberRepository.findByMemberId(memberId);
+		CategoryEntity category = tm.getBoard().getBoardCategoryDetails();
 		if (boardMemberRepository.findByBoardMemberIdAndMemberNotNull(boardMemberId)!=null)
 			throw new ApplicationServiceException(ErrorMessages.BOARD_MEMBER_HAS_ALREADY_ASSIGNED.getErrorMessage());
 		
 		if (boardMemberRepository.findByBoardAndMember(tm.getBoard(),member)!=null)
 			throw new ApplicationServiceException(ErrorMessages.MEMBER_HAS_ALREADY_EXIST_IN_THIS_BOARD.getErrorMessage());
-		
-		if (boardMemberRepository.findByMemberAndStatusNot(member,"PAYOUT")!=null)
+//		
+//		if (boardMemberRepository.findByMemberAndStatusNot(member,"PAYOUT")!=null)
+//			throw new ApplicationServiceException(ErrorMessages.MEMBER_HAS_ALREADY_EXIST_IN_OTHER_BOARD.getErrorMessage());
+//		
+		if (boardMemberRepository.findByMemberAndStatusNotAndBoard_BoardCategoryDetails(member,"PAYOUT",category)!=null)
 			throw new ApplicationServiceException(ErrorMessages.MEMBER_HAS_ALREADY_EXIST_IN_OTHER_BOARD.getErrorMessage());
 		
 		
