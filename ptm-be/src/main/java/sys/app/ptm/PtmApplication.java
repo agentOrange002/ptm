@@ -7,7 +7,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import sys.app.ptm.security.ApplicationProperties;
 
-@SpringBootApplication(proxyBeanMethods = false)
+@SpringBootApplication
 public class PtmApplication {
 
 	public static void main(String[] args) {

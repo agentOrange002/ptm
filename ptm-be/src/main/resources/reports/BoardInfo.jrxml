@@ -67,7 +67,7 @@
 		<field name="boardMemberId" class="java.lang.String"/>
 		<field name="status" class="java.lang.String"/>
 		<field name="id" class="java.lang.String"/>
-		<field name="registeredDate" class="java.util.Date"/>
+		<field name="registeredDate" class="java.time.LocalDate"/>
 		<field name="member" class="sys.app.ptm.entity.MemberEntity"/>
 		<field name="memberNumber" class="java.lang.Integer"/>
 	</subDataset>

@@ -77,6 +77,21 @@ public class RoleServiceImplementation implements RoleService {
 			resultList.add(mapper.map(entity, RoleDto.class));
 		}	
 		return resultList;
+	}
+
+	@Override
+	public List<RoleDto> removeUserRole(String userId, String roleName) {
+		UserEntity user = userRepository.findByUserId(userId);
+		RoleEntity role = roleRepository.findByName(roleName);		
+		user.getRoles().remove(role);		
+		UserEntity updateduser = userRepository.save(user);
+		List<RoleEntity> listRole = new ArrayList<RoleEntity>(updateduser.getRoles());
+		List<RoleDto> resultList = new ArrayList<RoleDto>();
+		ModelMapper mapper = new ModelMapper();
+		for(RoleEntity entity: listRole) {
+			resultList.add(mapper.map(entity, RoleDto.class));
+		}	
+		return resultList;
 	}	
 
 }

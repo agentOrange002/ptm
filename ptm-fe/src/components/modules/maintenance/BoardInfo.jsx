@@ -10,22 +10,22 @@ import { DataTable } from 'primereact/datatable';
 import { ContextMenu } from 'primereact/contextmenu';
 import { Column } from 'primereact/column';
 import { Dialog } from 'primereact/dialog';
-import { Field, reduxForm } from 'redux-form';
+//import { Field, reduxForm } from 'redux-form';
 import { getAllBoardMembersByBoardId, save1_auto } from '../../../redux/actions/BoardMemberActions';
 import BoardMemberVisual from './BoardMemberVisual';
 import BoardVisual1 from './BoardVisual1';
 import { TabMenu } from 'primereact/tabmenu';
-import { boardPayout  } from '../../../redux/actions/BoardActions';
+import { boardPayout } from '../../../redux/actions/BoardActions';
 import UILoader from '../tools/UILoader';
-import { BOARD_PAYOUT } from '../../../redux/constants/BoardConstants'
-import Axios from "axios";
-import { Messages } from "primereact/messages";
+import { BOARD_PAYOUT } from '../../../redux/constants/BoardConstants';
+import Axios from 'axios';
+import { Messages } from 'primereact/messages';
 
 const items = [
-    {label: 'Board Members Table', icon: 'pi pi-fw pi-table'},
-    {label: 'Board Chart', icon: 'pi pi-fw pi-chart-bar'},    
-	{label: 'Board Report', icon: 'pi pi-fw pi-file-pdf'}, 
-]; 
+	{ label: 'Board Members Table', icon: 'pi pi-fw pi-table' },
+	{ label: 'Board Chart', icon: 'pi pi-fw pi-chart-bar' },
+	{ label: 'Board Report', icon: 'pi pi-fw pi-file-pdf' },
+];
 
 const MyStyle = {
 	DialogStyle: { width: '50vw', borderStyle: 'solid', borderColor: 'white', borderWidth: '1px' },
@@ -35,7 +35,7 @@ const MyStyle = {
 	h1Style: { textAlign: 'left' },
 	paddingTop: { paddingTop: '0px' },
 	ShortDialogStyle: { width: '50vw', borderStyle: 'solid', borderColor: 'white', borderWidth: '1px' },
-	
+
 	fieldDivButton: { paddingTop: '10px', paddingBottom: '35px' },
 	fieldButton: { marginRight: '.25em', float: 'right', width: '130px' },
 	divform: { paddingTop: '20px' },
@@ -51,7 +51,7 @@ const MyStyle = {
 		member: { width: '350px' },
 		loggedBy: { width: '350px' },
 	},
-	datatableButton: { width: '200px' }
+	datatableButton: { width: '200px' },
 };
 
 class BoardInfo extends Component {
@@ -77,6 +77,7 @@ class BoardInfo extends Component {
 			},
 		],
 		reportBlob: {},
+		memberId: '',
 	};
 
 	hideContext = () => {
@@ -118,36 +119,34 @@ class BoardInfo extends Component {
 		if (prevProps.BOARDMEMBERS !== this.props.BOARDMEMBERS) {
 			this.checkBoardMembers();
 		}
-		if(this.props.BOARD !== prevProps) {
-			if(this.props.FETCHTYPE === BOARD_PAYOUT)
-			this.showSuccess();
+		if (this.props.BOARD !== prevProps) {
+			if (this.props.FETCHTYPE === BOARD_PAYOUT) this.showSuccess();
 		}
 		if (this.props.BOARDERRORMESSAGE !== prevProps.BOARDERRORMESSAGE) {
-            if (this.props.BOARDERRORMESSAGE) {
-                this.showError(this.props.BOARDERRORMESSAGE.message);
-            }
-        }
+			if (this.props.BOARDERRORMESSAGE) {
+				this.showError(this.props.BOARDERRORMESSAGE.message);
+			}
+		}
 	}
 
 	showError = _.memoize((message) => {
-        let msg = message;
-        if(_.isEmpty(message))
-            msg = "Error Board Payout";
-        this.messages.show({
-            sticky: true,
-            severity: "error",
-            summary: "Error Message :",
-            detail: msg
-        });
-    });
+		let msg = message;
+		if (_.isEmpty(message)) msg = 'Error Board Payout';
+		this.messages.show({
+			sticky: true,
+			severity: 'error',
+			summary: 'Error Message :',
+			detail: msg,
+		});
+	});
 
 	showSuccess = _.memoize(() => {
-        this.messages.show({  
-            severity: "success",
-            summary: "Success Message :",
-            detail: "Successfully Payout"
-        });		
-    });	
+		this.messages.show({
+			severity: 'success',
+			summary: 'Success Message :',
+			detail: 'Successfully Payout',
+		});
+	});
 
 	checkBoardMembers = () => {
 		const { BOARDMEMBERS } = this.props;
@@ -155,7 +154,7 @@ class BoardInfo extends Component {
 		let i = 0;
 		while (i < BOARDMEMBERS.length) {
 			if (_.isEmpty(BOARDMEMBERS[i].member)) {
-				result = true;				
+				result = true;
 				break;
 			}
 			i++;
@@ -163,19 +162,23 @@ class BoardInfo extends Component {
 		this.setState({ result: result });
 	};
 
-	viewBoardMember = (boardmember) => {		
-	};
+	viewBoardMember = (boardmember) => {};
 
 	hideDialog = () => {
 		this.setState({ BoardMemberVisible: false });
 	};
 
-	onSubmit = async (formValues) => {
+	onSubmit = async () => {
+		const formValues = {
+			memberId: this.state.memberId,
+		};
 		const tm = this.getFirstElement(this.props.BOARDMEMBERS);
+		console.log(JSON.stringify(formValues) + ' :' + tm.boardMemberId);
 		await this.props.save1_auto(formValues, tm.boardMemberId);
 		this.setState({
 			BoardMemberVisible: false,
 		});
+		this.setState({ memberId: '' });
 	};
 
 	addBoardMember = (event) => {
@@ -187,7 +190,7 @@ class BoardInfo extends Component {
 		let result = null;
 		let i = 0;
 		while (i < data.length) {
-			if (_.isEmpty(data[i].member)) {				
+			if (_.isEmpty(data[i].member)) {
 				result = data[i];
 				break;
 			}
@@ -204,33 +207,33 @@ class BoardInfo extends Component {
 		);
 	};
 
-	renderInput({ input, label, meta: { touched, error, warning } }) {
-		return (
-			<div className='p-col-12 p-md-12' style={MyStyle.divform}>
-				<span className='p-float-label'>
-					<InputText {...input} className={error ? `p-error` : undefined} id='in' style={MyStyle.divfield} tooltip={label} tooltipOptions={MyStyle.tooltipField} />
-					<label htmlFor='in'>{label}</label>
-				</span>
-				{touched &&
-					((error && (
-						<span>
-							<div className='isa_error'>
-								<i className='pi pi-times'></i>
-								{error}
-							</div>
-						</span>
-					)) ||
-						(warning && (
-							<span>
-								<div className='isa_warning'>
-									<i className='pi pi-question'></i>
-									{warning}
-								</div>
-							</span>
-						)))}
-			</div>
-		);
-	}
+	// renderInput({ input, label, meta: { touched, error, warning } }) {
+	// 	return (
+	// 		<div className='p-col-12 p-md-12' style={MyStyle.divform}>
+	// 			<span className='p-float-label'>
+	// 				<InputText {...input} className={error ? `p-error` : undefined} id='in' style={MyStyle.divfield} tooltip={label} tooltipOptions={MyStyle.tooltipField} />
+	// 				<label htmlFor='in'>{label}</label>
+	// 			</span>
+	// 			{touched &&
+	// 				((error && (
+	// 					<span>
+	// 						<div className='isa_error'>
+	// 							<i className='pi pi-times'></i>
+	// 							{error}
+	// 						</div>
+	// 					</span>
+	// 				)) ||
+	// 					(warning && (
+	// 						<span>
+	// 							<div className='isa_warning'>
+	// 								<i className='pi pi-question'></i>
+	// 								{warning}
+	// 							</div>
+	// 						</span>
+	// 					)))}
+	// 		</div>
+	// 	);
+	// }
 
 	paginatorLeft = () => {
 		return <Button icon='pi pi-refresh' onClick={this.refreshTable} />;
@@ -275,7 +278,7 @@ class BoardInfo extends Component {
 					<Column field='memberNumber' header='Board Position' style={MyStyle.tcolumn.memberNumber} />
 					<Column field='status' header='Status' body={this.statusBody} style={MyStyle.tcolumn.status} />
 					<Column field='member.fullName' header='Member Name' style={MyStyle.tcolumn.member} />
-					<Column field='registeredDate' header='Date Board Joined' style={MyStyle.tcolumn.registeredDate} />					
+					<Column field='registeredDate' header='Date Board Joined' style={MyStyle.tcolumn.registeredDate} />
 					<Column field='id' header='ID' style={MyStyle.tcolumn.id} />
 					<Column field='boardMemberId' header='Board Member ID' style={MyStyle.tcolumn.boardMemBerId} />
 				</DataTable>
@@ -284,8 +287,8 @@ class BoardInfo extends Component {
 	};
 
 	statusBody = (rowData) => {
-        return <span className={`boardmemberstatus-badge status-${rowData.status.toLowerCase()}`}>{rowData.status}</span>;
-    }
+		return <span className={`boardmemberstatus-badge status-${rowData.status.toLowerCase()}`}>{rowData.status}</span>;
+	};
 
 	renderVisual1 = () => {
 		if (this.props.BOARDMEMBERS.length === 15) return <BoardVisual1 data={this.props.BOARDMEMBERS} />;
@@ -296,8 +299,8 @@ class BoardInfo extends Component {
 		await Axios.get(`http://localhost:8080/ptm/api/reports/board/${boardId}`, {
 			responseType: 'blob',
 			headers: {
-				'Accept': 'application/pdf',
-				'Authorization': this.props.TOKEN
+				Accept: 'application/pdf',
+				Authorization: this.props.TOKEN,
 			},
 		})
 			.then((response) => {
@@ -331,7 +334,7 @@ class BoardInfo extends Component {
 			<div className='p-grid '>
 				<div className='p-col-12 p-md-12 p-lg-12'>
 					<Panel header='Board Information' toggleable={true}>
-						<Messages ref={el => (this.messages = el)}></Messages>
+						<Messages ref={(el) => (this.messages = el)}></Messages>
 						<UILoader blockui='BOARD_LOADING' unblockui={['BOARD_ERROR', 'BOARD_PAYOUT', 'BOARD_PAYOUT_2']}>
 							<Fieldset legend='Board' style={MyStyle.fieldset}>
 								<div className='p-fluid p-formgrid p-grid'>
@@ -405,43 +408,58 @@ class BoardInfo extends Component {
 									return this.renderTable();
 							}
 						})()}
-					</UILoader>
-					<form onSubmit={this.props.handleSubmit(this.onSubmit)}>
+
+						{/* //<form onSubmit={this.props.handleSubmit(this.onSubmit)}> */}
 						<Dialog header={this.header()} visible={this.state.BoardMemberVisible} style={MyStyle.ShortDialogStyle} modal={true} onHide={this.hideDialog}>
 							<Fieldset legend='Board Member Form'>
 								<div className='p-grid p-fluid'>
-									<Field name='memberId' label='Member ID' component={this.renderInput} />
+									{/* <Field name='memberId' label='Member ID' component={this.renderInput} /> */}
+									<div className='p-col-12 p-md-12' style={MyStyle.divform}>
+										<span className='p-float-label'>
+											<InputText
+												value={this.state.memberId}
+												id='in'
+												style={MyStyle.divfield}
+												tooltip='Enter Member Id'
+												tooltipOptions={MyStyle.tooltipField}
+												onChange={(e) => this.setState({ memberId: e.target.value })}
+											/>
+											<label htmlFor='in'>Member ID:</label>
+										</span>
+									</div>
 								</div>
 							</Fieldset>
 							<div className='button' style={MyStyle.fieldDivButton}>
 								<span>
-									<Button disabled={this.props.pristine || this.props.submitting} icon='pi pi-plus' label='Add' style={MyStyle.fieldButton} />
+									{/* disabled={this.props.pristine || this.props.submitting}  */}
+									<Button icon='pi pi-plus' label='Add' style={MyStyle.fieldButton} onClick={this.onSubmit} />
 								</span>
 							</div>
 						</Dialog>
-					</form>
+						{/* //</form> */}
+					</UILoader>
 				</div>
 			</div>
 		);
 	}
 }
 
-const BoardMemberForm = reduxForm({
-    form: 'addNewBoardMember_Save1'
-})(BoardInfo);
+// const BoardMemberForm = reduxForm({
+// 	form: 'addNewBoardMember_Save1',
+// })(BoardInfo);
 
 const mapStateToProps = (state, ownProps) => {
-    const { boardId } = ownProps.match.params;
-    return {
-        BOARD: state.BOARDS.boardsResponse[boardId],
-        BOARDMEMBERS: Object.values(state.BOARDMEMBERS.boardMembersResponse),
+	const { boardId } = ownProps.match.params;
+	return {
+		BOARD: state.BOARDS.boardsResponse[boardId],
+		BOARDMEMBERS: Object.values(state.BOARDMEMBERS.boardMembersResponse),
 		BOARDERROR: state.BOARDS.fetchError,
 		BOARDERRORMESSAGE: state.BOARDS.fetchErrorMessage,
 		FETCHTYPE: state.BOARDS.fetchType,
 		TOKEN: state.LOGIN_AUTHENTICATION.loginState.loginResponse.authorization,
-    };
+	};
 };
 
 const mapDispatchToProps = { getAllBoardMembersByBoardId, save1_auto, boardPayout };
 
-export default connect(mapStateToProps, mapDispatchToProps)(BoardMemberForm);
+export default connect(mapStateToProps, mapDispatchToProps)(BoardInfo);

@@ -16,4 +16,6 @@ public interface RoleService {
 	RoleDto applyAuthorities(String name, List<AuthorityModelResponse> authorities);
 
 	List<RoleDto> getRolesByUserId(String userId);
+	
+	List<RoleDto> removeUserRole(String userId, String roleName);
 }

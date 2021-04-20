@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
+import sys.app.ptm.model.request.RemoveUserRoleModelRequest;
 import sys.app.ptm.model.request.RoleAuthoritiesModelRequest;
 import sys.app.ptm.model.request.RoleModelRequest;
 import sys.app.ptm.model.response.RoleModelResponse;
@@ -55,6 +56,17 @@ public class RoleController {
 	@GetMapping(path="/user/{userId}",produces = MediaType.APPLICATION_JSON_VALUE )
 	public List<RoleModelResponse> getRolesByUserId(@PathVariable String userId) {
 		List<RoleDto> listDto = roleService.getRolesByUserId(userId);
+		List<RoleModelResponse> responseList = new ArrayList<RoleModelResponse>();
+		ModelMapper mapper = new ModelMapper();
+		for(RoleDto dto: listDto) {
+			responseList.add(mapper.map(dto, RoleModelResponse.class));
+		}
+		return responseList;
+	}
+	
+	@PostMapping(path="/remove/userrole",consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<RoleModelResponse> removeUserRole(@RequestBody RemoveUserRoleModelRequest model) {
+		List<RoleDto> listDto = roleService.removeUserRole(model.getUserId(), model.getRoleName());
 		List<RoleModelResponse> responseList = new ArrayList<RoleModelResponse>();
 		ModelMapper mapper = new ModelMapper();
 		for(RoleDto dto: listDto) {
