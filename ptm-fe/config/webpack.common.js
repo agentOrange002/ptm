@@ -5,7 +5,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
 const webpack = require('webpack');
 
-
 module.exports = {
   // Where webpack looks to start building the bundle
   entry: [paths.src + '/index.js'],

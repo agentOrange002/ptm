@@ -5,7 +5,7 @@ FROM node:14.16.1-alpine AS build
 WORKDIR /app
 ENV PATH /app/node_modules/.bin:$PATH
 COPY package.json ./
-RUN npm install --legacy-peer-deps --silent
+RUN npm install --silent
 COPY . ./
 RUN npm run build
 #CMD ["npm", "start"]

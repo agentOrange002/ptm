@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { connect} from 'react-redux';
-import { getMemberByMemberId , updateMember} from '../../../redux/actions/MemberActions';
+import { connect } from 'react-redux';
+import { getMemberByMemberId, updateMember } from '../../../redux/actions/MemberActions';
 import { getAllMemberAddressByMemberId, maReset } from '../../../redux/actions/MemberAddressActions';
 import { getAllMemberContactByMemberId, mcReset } from '../../../redux/actions/MemberContactActions';
 import { InputText } from 'primereact/inputtext';
@@ -13,34 +13,34 @@ import { TabView, TabPanel } from 'primereact/tabview';
 import { Fieldset } from 'primereact/fieldset';
 import { Dialog } from 'primereact/dialog';
 import _ from 'lodash';
-import { Messages } from "primereact/messages";
+import { Messages } from 'primereact/messages';
 import { MEMBERADDRESS_SAVE } from '../../../redux/constants/MemberAddressConstants';
 import { MEMBERCONTACT_SAVE } from '../../../redux/constants/MemberContactConstants';
-import { MEMBER_UPDATE} from '../../../redux/constants/MemberConstants';
+import { MEMBER_UPDATE } from '../../../redux/constants/MemberConstants';
 import UILoader from '../tools/UILoader';
-import Axios from "axios";
+import Axios from 'axios';
 
-const MyStyle = {   
-    Panel: { paddingBottom: '1em' },
-    DivButton: { paddingTop: "10px", paddingBottom: "35px" },
-    Button: { marginRight: ".25em", float: "right", width: '170px' },
-    image: { display: 'block', marginRight: 'auto', marginLeft: 'auto', paddingBottom: '1em' },
-    imageBorder: { borderStyle: 'solid', borderRadius: '150px', width: '50%' ,borderColor:'black'},
-    h3: { textAlign: 'center' },
-    width: { width: '170px' },
-    fileupload: { display: 'block', marginRight: 'auto', marginLeft: 'auto', width: '110px', paddingBottom: '1em' },
-    span: { textAlign: 'center', display: 'block', marginRight: 'auto', marginLeft: 'auto', width: '200px', paddingBottom: '1em' },
-    DialogStyle : {width: '50vw', borderStyle: 'solid', borderColor: 'white', borderWidth: '1px'},
-    breadcrumbBG:{     
-        borderStyle: 'solid',
-        backgroundColor:'#edf0f5',
-        color:'#edf0f5'
-    },
-    breadcrumb:{
-        background:'#edf0f5',
-        borderColor:'#edf0f5'    
-    }
-}
+const MyStyle = {
+	Panel: { paddingBottom: '1em' },
+	DivButton: { paddingTop: '10px', paddingBottom: '35px' },
+	Button: { marginRight: '.25em', float: 'right', width: '170px' },
+	image: { display: 'block', marginRight: 'auto', marginLeft: 'auto', paddingBottom: '1em' },
+	imageBorder: { borderStyle: 'solid', borderRadius: '150px', width: '50%', borderColor: 'black' },
+	h3: { textAlign: 'center' },
+	width: { width: '170px' },
+	fileupload: { display: 'block', marginRight: 'auto', marginLeft: 'auto', width: '110px', paddingBottom: '1em' },
+	span: { textAlign: 'center', display: 'block', marginRight: 'auto', marginLeft: 'auto', width: '200px', paddingBottom: '1em' },
+	DialogStyle: { width: '50vw', borderStyle: 'solid', borderColor: 'white', borderWidth: '1px' },
+	breadcrumbBG: {
+		borderStyle: 'solid',
+		backgroundColor: '#edf0f5',
+		color: '#edf0f5',
+	},
+	breadcrumb: {
+		background: '#edf0f5',
+		borderColor: '#edf0f5',
+	},
+};
 
 class MemberInfo extends Component {
 	state = {
@@ -150,7 +150,7 @@ class MemberInfo extends Component {
 					</div>
 					<div className='p-field p-col-12 p-md-12'>
 						<label htmlFor='remark'>Remark:</label>
-						<InputTextarea id='remark' rows={5} cols={30} type='text' value={this.props.MEMBER.remark} />
+						<InputTextarea id='remark' rows={5} cols={30} type='text' value={_.isEmpty(this.props.MEMBER.remark) ? 'NONE' : this.props.MEMBER.remark} />
 					</div>
 				</div>
 			</UILoader>
@@ -178,7 +178,7 @@ class MemberInfo extends Component {
 							</div>
 							<div className='p-col-12 p-md-12'>
 								<label>Street Name</label>
-								<InputText id='streetname'  type='text' value={address.streetName} readOnly />
+								<InputText id='streetname' type='text' value={address.streetName} readOnly />
 							</div>
 						</div>
 					</Panel>
@@ -292,8 +292,8 @@ class MemberInfo extends Component {
 		await Axios.get(`http://localhost:8080/ptm/api/reports/member/${memberId}`, {
 			responseType: 'blob',
 			headers: {
-				'Accept': 'application/pdf',
-				'Authorization': this.props.TOKEN
+				Accept: 'application/pdf',
+				Authorization: this.props.TOKEN,
 			},
 		})
 			.then((response) => {
@@ -347,7 +347,7 @@ class MemberInfo extends Component {
 							</div>
 						</TabPanel>
 						<TabPanel header='Report' leftIcon='pi pi-fw pi-file-pdf'>
-							{(() => this.renderPDF())()}							
+							{(() => this.renderPDF())()}
 						</TabPanel>
 					</TabView>
 					<Dialog id='address' header='Add New Address' visible={this.state.addressDialog} style={MyStyle.DialogStyle} modal={true} onHide={this.hideAddressDialog}>
@@ -363,24 +363,24 @@ class MemberInfo extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-    const { memberId } = ownProps.match.params;
-    return {
-        MEMBER: state.MEMBERS.membersResponse[memberId],   	
-        FETCHTYPE:state.MEMBERS.fetchType,   	
-        ERROR:state.MEMBERS.fetchError,
-        ERROR_MESSAGE: state.MEMBERS.fetchErrorMessage,
-        MEMBERADDRESS: Object.values(state.MEMBERADDRESSES.memberaddressesResponse),
-        MAFETCHTYPE: state.MEMBERADDRESSES.fetchType,
+	const { memberId } = ownProps.match.params;
+	return {
+		MEMBER: state.MEMBERS.membersResponse[memberId],
+		FETCHTYPE: state.MEMBERS.fetchType,
+		ERROR: state.MEMBERS.fetchError,
+		ERROR_MESSAGE: state.MEMBERS.fetchErrorMessage,
+		MEMBERADDRESS: Object.values(state.MEMBERADDRESSES.memberaddressesResponse),
+		MAFETCHTYPE: state.MEMBERADDRESSES.fetchType,
 		MAERROR: state.MEMBERADDRESSES.fetchError,
-        MAERROR_MESSAGE: state.MEMBERADDRESSES.fetchErrorMessage,
-        MEMBERCONTACT: Object.values(state.MEMBERCONTACTS.membercontactsResponse),
-        MCFETCHTYPE: state.MEMBERCONTACTS.fetchType,
+		MAERROR_MESSAGE: state.MEMBERADDRESSES.fetchErrorMessage,
+		MEMBERCONTACT: Object.values(state.MEMBERCONTACTS.membercontactsResponse),
+		MCFETCHTYPE: state.MEMBERCONTACTS.fetchType,
 		MCERROR: state.MEMBERCONTACTS.fetchError,
-        MCERROR_MESSAGE: state.MEMBERCONTACTS.fetchErrorMessage,
+		MCERROR_MESSAGE: state.MEMBERCONTACTS.fetchErrorMessage,
 		TOKEN: state.LOGIN_AUTHENTICATION.loginState.loginResponse.authorization,
-    };
+	};
 };
 
-const mapDispatchToProps = { getMemberByMemberId, getAllMemberAddressByMemberId, maReset, getAllMemberContactByMemberId, mcReset, updateMember};
+const mapDispatchToProps = { getMemberByMemberId, getAllMemberAddressByMemberId, maReset, getAllMemberContactByMemberId, mcReset, updateMember };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MemberInfo);

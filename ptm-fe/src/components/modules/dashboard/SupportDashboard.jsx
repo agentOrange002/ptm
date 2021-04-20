@@ -11,22 +11,6 @@ const MyStyle = {
 	issuesClosed: { backgroundColor: '#007ad9', color: '#ffffff' },
 };
 
-const basicData = {
-	labels: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-	datasets: [
-		{
-			label: 'Board Created',
-			backgroundColor: '#42A5F5',
-			data: [65, 59, 80, 81, 56, 55, 40],
-		},
-		{
-			label: 'Board Payout',
-			backgroundColor: '#FFA726',
-			data: [28, 48, 40, 19, 86, 27, 90],
-		},
-	],
-};
-
 const basicOptions = {
 	legend: {
 		labels: {
@@ -51,8 +35,6 @@ const basicOptions = {
 	},
 };
 
-
-
 class SupportDashboard extends Component {
 	state = {
 		activeIndex: 0,
@@ -63,67 +45,67 @@ class SupportDashboard extends Component {
 	};
 
 	async componentDidMount() {
-        await this.props.getChart();
+		await this.props.getChart();
 		await this.props.getDashboard();
-        this.updateChart();
+		this.updateChart();
 	}
 
-    componentDidUpdate(prevProps) {
-        if(this.props.CHART !== prevProps.CHART) {
-           this.updateChart();
-        }
-    }
+	componentDidUpdate(prevProps) {
+		if (this.props.CHART !== prevProps.CHART) {
+			this.updateChart();
+		}
+	}
 
-    // datasets: state.data.datasets.concat([{
-    //     label: 'Board Created',
-    //     backgroundColor: '#42A5F5',
-    //     data: this.props.CHART.created,
-    // }])
-    updateChart = _.memoize(() => {       
-        this.setState( state => ({
-            ...state,
-           data:{
-               ...state.data,
-                datasets: state.data.datasets.concat([{
-                    label: 'Board Created',
-                    backgroundColor: '#42A5F5',
-                    data: this.props.CHART.created,
-                }])
-           }
+	// datasets: state.data.datasets.concat([{
+	//     label: 'Board Created',
+	//     backgroundColor: '#42A5F5',
+	//     data: this.props.CHART.created,
+	// }])
+	updateChart = _.memoize(() => {
+		this.setState((state) => ({
+			...state,
+			data: {
+				...state.data,
+				datasets: state.data.datasets.concat([
+					{
+						label: 'Board Created',
+						backgroundColor: '#42A5F5',
+						data: this.props.CHART.created,
+					},
+				]),
+			},
+		}));
 
+		this.setState((state) => ({
+			...state,
+			data: {
+				...state.data,
+				datasets: state.data.datasets.concat([
+					{
+						label: 'Board Payout',
+						backgroundColor: '#FFA726',
+						data: this.props.CHART.payout,
+					},
+				]),
+			},
+		}));
 
-        }));   
+		this.setState((state) => ({
+			...state,
+			data: {
+				...state.data,
+				datasets: state.data.datasets.concat([
+					{
+						label: 'Board Example',
+						backgroundColor: 'black',
+						data: [28, 48, 40, 19, 86, 27, 90],
+					},
+				]),
+			},
+		}));
 
-        this.setState( state => ({
-            ...state,
-           data:{
-               ...state.data,
-                datasets: state.data.datasets.concat([{
-                    label: 'Board Payout',
-                    backgroundColor: '#FFA726',
-                    data: this.props.CHART.payout,
-                }])
-           }
-
-
-        }));   
-
-        this.setState( state => ({
-            ...state,
-           data:{
-               ...state.data,
-                datasets: state.data.datasets.concat([{
-                    label: 'Board Example',
-                    backgroundColor: 'black',
-                    data: [28, 48, 40, 19, 86, 27, 90],
-                }])
-           }
-
-
-        })); 
-       
-        console.log(this.state.data);   
-    });
+		console.log(this.state.data);
+	});
 
 	// {
 	//     "totalMembers": 14,
@@ -234,7 +216,7 @@ class SupportDashboard extends Component {
 }
 
 const mapStateToProps = (state) => {
-	return {		
+	return {
 		DASHBOARD: state.DASHBOARD.dashboardResponse,
 		CHART: state.DASHBOARD.chartResponse,
 	};

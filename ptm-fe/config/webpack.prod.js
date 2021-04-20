@@ -4,9 +4,6 @@ const common = require('./webpack.common.js');
 const WebpackObfuscator = require('webpack-obfuscator');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
-//const TerserPlugin = require("terser-webpack-plugin");
-//const CompressionPlugin = require("compression-webpack-plugin");
-//const zlib = require("zlib");
 
 module.exports = merge(common, {
   mode: 'production',
