@@ -123,7 +123,29 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 	@Bean
 	public CorsConfigurationSource corsConfigurationSource() {
 		final CorsConfiguration configuration = new CorsConfiguration();
-		configuration.setAllowedOrigins(Arrays.asList("http://127.0.0.1:3000","http://127.0.0.1:80","http://127.0.0.1","http://192.168.254.101:3000","http://localhost:3000","http://localhost:80","http://localhost"));
+//"http://127.0.0.1:3000","http://127.0.0.1:80","http://127.0.0.1","http://192.168.254.101:3000","http://localhost:3000","http://localhost:80","http://localhost","http://192.168.254.101","http://192.168.254.101:80",
+		configuration.setAllowedOrigins(Arrays.asList(
+		"**",
+		"http://0.0.0.0:80",
+		"http://127.0.0.1:3000",
+		"http://127.0.0.1:80",
+		"http://127.0.0.1:8080",
+		"http://127.0.0.1",
+		"http://192.168.254.101:3000",
+		"http://localhost:3000",
+		"http://localhost:80",
+		"http://localhost:8080",
+		"http://localhost",
+		"http://192.168.254.101",
+		"http://192.168.254.101:80",
+		"http://192.168.254.101:8080",
+		"http://192.168.254.102",
+		"http://192.168.254.102:80",
+		"http://192.168.254.102:8080",
+		"http://192.168.254.115",
+		"http://192.168.254.115:80",
+		"http://192.168.254.115:8080"));
+	
 		configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
 		configuration.setAllowCredentials(true);
 		configuration.setAllowedHeaders(Arrays.asList("*"));
