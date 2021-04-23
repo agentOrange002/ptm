@@ -8,6 +8,7 @@ import { getAllMembers } from '../../../redux/actions/MemberActions';
 import UILoader from '../tools/UILoader';
 import { ContextMenu } from 'primereact/contextmenu';
 import history from "../../../routes/history";
+import {InputText} from 'primereact/inputtext';
 
 const MyStyle = {
 	id: { width: '150px' },
@@ -36,7 +37,8 @@ class MemberData extends Component {
                 icon: 'pi pi-fw pi-ticket', 
                 command: (event) => this.viewMember(this.state.selectedMember)
             }            
-        ]
+        ],
+        globalFilter: null,
     };
 
 	viewMember(member) {
@@ -51,6 +53,18 @@ class MemberData extends Component {
     async componentDidMount() {
 		if(_.isEmpty(this.props.MEMBERS))
         await this.props.getAllMembers();
+    }
+    
+    renderHeader = () => {
+        return (
+            <div style={{display:'flex',justifyContent:'space-between'}}>
+          Member Datatable 
+            <span className="p-input-icon-left">
+                <i className="pi pi-search" />
+                    <InputText style={{width:'70vw'}} type="search" onInput={(e) => this.setState({globalFilter: e.target.value})} placeholder="Search" />
+                  </span>
+        </div>
+        );
     }
 
     refreshTable = async (event) => {
@@ -91,7 +105,11 @@ class MemberData extends Component {
 						sortOrder={-1}
 						scrollable={true}
 						selectionMode='single'
-						header='Member Data Table'
+						
+						//header='Member Data Table'
+						header = {this.renderHeader()}
+						responsive
+                       			globalFilter={this.state.globalFilter}
 						footer={this.displaySelection(this.state.selectedMember)}
 						selection={this.state.selectedMember}
 						onSelectionChange={e => this.setState({ selectedMember: e.value })}

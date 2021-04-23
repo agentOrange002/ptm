@@ -103,6 +103,11 @@ public class MemberEntity implements Serializable {
 	
 	@JsonManagedReference
 	@OneToMany(mappedBy = "memberContactDetails", cascade = CascadeType.ALL)
-	private List<MemberContactEntity> memberContacts;	
+	private List<MemberContactEntity> memberContacts;		
+	
+	@JsonBackReference
+	@ManyToOne
+	@JoinColumn(name="recruitment_id")
+	private RecruitmentEntity recruitmentDetails;
 	
 }

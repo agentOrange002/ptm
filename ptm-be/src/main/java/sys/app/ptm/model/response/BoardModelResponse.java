@@ -25,4 +25,6 @@ public class BoardModelResponse {
 	private List<ShortBoardMemberModelResponse> boardMembers;	
 	private ShortUserModelResponse userDetails_Board;
 	private ShortCategoryModelResponse boardCategoryDetails;
+    private RecruitmentModelResponse recruitment;		
+	private ClaimModelResponse claim;		
 }

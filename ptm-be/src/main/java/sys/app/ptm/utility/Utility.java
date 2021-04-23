@@ -74,6 +74,18 @@ public class Utility {
 		return str.toString();
 	}	
 	
+	public String generateRecruitmentId(int length) {
+		StringBuilder str = new StringBuilder();
+		str.append("URTID").append(generateRandomString(length));
+		return str.toString();
+	}	
+	
+	public String generateClaimId(int length) {
+		StringBuilder str = new StringBuilder();
+		str.append("UCLID").append(generateRandomString(length));
+		return str.toString();
+	}	
+	
 	public Date getDateNow(LocalDate localDate) {
 		ZoneId TZ = ZoneId.of("Asia/Manila");		
 		return Date.from(localDate.atStartOfDay(TZ).toInstant());
@@ -81,7 +93,7 @@ public class Utility {
 	
 	public String generateFullName(String f, String m, String l, String s) {
 		StringBuilder str = new StringBuilder();		
-		if (s.equals(null)) {
+		if(s==null|s==""|s.equals(null)|"".compareTo(s) == 0) {
 			str.append(f +" "+m+" "+l);
 		} else {
 			str.append(f +" "+m+" "+l+" "+s);

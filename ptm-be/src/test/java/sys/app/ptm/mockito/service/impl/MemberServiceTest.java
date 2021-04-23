@@ -30,7 +30,7 @@ class MemberServiceTest {
 	MemberServiceImplementation memberserv;
 	
 	@Mock
-	MemberRepository memberRepository;
+	MemberRepository memberRepository;	
 	
 	@Mock
 	Utility utils;
@@ -39,6 +39,35 @@ class MemberServiceTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
+	}
+	
+	@Test
+	final void testFullName() {		
+		String f = new String("First");
+		String m = new String("Middle");
+		String l = new String("Last");
+		String s = new String("JR");
+		
+		StringBuilder str = new StringBuilder();		
+		if (s==null|s==""|s.equals(null)|"".compareTo(s) == 0) {
+			System.out.println(" Invoke 1:");
+			str.append(f +" "+m+" "+l);
+		} else {
+			System.out.println(" Invoke 2:");
+			str.append(f +" "+m+" "+l+" "+s);
+		}
+
+		System.out.println(" fullname1:"+str.toString().toUpperCase()+":");
+
+		
+		System.out.println(" fullname2:"+utils.generateFullName(f, m, l, s));
+		
+		MemberDto dto = new MemberDto();	
+		dto.setFirstName("TEST");
+		dto.setMiddleName("TEST");
+		dto.setLastName("TEST");
+		dto.setSuffixName("TEST");			
+		System.out.println(" fullname3:"+utils.generateFullName(dto.getFirstName(), dto.getMiddleName(), dto.getLastName(),dto.getSuffixName()))	;
 	}
 
 	@Test

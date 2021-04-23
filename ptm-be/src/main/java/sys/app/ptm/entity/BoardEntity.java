@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -82,4 +83,10 @@ public class BoardEntity implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="categoryid")
 	private CategoryEntity boardCategoryDetails;
+	
+	@OneToOne(mappedBy = "boardRecruitmentDetails", cascade = CascadeType.ALL)
+	private RecruitmentEntity recruitment;	
+	
+	@OneToOne(mappedBy = "boardClaimDetails", cascade = CascadeType.ALL)
+	private ClaimEntity claim;	
 }

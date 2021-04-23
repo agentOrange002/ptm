@@ -25,6 +25,8 @@ public class BoardDto implements Serializable {
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	private LocalDate payoutDate;
 	private Set<BoardMemberDto> boardMembers;	
-	private UserDto userDetails_Board;
+	private UserDto userDetails_Board;	
 	private CategoryDto boardCategoryDetails;
+    private RecruitmentDto recruitment;		
+	private ClaimDto claim;	
 }
