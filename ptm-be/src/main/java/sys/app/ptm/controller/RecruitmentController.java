@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import sys.app.ptm.dto.RecruitmentDto;
+import sys.app.ptm.dto.shortdto.ShortMemberDto;
 import sys.app.ptm.model.request.RecruitmentMemberListModelRequest;
 import sys.app.ptm.model.response.RecruitmentModelResponse;
+import sys.app.ptm.model.shortresponse.ShortMemberModelResponse;
 import sys.app.ptm.service.RecruitmentService;
 
 @Tag(name = "Recruitment", description = "Recruitment REST API Services")
@@ -27,9 +29,9 @@ public class RecruitmentController {
 
 		private RecruitmentService recruitmentService;
 		
-		@PostMapping(path="/save/{recruitmentId}",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)	
-		public RecruitmentModelResponse saveRecruitment(@PathVariable String recruitmentId,@RequestBody RecruitmentMemberListModelRequest request) {
-			RecruitmentDto dto = recruitmentService.saveRecruitment(request);
+		@PostMapping(path="/save/{memberId}",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)	
+		public RecruitmentModelResponse saveRecruitment(@PathVariable String memberId,@RequestBody RecruitmentMemberListModelRequest request) {
+			RecruitmentDto dto = recruitmentService.saveRecruitment(memberId,request);
 			return new ModelMapper().map(dto, RecruitmentModelResponse.class);
 		}
 		
@@ -47,6 +49,13 @@ public class RecruitmentController {
 		@GetMapping(path="/{recruitmentId}",produces = MediaType.APPLICATION_JSON_VALUE)
 		public RecruitmentModelResponse getByRecruitmentId(@PathVariable String recruitmentId) {
 			RecruitmentDto dto = recruitmentService.getByRecruitmentId(recruitmentId);
-			return new ModelMapper().map(dto, RecruitmentModelResponse.class);
+			RecruitmentModelResponse response = new ModelMapper().map(dto, RecruitmentModelResponse.class);
+			ModelMapper mapper = new ModelMapper();
+			List<ShortMemberModelResponse> listResponse = new ArrayList<ShortMemberModelResponse>();
+			for(ShortMemberDto dito: dto.getMembersRecruited()){
+				listResponse.add(mapper.map(dito, ShortMemberModelResponse.class));		
+			}
+			response.setMembersRecruited(listResponse);
+			return response;
 		}
 }

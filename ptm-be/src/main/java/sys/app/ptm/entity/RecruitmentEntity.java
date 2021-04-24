@@ -40,20 +40,20 @@ public class RecruitmentEntity implements Serializable{
 	private Long id;
 	
 	@Column(name="recruitment_id",nullable=false)
-	private String recruitmentId;	
+	private String recruitmentId;		
+	
+	@JsonIgnore
+	@OneToOne
+	@JoinColumn(name = "member_id", unique = true)
+	private MemberEntity memberRecruitmentDetails;
 	
 	@JsonManagedReference
 	@OneToMany(mappedBy = "recruitmentDetails", cascade = CascadeType.ALL)
 	private List<MemberEntity> membersRecruited;
 	
-	@JsonIgnore
-	@OneToOne
-	@JoinColumn(name = "board_id", unique = false)
-	private BoardEntity boardRecruitmentDetails;
-	
 	@JsonProperty
 	public String getBoardId() {
-		return boardRecruitmentDetails.getId();
+		return memberRecruitmentDetails.getId();
 	}
 
 }

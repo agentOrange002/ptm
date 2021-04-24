@@ -9,7 +9,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import sys.app.ptm.entity.RecruitmentEntity;
 
 @ToString
 @Getter @Setter
@@ -34,5 +33,5 @@ public class MemberDto implements Serializable {
 	private UserDto userDetails_Member;	
 	private List<MemberAddressDto> memberAddresses;		
 	private List<MemberContactDto> memberContacts;	
-	private RecruitmentEntity recruitmentDetails;
+	private RecruitmentDto recruitmentDetails;
 }

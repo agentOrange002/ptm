@@ -21,7 +21,9 @@ public enum ErrorMessages {
 	MEMBER_FULLNAME_ALREADY_REGISTER("This Member Name has already register. Please try different Name."),
 	ROLE_NAME_HAS_ALREADY_EXIST("Record already exists! Please try different role name."),
 	EMAIL_HAS_ALREADY_EXIST("Record already exists! Please try different email."),
-	USER_HAS_ALREADY_EXIST("Record already exists! Please try user name.");
+	USER_HAS_ALREADY_EXIST("Record already exists! Please try user name."),
+	MEMBER_HAS_ALREADY_RECRUITED("Member has already recruited"),	
+	MEMBER_HAS_ALREADY_AN_EXISTING_RECRUITMENTINFO("Member has already an existing recruitment info. No need to proceed.");
 	
 	private String errorMessage;
 

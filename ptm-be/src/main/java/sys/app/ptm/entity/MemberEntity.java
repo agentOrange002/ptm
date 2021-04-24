@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -108,6 +109,8 @@ public class MemberEntity implements Serializable {
 	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name="recruitment_id")
-	private RecruitmentEntity recruitmentDetails;
+	private RecruitmentEntity recruitmentDetails;	
 	
+	@OneToOne(mappedBy = "memberRecruitmentDetails", cascade = CascadeType.ALL)
+	private RecruitmentEntity recruitment;	
 }

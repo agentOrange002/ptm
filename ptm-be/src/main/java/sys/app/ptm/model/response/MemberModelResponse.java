@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Getter;
 import lombok.Setter;
-import sys.app.ptm.entity.RecruitmentEntity;
 import sys.app.ptm.model.shortresponse.ShortMemberAddressModelResponse;
 import sys.app.ptm.model.shortresponse.ShortMemberContactModelResponse;
 import sys.app.ptm.model.shortresponse.ShortUserModelResponse;
@@ -34,5 +33,5 @@ public class MemberModelResponse {
 	private ShortUserModelResponse userDetails_Member;
 	private List<ShortMemberAddressModelResponse> memberAddresses;		
 	private List<ShortMemberContactModelResponse> memberContacts;
-	private RecruitmentEntity recruitmentDetails;
+	private RecruitmentModelResponse recruitmentDetails;
 }

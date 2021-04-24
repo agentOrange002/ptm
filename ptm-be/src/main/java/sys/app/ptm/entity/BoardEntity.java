@@ -82,10 +82,7 @@ public class BoardEntity implements Serializable {
 	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name="categoryid")
-	private CategoryEntity boardCategoryDetails;
-	
-	@OneToOne(mappedBy = "boardRecruitmentDetails", cascade = CascadeType.ALL)
-	private RecruitmentEntity recruitment;	
+	private CategoryEntity boardCategoryDetails;	
 	
 	@OneToOne(mappedBy = "boardClaimDetails", cascade = CascadeType.ALL)
 	private ClaimEntity claim;	

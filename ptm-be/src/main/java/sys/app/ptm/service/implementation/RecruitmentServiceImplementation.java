@@ -10,6 +10,8 @@ import lombok.AllArgsConstructor;
 import sys.app.ptm.dto.RecruitmentDto;
 import sys.app.ptm.entity.MemberEntity;
 import sys.app.ptm.entity.RecruitmentEntity;
+import sys.app.ptm.exception.ApplicationServiceException;
+import sys.app.ptm.exception.ErrorMessages;
 import sys.app.ptm.model.request.RecruitmentMemberListModelRequest;
 import sys.app.ptm.repository.MemberRepository;
 import sys.app.ptm.repository.RecruitmentRepository;
@@ -25,16 +27,33 @@ public class RecruitmentServiceImplementation implements RecruitmentService{
 	private Utility utility;
 	
 	@Override
-	public RecruitmentDto saveRecruitment(RecruitmentMemberListModelRequest request) {
-		List<MemberEntity> list = new ArrayList<MemberEntity>();
+	public RecruitmentDto saveRecruitment(String memberId,RecruitmentMemberListModelRequest request) {		
+		MemberEntity mement = memberRepository.findByMemberId(memberId);
+		if(recruitmentRepository.findByMemberRecruitmentDetails(mement)!=null) throw new ApplicationServiceException(ErrorMessages.MEMBER_HAS_ALREADY_AN_EXISTING_RECRUITMENTINFO.getErrorMessage());
+		
+		
+		RecruitmentEntity entity = new RecruitmentEntity();		
+		entity.setRecruitmentId(utility.generateRecruitmentId(10));
+		entity.setMemberRecruitmentDetails(mement);	
+		RecruitmentEntity savedEntity = recruitmentRepository.save(entity)	;
+		
+		
 		for(String id: request.getMembers()) {
 			MemberEntity member = memberRepository.findByMemberId(id);
-			list.add(member);
+			if(recruitmentRepository.findByMembersRecruited(member)!=null) throw new ApplicationServiceException(ErrorMessages.MEMBER_HAS_ALREADY_RECRUITED.getErrorMessage());
 		}		
-		RecruitmentEntity entity = new RecruitmentEntity();
-		entity.setRecruitmentId(utility.generateRecruitmentId(10));
-		entity.setMembersRecruited(null);
-		RecruitmentEntity updatedEntity = recruitmentRepository.save(entity)	;
+		
+		List<MemberEntity> newlist = new ArrayList<MemberEntity>();
+		for(String id: request.getMembers()) {
+			MemberEntity member = memberRepository.findByMemberId(id);
+			member.setRecruitmentDetails(savedEntity);
+			MemberEntity savedMember = memberRepository.save(member);
+			newlist.add(savedMember);
+		}		
+		
+		
+		savedEntity.setMembersRecruited(newlist);		
+		RecruitmentEntity updatedEntity = recruitmentRepository.save(savedEntity);	
 		return new ModelMapper().map(updatedEntity,RecruitmentDto.class);
 	}
 
@@ -51,8 +70,8 @@ public class RecruitmentServiceImplementation implements RecruitmentService{
 
 	@Override
 	public RecruitmentDto getByRecruitmentId(String recruimentId) {
-		RecruitmentEntity entity = recruitmentRepository.findByRecruitmentId(recruimentId);
-		return new ModelMapper().map(entity, RecruitmentDto.class);
+		RecruitmentEntity entity = recruitmentRepository.findByRecruitmentId(recruimentId);	
+		return new ModelMapper().map(entity,RecruitmentDto.class);
 	}
 
 }

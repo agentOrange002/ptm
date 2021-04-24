@@ -10,5 +10,6 @@ import sys.app.ptm.model.shortresponse.ShortMemberModelResponse;
 public class RecruitmentModelResponse {
 	private Long id;
 	private String recruitmentId;	
+	private ShortMemberModelResponse memberRecruitmentDetails;
 	private List<ShortMemberModelResponse> membersRecruited;
 }

@@ -57,3 +57,11 @@ export const membercontactURL = axios.create({
 export const roleURL = axios.create({
 	baseURL: `${urlBackEnd}/roles`,
 });
+
+export const recruitmentURL = axios.create({
+	baseURL: `${urlBackEnd}/recruitments`,
+});
+
+export const claimURL = axios.create({
+	baseURL: `${urlBackEnd}/claims`,
+});

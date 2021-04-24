@@ -18,5 +18,6 @@ public class RecruitmentDto  implements Serializable {
 	private static final long serialVersionUID = 3418288834013182333L;
 	private Long id;
 	private String recruitmentId;	
+	private ShortMemberDto memberRecruitmentDetails;
 	private List<ShortMemberDto> membersRecruited;
 }

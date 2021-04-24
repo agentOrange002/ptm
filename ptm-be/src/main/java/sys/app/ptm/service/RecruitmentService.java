@@ -6,7 +6,7 @@ import sys.app.ptm.dto.RecruitmentDto;
 import sys.app.ptm.model.request.RecruitmentMemberListModelRequest;
 
 public interface RecruitmentService {
-		RecruitmentDto saveRecruitment(RecruitmentMemberListModelRequest request);
+		RecruitmentDto saveRecruitment(String memberId,RecruitmentMemberListModelRequest request);
 		List<RecruitmentDto> allRecruitments();
 		RecruitmentDto getByRecruitmentId(String recruimentId);
 }
