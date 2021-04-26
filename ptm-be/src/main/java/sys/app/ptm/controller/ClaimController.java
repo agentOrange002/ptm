@@ -1,7 +1,11 @@
 package sys.app.ptm.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,4 +32,22 @@ public class ClaimController {
 		ClaimDto dto =claimService.saveRecruitment(boardId,request);
 		return new ModelMapper().map(dto, ClaimModelResponse.class);
 	}
+	
+	@GetMapping(path="/{claimId}",produces = MediaType.APPLICATION_JSON_VALUE)
+	public ClaimModelResponse getById(@PathVariable String claimId) {
+		ClaimDto dto = claimService.getById(claimId);
+		return new ModelMapper().map(dto, ClaimModelResponse.class);
+	}
+	
+	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<ClaimModelResponse> getAllClaim(){
+		List<ClaimDto> list = claimService.getAllClaim();
+		List<ClaimModelResponse> response = new ArrayList<ClaimModelResponse>();
+		ModelMapper mapper = new ModelMapper();
+		for(ClaimDto dto: list) {
+			response.add(mapper.map(dto,ClaimModelResponse.class));
+		}
+		return response;
+	}
+	
 }

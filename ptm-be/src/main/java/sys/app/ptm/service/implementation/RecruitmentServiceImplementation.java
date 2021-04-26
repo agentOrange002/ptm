@@ -31,17 +31,15 @@ public class RecruitmentServiceImplementation implements RecruitmentService{
 		MemberEntity mement = memberRepository.findByMemberId(memberId);
 		if(recruitmentRepository.findByMemberRecruitmentDetails(mement)!=null) throw new ApplicationServiceException(ErrorMessages.MEMBER_HAS_ALREADY_AN_EXISTING_RECRUITMENTINFO.getErrorMessage());
 		
-		
-		RecruitmentEntity entity = new RecruitmentEntity();		
-		entity.setRecruitmentId(utility.generateRecruitmentId(10));
-		entity.setMemberRecruitmentDetails(mement);	
-		RecruitmentEntity savedEntity = recruitmentRepository.save(entity)	;
-		
-		
 		for(String id: request.getMembers()) {
 			MemberEntity member = memberRepository.findByMemberId(id);
 			if(recruitmentRepository.findByMembersRecruited(member)!=null) throw new ApplicationServiceException(ErrorMessages.MEMBER_HAS_ALREADY_RECRUITED.getErrorMessage());
 		}		
+		
+		RecruitmentEntity entity = new RecruitmentEntity();		
+		entity.setRecruitmentId(utility.generateRecruitmentId(10));
+		entity.setMemberRecruitmentDetails(mement);	
+		RecruitmentEntity savedEntity = recruitmentRepository.save(entity)	;		
 		
 		List<MemberEntity> newlist = new ArrayList<MemberEntity>();
 		for(String id: request.getMembers()) {

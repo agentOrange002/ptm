@@ -1,6 +1,8 @@
 package sys.app.ptm.service.implementation;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -9,6 +11,8 @@ import lombok.AllArgsConstructor;
 import sys.app.ptm.dto.ClaimDto;
 import sys.app.ptm.entity.BoardEntity;
 import sys.app.ptm.entity.ClaimEntity;
+import sys.app.ptm.exception.ApplicationServiceException;
+import sys.app.ptm.exception.ErrorMessages;
 import sys.app.ptm.model.request.ClaimModelRequest;
 import sys.app.ptm.repository.BoardRepository;
 import sys.app.ptm.repository.ClaimRepository;
@@ -25,6 +29,9 @@ public class ClaimServiceImplementation implements ClaimService {
 
 	@Override
 	public ClaimDto saveRecruitment(String boardId, ClaimModelRequest request) {
+		
+		if(boardRepository.findByBoardIdAndBoardStatus(boardId,"PAYOUT")==null) throw new ApplicationServiceException(ErrorMessages.BOARD_NOT_READY_FOR_CLAIM.getErrorMessage());
+		
 		BoardEntity board = boardRepository.findByBoardId(boardId);
 		ClaimEntity claim = new ClaimEntity();
 		claim.setClaimId(utility.generateClaimId(10));
@@ -36,5 +43,24 @@ public class ClaimServiceImplementation implements ClaimService {
 		ClaimEntity updatedClaim = claimRepository.save(claim);
 		return new ModelMapper().map(updatedClaim, ClaimDto.class);
 	}
+
+	@Override
+	public ClaimDto getById(String claimId) {
+		ClaimEntity entity = claimRepository.findByClaimId(claimId);
+		return new ModelMapper().map(entity, ClaimDto.class);
+	}
+
+	@Override
+	public List<ClaimDto> getAllClaim() {
+		List<ClaimEntity> list = claimRepository.findAll();
+		List<ClaimDto> dtolist = new ArrayList<ClaimDto>();
+		ModelMapper mapper = new ModelMapper();
+		for(ClaimEntity claim: list) {
+			dtolist.add(mapper.map(claim, ClaimDto.class));
+		}
+		return dtolist;
+	}
+	
+	
 
 }

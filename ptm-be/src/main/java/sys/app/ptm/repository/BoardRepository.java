@@ -17,6 +17,7 @@ public interface BoardRepository extends JpaRepository<BoardEntity, Long> {
 
 	BoardEntity findByBoardId(String boardId);
 	BoardEntity findByBoardName(String boardName);
+	BoardEntity findByBoardIdAndBoardStatus(String boardId,String boardStatus);
 	
 	@Query(value = "SELECT * FROM boards;", nativeQuery = true)
 	List<BoardEntity> findBoards();
