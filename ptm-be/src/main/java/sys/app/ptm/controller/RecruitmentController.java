@@ -16,9 +16,11 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import sys.app.ptm.dto.RecruitmentDto;
 import sys.app.ptm.dto.shortdto.ShortMemberDto;
+import sys.app.ptm.dto.shortdto.ShortRecruitmentDto;
 import sys.app.ptm.model.request.RecruitmentMemberListModelRequest;
 import sys.app.ptm.model.response.RecruitmentModelResponse;
 import sys.app.ptm.model.shortresponse.ShortMemberModelResponse;
+import sys.app.ptm.model.shortresponse.ShortRecruitmentModelResponse;
 import sys.app.ptm.service.RecruitmentService;
 
 @Tag(name = "Recruitment", description = "Recruitment REST API Services")
@@ -36,12 +38,12 @@ public class RecruitmentController {
 		}
 		
 		@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)	
-		public List<RecruitmentModelResponse> allRecruitments(){
-			 List<RecruitmentModelResponse> list = new ArrayList<RecruitmentModelResponse>();
+		public List<ShortRecruitmentModelResponse> allRecruitments(){
+			 List<ShortRecruitmentModelResponse> list = new ArrayList<ShortRecruitmentModelResponse>();
 			 ModelMapper mapper = new ModelMapper();
-			 List<RecruitmentDto> dtos = recruitmentService.allRecruitments();
-			 for(RecruitmentDto dto: dtos) {
-				 list.add(mapper.map(dto, RecruitmentModelResponse.class));
+			 List<ShortRecruitmentDto> dtos = recruitmentService.allRecruitments();
+			 for(ShortRecruitmentDto dto: dtos) {
+				 list.add(mapper.map(dto, ShortRecruitmentModelResponse.class));
 			 }			 
 			 return list;
 		}

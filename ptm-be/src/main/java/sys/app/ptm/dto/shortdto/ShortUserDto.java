@@ -8,7 +8,7 @@ import lombok.ToString;
 
 @ToString
 @Getter @Setter
-public class ShortUserDto implements Serializable{	
+public class ShortUserDto implements Serializable {	
 
 	/**
 	 * 

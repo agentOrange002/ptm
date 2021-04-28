@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
 import sys.app.ptm.dto.RecruitmentDto;
+import sys.app.ptm.dto.shortdto.ShortRecruitmentDto;
 import sys.app.ptm.entity.MemberEntity;
 import sys.app.ptm.entity.RecruitmentEntity;
 import sys.app.ptm.exception.ApplicationServiceException;
@@ -56,12 +57,12 @@ public class RecruitmentServiceImplementation implements RecruitmentService{
 	}
 
 	@Override
-	public List<RecruitmentDto> allRecruitments() {
-		List<RecruitmentDto> list = new ArrayList<RecruitmentDto>();
+	public List<ShortRecruitmentDto> allRecruitments() {
+		List<ShortRecruitmentDto> list = new ArrayList<ShortRecruitmentDto>();
 		ModelMapper mapper = new ModelMapper();
 		List<RecruitmentEntity> allRecruitments = recruitmentRepository.findAll();
 		for(RecruitmentEntity entity: allRecruitments) {
-			list.add(mapper.map(entity, RecruitmentDto.class));
+			list.add(mapper.map(entity, ShortRecruitmentDto.class));
 		}
 		return list;
 	}

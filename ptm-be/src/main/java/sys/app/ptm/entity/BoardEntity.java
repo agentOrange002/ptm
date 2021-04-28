@@ -84,6 +84,11 @@ public class BoardEntity implements Serializable {
 	@JoinColumn(name="categoryid")
 	private CategoryEntity boardCategoryDetails;	
 	
+	@JsonBackReference
+	@ManyToOne
+	@JoinColumn(name="releaseid")
+	private ReleaseEntity boardReleaseDetails;	
+	
 	@OneToOne(mappedBy = "boardClaimDetails", cascade = CascadeType.ALL)
 	private ClaimEntity claim;	
 }

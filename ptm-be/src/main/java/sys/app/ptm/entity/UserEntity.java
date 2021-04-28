@@ -98,5 +98,9 @@ public class UserEntity implements Serializable {
 	@JsonManagedReference
 	@OneToMany(mappedBy = "userDetails_BoardMember", cascade = CascadeType.ALL)
 	private List<BoardMemberEntity> boardmembers;
+	
+	@JsonManagedReference
+	@OneToMany(mappedBy = "userDetails_Release", cascade = CascadeType.ALL)
+	private List<ReleaseEntity> releases;
 		
 }
