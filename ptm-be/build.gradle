@@ -69,8 +69,3 @@ shadowJar {
         	attributes "Main-Class": "sys.app.ptm.PtmApplication"
 	}   	
 }
-
-
-
-
-

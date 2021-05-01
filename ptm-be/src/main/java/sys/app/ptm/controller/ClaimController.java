@@ -29,7 +29,8 @@ public class ClaimController {
 	
 	@PostMapping(path="/{boardId}",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)	
 	public ClaimModelResponse saveRecruitment(@PathVariable String boardId,@RequestBody ClaimModelRequest request) {
-		ClaimDto dto =claimService.saveRecruitment(boardId,request);
+		ClaimDto requestDto = new ModelMapper().map(request, ClaimDto.class);
+		ClaimDto dto =claimService.saveRecruitment(boardId,requestDto);
 		return new ModelMapper().map(dto, ClaimModelResponse.class);
 	}
 	

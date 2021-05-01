@@ -46,6 +46,9 @@ public class ReleaseEntity implements Serializable {
 	@JsonFormat(pattern="yyyy-MM-dd")	
 	private LocalDate loggedDate;
 	
+	@Column(name="total_amount",precision=8, scale=2,nullable=false)
+	private float totalAmount;
+	
 	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name="user_id")
@@ -53,6 +56,8 @@ public class ReleaseEntity implements Serializable {
 	
 	@JsonManagedReference
 	@OneToMany(mappedBy = "boardReleaseDetails", cascade = CascadeType.ALL)
-	private List<BoardEntity> boards;	
+	private List<BoardEntity> boards;
+	
+	
 
 }

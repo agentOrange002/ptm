@@ -17,7 +17,7 @@ public class ClaimDto implements Serializable {
 	private static final long serialVersionUID = -791890326272177063L;
 	private Long id;	
 	private String claimId;	
-	private String mode;
+	private String modeOfClaim;
 	private String details;
 	private LocalDate claimedDate;
 	private String remark;

@@ -13,7 +13,6 @@ import sys.app.ptm.entity.BoardEntity;
 import sys.app.ptm.entity.ClaimEntity;
 import sys.app.ptm.exception.ApplicationServiceException;
 import sys.app.ptm.exception.ErrorMessages;
-import sys.app.ptm.model.request.ClaimModelRequest;
 import sys.app.ptm.repository.BoardRepository;
 import sys.app.ptm.repository.ClaimRepository;
 import sys.app.ptm.service.ClaimService;
@@ -28,17 +27,16 @@ public class ClaimServiceImplementation implements ClaimService {
 	private Utility utility;
 
 	@Override
-	public ClaimDto saveRecruitment(String boardId, ClaimModelRequest request) {
+	public ClaimDto saveRecruitment(String boardId, ClaimDto dto) {
 		
 		if(boardRepository.findByBoardIdAndBoardStatus(boardId,"PAYOUT")==null) throw new ApplicationServiceException(ErrorMessages.BOARD_NOT_READY_FOR_CLAIM.getErrorMessage());
 		
+		dto.setModeOfClaim(dto.getModeOfClaim().toUpperCase());
 		BoardEntity board = boardRepository.findByBoardId(boardId);
-		ClaimEntity claim = new ClaimEntity();
+		ClaimEntity claim = new ModelMapper().map(dto, ClaimEntity.class);
 		claim.setClaimId(utility.generateClaimId(10));
 		claim.setClaimedDate(LocalDate.now());
-		claim.setMode(request.getMode());
-		claim.setDetails(request.getDetails());
-		claim.setRemark(request.getRemark());
+	
 		claim.setBoardClaimDetails(board);
 		ClaimEntity updatedClaim = claimRepository.save(claim);
 		return new ModelMapper().map(updatedClaim, ClaimDto.class);

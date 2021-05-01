@@ -5,6 +5,8 @@ import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -20,6 +22,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import sys.app.ptm.enums.ModeOfClaim;
 
 @Data
 @NoArgsConstructor
@@ -40,8 +43,9 @@ public class ClaimEntity implements Serializable {
 	@Column(name="claim_id",nullable=false)
 	private String claimId;	
 	
-	@Column(name="mode_of_claim",nullable=false)
-	private String mode;
+	@Column(name="mode_of_claim")
+	@Enumerated(EnumType.STRING) 
+	private ModeOfClaim modeOfClaim;	
 	
 	@Column(name="mode_details",nullable=false)
 	private String details;

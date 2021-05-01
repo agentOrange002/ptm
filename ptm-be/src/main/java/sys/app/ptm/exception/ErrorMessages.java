@@ -24,7 +24,8 @@ public enum ErrorMessages {
 	USER_HAS_ALREADY_EXIST("Record already exists! Please try user name."),
 	MEMBER_HAS_ALREADY_RECRUITED("Members entered has already recruited"),	
 	MEMBER_HAS_ALREADY_AN_EXISTING_RECRUITMENTINFO("Member has already an existing recruitment info. No need to proceed."),
-	BOARD_NOT_READY_FOR_CLAIM("Board not ready for claim. Please check the status.");
+	BOARD_NOT_READY_FOR_CLAIM("Board not ready for claim. Please check the status."),
+	BOARD_HAS_ALREADY_EXIST_IN_OTHER_RELEASING("Record already exists! Please try other board.");
 	
 	private String errorMessage;
 

@@ -1,0 +1,1 @@
+package sys.app.ptm.model.shortresponse;import lombok.Getter;import lombok.Setter;@Getter @Setterpublic class ShortReleaseModelResponse {    private Long id;    private String releaseId;}

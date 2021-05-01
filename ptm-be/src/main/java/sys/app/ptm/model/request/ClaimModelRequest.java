@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter @Setter
 public class ClaimModelRequest {
-	private String mode;
+	private String modeOfClaim;
 	private String details;
 	private String remark;
 }

@@ -73,4 +73,27 @@ public class RecruitmentServiceImplementation implements RecruitmentService{
 		return new ModelMapper().map(entity,RecruitmentDto.class);
 	}
 
+	@Override
+	public RecruitmentDto applyRecruitedMembers(String recruitmentId, RecruitmentMemberListModelRequest request) {
+		for(String id: request.getMembers()) {
+			MemberEntity member = memberRepository.findByMemberId(id);
+			if(recruitmentRepository.findByMembersRecruited(member)!=null) throw new ApplicationServiceException(ErrorMessages.MEMBER_HAS_ALREADY_RECRUITED.getErrorMessage());
+		}	
+		
+		RecruitmentEntity recruitment = recruitmentRepository.findByRecruitmentId(recruitmentId);		
+		
+		List<MemberEntity> newlist = new ArrayList<MemberEntity>();
+		for(String id: request.getMembers()) {
+			MemberEntity member = memberRepository.findByMemberId(id);
+			member.setRecruitmentDetails(recruitment);
+			MemberEntity savedMember = memberRepository.save(member);
+			newlist.add(savedMember);
+		}		
+		
+		
+		recruitment.setMembersRecruited(newlist);		
+		RecruitmentEntity updatedEntity = recruitmentRepository.save(recruitment);	
+		return new ModelMapper().map(updatedEntity,RecruitmentDto.class);
+	}
+
 }
