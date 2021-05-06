@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import lombok.AllArgsConstructor;
 import sys.app.ptm.dto.ReleaseDto;
@@ -31,13 +32,21 @@ public class ReleaseServiceImplementation implements ReleaseService {
 	private Utility utility;
 
 	@Override
+	@Transactional
 	public ReleaseDto saveRelease(ReleaseModelRequest request) {
-		
-		for (String id : request.getBoards()) {					
+
+		for (String id : request.getBoards()) {
 			BoardEntity board = boardRepository.findByBoardId(id);
-			if(releaseRepository.findByBoards(board)!=null) throw new ApplicationServiceException(ErrorMessages.BOARD_HAS_ALREADY_EXIST_IN_OTHER_RELEASING.getErrorMessage());			
-			if(boardRepository.findByBoardIdAndBoardStatus(id,"CLAIMED")!=null) throw new ApplicationServiceException(ErrorMessages.BOARD_HAS_ALREADY_CLAIMED.getErrorMessage());
-			if(boardRepository.findByBoardIdAndBoardStatus(id,"PAYOUT")!=null) throw new ApplicationServiceException(ErrorMessages.BOARD_NOT_PAYOUT.getErrorMessage());
+			if (releaseRepository.findByBoards(board) != null)
+				throw new ApplicationServiceException(
+						ErrorMessages.BOARD_HAS_ALREADY_EXIST_IN_OTHER_RELEASING.getErrorMessage());
+
+			if (boardRepository.findByBoardIdAndBoardStatus(id, "CLAIMED") != null)
+				throw new ApplicationServiceException(ErrorMessages.BOARD_HAS_ALREADY_CLAIMED.getErrorMessage());
+
+			if (boardRepository.findByBoardIdAndBoardStatus(id, "PAYOUT") == null)
+				throw new ApplicationServiceException(ErrorMessages.BOARD_NOT_PAYOUT.getErrorMessage());
+
 		}
 
 		List<BoardEntity> boards = new ArrayList<BoardEntity>();
@@ -45,6 +54,7 @@ public class ReleaseServiceImplementation implements ReleaseService {
 			BoardEntity board = boardRepository.findByBoardId(id);
 			boards.add(board);
 		}
+
 		UserEntity user = userRepository.findByUserId(request.getUserId());
 		ReleaseEntity release = new ReleaseEntity();
 		release.setReleaseId(utility.generateReleaseId(10));
@@ -52,12 +62,16 @@ public class ReleaseServiceImplementation implements ReleaseService {
 		release.setTotalAmount(request.getTotalAmount());
 		release.setUserDetails_Release(user);
 		release.setBoards(boards);
-
 		ReleaseEntity saveEntity = releaseRepository.save(release);
-		saveEntity.getBoards().forEach(board -> board.setBoardReleaseDetails(saveEntity));
 
-		ReleaseEntity updatedEntity = releaseRepository.save(saveEntity);
-		return new ModelMapper().map(updatedEntity, ReleaseDto.class);
+		for (BoardEntity board : saveEntity.getBoards()) {
+			BoardEntity entity = board;
+			entity.setBoardReleaseDetails(saveEntity);
+			entity.setBoardStatus("RELEASE");
+			boardRepository.save(entity);
+		}
+
+		return new ModelMapper().map(saveEntity, ReleaseDto.class);
 	}
 
 	@Override

@@ -36,8 +36,9 @@ public class ClaimServiceImplementation implements ClaimService {
 		ClaimEntity claim = new ModelMapper().map(dto, ClaimEntity.class);
 		claim.setClaimId(utility.generateClaimId(10));
 		claim.setClaimedDate(LocalDate.now());
-	
-		claim.setBoardClaimDetails(board);
+		claim.setBoardClaimDetails(board);		
+		ClaimEntity saveClaim = claimRepository.save(claim);
+		saveClaim.getBoardClaimDetails().setBoardStatus("CLAIMED");
 		ClaimEntity updatedClaim = claimRepository.save(claim);
 		return new ModelMapper().map(updatedClaim, ClaimDto.class);
 	}
@@ -57,8 +58,6 @@ public class ClaimServiceImplementation implements ClaimService {
 			dtolist.add(mapper.map(claim, ClaimDto.class));
 		}
 		return dtolist;
-	}
-	
-	
+	}	
 
 }

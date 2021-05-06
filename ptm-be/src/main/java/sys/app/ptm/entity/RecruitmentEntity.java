@@ -52,7 +52,7 @@ public class RecruitmentEntity implements Serializable{
 	private List<MemberEntity> membersRecruited;
 	
 	@JsonProperty
-	public String getBoardId() {
+	public String getMemberId() {
 		return memberRecruitmentDetails.getId();
 	}
 

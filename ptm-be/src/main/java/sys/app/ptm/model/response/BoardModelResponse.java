@@ -24,7 +24,6 @@ public class BoardModelResponse {
 	private LocalDate payoutDate;
 	private List<ShortBoardMemberModelResponse> boardMembers;	
 	private ShortUserModelResponse userDetails_Board;
-	private ShortCategoryModelResponse boardCategoryDetails;
-    private RecruitmentModelResponse recruitment;		
+	private ShortCategoryModelResponse boardCategoryDetails;   
 	private ClaimModelResponse claim;		
 }
