@@ -80,6 +80,12 @@ public class Utility {
 		return str.toString();
 	}	
 	
+	public String generateReleaseId(int length) {
+		StringBuilder str = new StringBuilder();
+		str.append("URELID").append(generateRandomString(length));
+		return str.toString();
+	}	
+	
 	public String generateClaimId(int length) {
 		StringBuilder str = new StringBuilder();
 		str.append("UCLID").append(generateRandomString(length));

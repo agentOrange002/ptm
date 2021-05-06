@@ -14,6 +14,8 @@ public enum ErrorMessages {
 	USER_NOT_FOUND("User ID not exist."),
 	BOARD_NAME_ALREADY_EXISTS("Record already exists! Please try different board name."),
 	BOARD_NOT_COMPLETE("Board Not Ready For Payout! Please complete your board members."),
+	BOARD_NOT_PAYOUT("Board Not Ready For Payout! Please Check."),
+	BOARD_HAS_ALREADY_CLAIMED("Board has already claimed! Please Check."),
 	BOARD_PAYOUT_COMPLETE("Board has already been payout."),
 	BOARD_MEMBER_HAS_ALREADY_ASSIGNED("Board Member has already assigned. Use different Board Position."),
 	MEMBER_HAS_ALREADY_EXIST_IN_THIS_BOARD("Member has already exist in this board. Use different Member."),

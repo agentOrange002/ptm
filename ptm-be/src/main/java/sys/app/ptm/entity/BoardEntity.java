@@ -85,7 +85,7 @@ public class BoardEntity implements Serializable {
 	private CategoryEntity boardCategoryDetails;	
 	
 	@JsonBackReference
-	@ManyToOne
+	@ManyToOne(optional = false)
 	@JoinColumn(name="releaseid")
 	private ReleaseEntity boardReleaseDetails;	
 	

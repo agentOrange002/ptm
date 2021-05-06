@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lombok.AllArgsConstructor;
 import sys.app.ptm.dto.ReleaseDto;
-import sys.app.ptm.model.request.ReleaseBoardListModelRequest;
+import sys.app.ptm.model.request.ReleaseModelRequest;
 import sys.app.ptm.model.response.ReleaseModelResponse;
 import sys.app.ptm.model.shortresponse.ShortReleaseModelResponse;
 import sys.app.ptm.service.ReleaseService;
@@ -27,8 +27,8 @@ public class ReleaseController {
 	private ReleaseService releaseService;
 	
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
-	public ReleaseModelResponse saveRelease(@RequestBody ReleaseBoardListModelRequest request) {
-		ReleaseDto dto = releaseService.saveRelease(request.getBoards());
+	public ReleaseModelResponse saveRelease(@RequestBody ReleaseModelRequest request) {
+		ReleaseDto dto = releaseService.saveRelease(request);
 		return  new ModelMapper().map(dto, ReleaseModelResponse.class);
 	}
 	
@@ -46,7 +46,7 @@ public class ReleaseController {
 	@GetMapping(path="/{releaseId}",produces = MediaType.APPLICATION_JSON_VALUE)
 	public ReleaseModelResponse getByReleaseId(@PathVariable String releaseId) {
 		ReleaseDto dto = releaseService.getByReleaseId(releaseId);
-		return  new ModelMapper().map(dto, ReleaseModelResponse.class);
+		return new ModelMapper().map(dto, ReleaseModelResponse.class);
 	}
 
 }

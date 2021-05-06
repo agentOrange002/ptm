@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-public class ReleaseBoardListModelRequest {
+public class ReleaseModelRequest {	
+	private String userId;
+	private float totalAmount;
 	private List<String> boards;
 }
