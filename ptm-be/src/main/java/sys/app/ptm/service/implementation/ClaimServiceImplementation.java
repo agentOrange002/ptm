@@ -29,7 +29,7 @@ public class ClaimServiceImplementation implements ClaimService {
 	@Override
 	public ClaimDto saveRecruitment(String boardId, ClaimDto dto) {
 		
-		if(boardRepository.findByBoardIdAndBoardStatus(boardId,"PAYOUT")==null) throw new ApplicationServiceException(ErrorMessages.BOARD_NOT_READY_FOR_CLAIM.getErrorMessage());
+		if(boardRepository.findByBoardIdAndBoardStatus(boardId,"RELEASE")==null) throw new ApplicationServiceException(ErrorMessages.BOARD_NOT_READY_FOR_CLAIM.getErrorMessage());
 		
 		dto.setModeOfClaim(dto.getModeOfClaim().toUpperCase());
 		BoardEntity board = boardRepository.findByBoardId(boardId);

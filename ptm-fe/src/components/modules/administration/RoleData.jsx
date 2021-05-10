@@ -12,6 +12,7 @@ import AddRoleDialog from './AddRoleDialog';
 import RoleAuthoritiesDialog from './RoleAuthoritiesDialog';
 import { Messages } from 'primereact/messages';
 import { ROLE_SAVE, ROLE_APPLY_AUTHORITIES } from '../../../redux/constants/RoleConstants';
+import history from '../../../routes/history';
 
 const MyStyle = {
 	id: { width: '450px' },
@@ -43,7 +44,7 @@ class RoleData extends Component {
 
 	viewRole(role) {
 		let id = role.roleId;
-		//history.push(`/app/administration/view/role/${id}`);
+		history.push(`/app/administration/view/role/${id}`);
 	}
 
 	hideRoleDialog = () => {
@@ -74,7 +75,7 @@ class RoleData extends Component {
 
 	displayARADialog = (value) => {
 		this.setState({ araDialog: true });
-		this.setState({ selectItem: value });		
+		this.setState({ selectItem: value });
 	};
 
 	header = () => {
@@ -103,42 +104,40 @@ class RoleData extends Component {
 		}
 	}
 
-	showError(type,message) {
-        let msg = message;
-        if(_.isEmpty(message))
-            msg = "Error Found";
-        this.messages.show({
-            sticky: true,
-            severity: "error",
-            summary: "Error Message :"+type,
-            detail: msg
-        });
-    }
+	showError(type, message) {
+		let msg = message;
+		if (_.isEmpty(message)) msg = 'Error Found';
+		this.messages.show({
+			sticky: true,
+			severity: 'error',
+			summary: 'Error Message :' + type,
+			detail: msg,
+		});
+	}
 
-	showSuccess(type,message) {
-        this.messages.show({           
-            severity: "success",
-            summary: "Success Message :"+type,
-            detail: message
-        });		
-	
-    }	
+	showSuccess(type, message) {
+		this.messages.show({
+			severity: 'success',
+			summary: 'Success Message :' + type,
+			detail: message,
+		});
+	}
 
 	componentDidUpdate(prevProps) {
-        if (this.props.ERROR_MESSAGE !== prevProps.ERROR_MESSAGE) {
-            if (this.props.ERROR) {
-                this.showError(this.props.FETCHTYPE,this.props.ERROR_MESSAGE.message);
-            }
-        }
-		if(this.props.ROLES !== prevProps.ROLES){
-			if(this.props.FETCHTYPE === ROLE_SAVE )	{
-				this.showSuccess(this.props.FETCHTYPE,'Successfully Create Role!');							
-			}
-			if(this.props.FETCHTYPE === ROLE_APPLY_AUTHORITIES)	{
-				this.showSuccess(this.props.FETCHTYPE,'Successfully Apply Role Authorities!');							
+		if (this.props.ERROR_MESSAGE !== prevProps.ERROR_MESSAGE) {
+			if (this.props.ERROR) {
+				this.showError(this.props.FETCHTYPE, this.props.ERROR_MESSAGE.message);
 			}
 		}
-    }
+		if (this.props.ROLES !== prevProps.ROLES) {
+			if (this.props.FETCHTYPE === ROLE_SAVE) {
+				this.showSuccess(this.props.FETCHTYPE, 'Successfully Create Role!');
+			}
+			if (this.props.FETCHTYPE === ROLE_APPLY_AUTHORITIES) {
+				this.showSuccess(this.props.FETCHTYPE, 'Successfully Apply Role Authorities!');
+			}
+		}
+	}
 
 	render() {
 		const paginatorLeft = <Button icon='pi pi-refresh' onClick={this.refreshTable} />;
@@ -185,7 +184,7 @@ const mapStateToProps = (state) => {
 	return {
 		ROLES: Object.values(state.ROLES.rolesResponse),
 		ERROR: state.ROLES.fetchError,
-        ERROR_MESSAGE: state.ROLES.fetchErrorMessage,
+		ERROR_MESSAGE: state.ROLES.fetchErrorMessage,
 		FETCHTYPE: state.ROLES.fetchType,
 	};
 };

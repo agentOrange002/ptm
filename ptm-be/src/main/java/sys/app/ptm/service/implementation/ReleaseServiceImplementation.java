@@ -44,7 +44,7 @@ public class ReleaseServiceImplementation implements ReleaseService {
 			if (boardRepository.findByBoardIdAndBoardStatus(id, "CLAIMED") != null)
 				throw new ApplicationServiceException(ErrorMessages.BOARD_HAS_ALREADY_CLAIMED.getErrorMessage());
 
-			if (boardRepository.findByBoardIdAndBoardStatus(id, "PAYOUT") == null)
+			if (boardRepository.findByBoardIdAndBoardStatus(id, "CREATED") != null)
 				throw new ApplicationServiceException(ErrorMessages.BOARD_NOT_PAYOUT.getErrorMessage());
 
 		}

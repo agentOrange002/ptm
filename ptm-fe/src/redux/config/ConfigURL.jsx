@@ -62,6 +62,10 @@ export const recruitmentURL = axios.create({
 	baseURL: `${urlBackEnd}/recruitments`,
 });
 
+export const releaseURL = axios.create({
+	baseURL: `${urlBackEnd}/releases`,
+});
+
 export const claimURL = axios.create({
 	baseURL: `${urlBackEnd}/claims`,
 });

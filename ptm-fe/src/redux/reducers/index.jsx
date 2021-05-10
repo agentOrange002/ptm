@@ -23,134 +23,161 @@ import { BOARDMEMBERS } from './BoardMemberReducer';
 import { CATEGORIES } from './CategoryReducer';
 import { MEMBERADDRESSES } from './MemberAddressReducer';
 import { MEMBERCONTACTS } from './MemberContactReducer';
-import { ROLES } from './RoleReducer'; 
+import { ROLES } from './RoleReducer';
+import { RECRUITMENTS } from './RecruitmentReducer';
+import { RELEASES } from './ReleaseReducer';
+import { CLAIMS } from './ClaimReducer';
 
-  const encryptor = encryptTransform({
-    secretKey: 'mydirtylittlesecret',
-    onError: function (error) {
-      // Handle the error.
-    },
-  });
-
-const cookieAuthPersistConfig = {
-  key: "root-auth",
-  storage: new CookieStorage(Cookies, {
-    expiration: {
-      'default': 86400000 //expires cookies 1 day      
-    }
-  }),
-  whitelist: ['LOGIN_AUTHENTICATION'],
-  transforms: [encryptor],
-}
-
-const cookieLPPersistConfig = {
-  key: "login-profile",
-  storage: storage,
-  blacklist: ['LOGIN_PROFILE'],
-  transforms: [encryptor],
-}
-
-const cookieUsersAuthPersistConfig = {
-  key: "users",
-  storage: storage,
-  blacklist: ['USERS'],
-  transforms: [encryptor],
-}
-
-const dashboardPC = {
-  key: 'dashboard',
-  storage: storage,
-  blacklist: ['DASHBOARD'],
-  transforms: [encryptor],
-}
-
-const userimagePC = {
-  key: 'userimage',
-  storage: storage,
-  blacklist: ['USERIMAGE'],
-  transforms: [encryptor],
-}
-
-const authorityPC = {
-  key: 'authority',
-  storage: storage,
-  blacklist: ['AUTHORITIES'],
-  transforms: [encryptor],
-}
-
-const addressPC = {
-  key: 'addresses',
-  storage: storage,
-  blacklist: ['ADDRESSES'],
-  transforms: [encryptor],
-}
-
-const memberPC = {
-  key: 'members',
-  storage: storage,
-  blacklist: ['MEMBERS'],
-  transforms: [encryptor],
-}
-
-const boardPC = {
-  key: 'boards',
-  storage: storage,
-  blacklist: ['BOARDS'],
-  transforms: [encryptor],
-}
-
-const boardMemberPC = {
-  key: 'boardmembers',
-  storage: storage,
-  blacklist: ['BOARDMEMBERS'],
-  transforms: [encryptor],
-}
-
-const categoryPC = {
-  key: 'categories',
-  storage: storage,
-  blacklist: ['CATEGORIES'],
-  transforms: [encryptor],
-}
-
-const memberAddressPC = {
-  key: 'memberaddress',
-  storage: storage,
-  blacklist: ['MEMBERADDRESSES'],
-  transforms: [encryptor],
-}
-
-const memberContactPC = {
-  key: 'membercontact',
-  storage: storage,
-  blacklist: ['MEMBERCONTACTS'],
-  transforms: [encryptor],
-}
-
-const rolePC = {
-  key: 'role',
-  storage: storage,
-  blacklist: ['ROLES'],
-  transforms: [encryptor],
-}
-
-const rootReducer = combineReducers({
-  form: formReducer,
-  loadingBar: loadingBarReducer,
-  LOGIN_AUTHENTICATION: LOGIN_AUTHENTICATION,
-  LOGIN_PROFILE: persistReducer(cookieLPPersistConfig, LOGIN_PROFILE),
-  USERS: persistReducer(cookieUsersAuthPersistConfig, USERS),  
-  USERIMAGE: persistReducer(userimagePC, USERIMAGE),
-  AUTHORITIES: persistReducer(authorityPC, AUTHORITIES),
-  ADDRESSES: persistReducer(addressPC, ADDRESSES), 
-  MEMBERS: persistReducer(memberPC, MEMBERS), 
-  BOARDS: persistReducer(boardPC, BOARDS),
-  BOARDMEMBERS: persistReducer(boardMemberPC, BOARDMEMBERS),
-  CATEGORIES:  persistReducer(categoryPC, CATEGORIES),
-  MEMBERADDRESSES: persistReducer(memberAddressPC, MEMBERADDRESSES),
-  MEMBERCONTACTS: persistReducer(memberContactPC, MEMBERCONTACTS),
-  ROLES:  persistReducer(rolePC, ROLES),
-  DASHBOARD: persistReducer(dashboardPC, DASHBOARD)
+const encryptor = encryptTransform({
+	secretKey: 'mydirtylittlesecret',
+	onError: function (error) {
+		// Handle the error.
+	},
 });
 
-export default persistReducer(cookieAuthPersistConfig,rootReducer);
+const cookieAuthPersistConfig = {
+	key: 'root-auth',
+	storage: new CookieStorage(Cookies, {
+		expiration: {
+			default: 86400000, //expires cookies 1 day
+		},
+	}),
+	whitelist: ['LOGIN_AUTHENTICATION'],
+	transforms: [encryptor],
+};
+
+const cookieLPPersistConfig = {
+	key: 'login-profile',
+	storage: storage,
+	blacklist: ['LOGIN_PROFILE'],
+	transforms: [encryptor],
+};
+
+const cookieUsersAuthPersistConfig = {
+	key: 'users',
+	storage: storage,
+	blacklist: ['USERS'],
+	transforms: [encryptor],
+};
+
+const dashboardPC = {
+	key: 'dashboard',
+	storage: storage,
+	blacklist: ['DASHBOARD'],
+	transforms: [encryptor],
+};
+
+const userimagePC = {
+	key: 'userimage',
+	storage: storage,
+	blacklist: ['USERIMAGE'],
+	transforms: [encryptor],
+};
+
+const authorityPC = {
+	key: 'authority',
+	storage: storage,
+	blacklist: ['AUTHORITIES'],
+	transforms: [encryptor],
+};
+
+const addressPC = {
+	key: 'addresses',
+	storage: storage,
+	blacklist: ['ADDRESSES'],
+	transforms: [encryptor],
+};
+
+const memberPC = {
+	key: 'members',
+	storage: storage,
+	blacklist: ['MEMBERS'],
+	transforms: [encryptor],
+};
+
+const boardPC = {
+	key: 'boards',
+	storage: storage,
+	blacklist: ['BOARDS'],
+	transforms: [encryptor],
+};
+
+const boardMemberPC = {
+	key: 'boardmembers',
+	storage: storage,
+	blacklist: ['BOARDMEMBERS'],
+	transforms: [encryptor],
+};
+
+const categoryPC = {
+	key: 'categories',
+	storage: storage,
+	blacklist: ['CATEGORIES'],
+	transforms: [encryptor],
+};
+
+const memberAddressPC = {
+	key: 'memberaddress',
+	storage: storage,
+	blacklist: ['MEMBERADDRESSES'],
+	transforms: [encryptor],
+};
+
+const memberContactPC = {
+	key: 'membercontact',
+	storage: storage,
+	blacklist: ['MEMBERCONTACTS'],
+	transforms: [encryptor],
+};
+
+const rolePC = {
+	key: 'role',
+	storage: storage,
+	blacklist: ['ROLES'],
+	transforms: [encryptor],
+};
+
+const recruitmentPC = {
+	key: 'recruitment',
+	storage: storage,
+	blacklist: ['RECRUITMENTS'],
+	transforms: [encryptor],
+};
+
+const releasePC = {
+	key: 'release',
+	storage: storage,
+	blacklist: ['RELEASES'],
+	transforms: [encryptor],
+};
+
+const claimPC = {
+	key: 'claim',
+	storage: storage,
+	blacklist: ['CLAIMS'],
+	transforms: [encryptor],
+};
+
+const rootReducer = combineReducers({
+	form: formReducer,
+	loadingBar: loadingBarReducer,
+	LOGIN_AUTHENTICATION: LOGIN_AUTHENTICATION,
+	LOGIN_PROFILE: persistReducer(cookieLPPersistConfig, LOGIN_PROFILE),
+	USERS: persistReducer(cookieUsersAuthPersistConfig, USERS),
+	USERIMAGE: persistReducer(userimagePC, USERIMAGE),
+	AUTHORITIES: persistReducer(authorityPC, AUTHORITIES),
+	ADDRESSES: persistReducer(addressPC, ADDRESSES),
+	MEMBERS: persistReducer(memberPC, MEMBERS),
+	BOARDS: persistReducer(boardPC, BOARDS),
+	BOARDMEMBERS: persistReducer(boardMemberPC, BOARDMEMBERS),
+	CATEGORIES: persistReducer(categoryPC, CATEGORIES),
+	MEMBERADDRESSES: persistReducer(memberAddressPC, MEMBERADDRESSES),
+	MEMBERCONTACTS: persistReducer(memberContactPC, MEMBERCONTACTS),
+	ROLES: persistReducer(rolePC, ROLES),
+	RECRUITMENTS: persistReducer(recruitmentPC, RECRUITMENTS),
+	RELEASES: persistReducer(releasePC, RELEASES),
+	CLAIMS: persistReducer(claimPC, CLAIMS),
+	DASHBOARD: persistReducer(dashboardPC, DASHBOARD),
+});
+
+export default persistReducer(cookieAuthPersistConfig, rootReducer);
