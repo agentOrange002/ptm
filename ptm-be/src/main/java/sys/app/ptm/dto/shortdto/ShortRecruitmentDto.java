@@ -1,7 +1,6 @@
 package sys.app.ptm.dto.shortdto;
 
 import java.io.Serializable;
-import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -17,7 +16,7 @@ public class ShortRecruitmentDto  implements Serializable {
 
 	private Long id;	
 	private String recruitmentId;		
-	//private ShortMemberDto memberRecruitmentDetails;
-	private List<ShortMemberDto> membersRecruited;
+	private ShortMemberDto memberRecruitmentDetails;
+	//private List<ShortMemberDto> membersRecruited;
 	
 }

@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import history from '../../../routes/history';
 import CustomBreadCrumb from '../../breadcrumb';
 import { Menubar } from 'primereact/menubar';
+import { Switch, Route, Redirect } from 'react-router-dom';
+import NotFoundPage from '../error/NotFoundPage';
+import RecruitmentForm from './RecruitmentForm';
+import RecruitmentData from './RecruitmentData';
 
 const urlparam = `${window.location.origin}/#/app/`;
 
@@ -29,7 +33,7 @@ class RecruitmentProcess extends Component {
 					{
 						label: 'Add New Recruitment',
 						icon: 'pi pi-fw pi-plus',
-						url: `${urlparam}process/recruitmentregister`,
+						url: `${urlparam}process/recruitment/register`,
 					},
 					{
 						separator: true,
@@ -55,7 +59,15 @@ class RecruitmentProcess extends Component {
 					<div className='p-grid p-fluid'>
 						<div className='p-col-12'>
 							<Menubar style={MyStyle.menubar} model={this.state.menuItems} />
-							<div style={{ paddingTop: '.5em' }}></div>
+							<div style={{ paddingTop: '.5em' }}>
+								<Switch>
+									<Route path='/app/process/recruitment' exact component={RecruitmentData} />
+
+									<Route path='/app/process/recruitment/register' render={(props) => <RecruitmentForm {...props} title={'Add New Recruitment Form'} />} />
+									<Route path='/app/process/recruitment/notfound' component={NotFoundPage} />
+									<Redirect from='/app/process/recruitment/*' to='/app/process/recruitment/notfound' />
+								</Switch>
+							</div>
 						</div>
 					</div>
 				</div>

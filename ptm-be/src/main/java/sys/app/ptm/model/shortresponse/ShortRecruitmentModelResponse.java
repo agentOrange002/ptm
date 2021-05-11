@@ -1,7 +1,5 @@
 package sys.app.ptm.model.shortresponse;
 
-import java.util.List;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,6 +7,6 @@ import lombok.Setter;
 public class ShortRecruitmentModelResponse {
 	private Long id;	
 	private String recruitmentId;		
-	//private ShortMemberModelResponse memberRecruitmentDetails;
-	private List<ShortMemberModelResponse> membersRecruited;
+	private ShortMemberModelResponse memberRecruitmentDetails;
+	//private List<ShortMemberModelResponse> membersRecruited;
 }
