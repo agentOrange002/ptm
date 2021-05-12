@@ -289,7 +289,8 @@ class MemberInfo extends Component {
 	};
 
 	getPDF = async (memberId) => {
-		await Axios.get(`http://localhost:8080/ptm/api/reports/member/${memberId}`, {
+		// await Axios.get(`http://localhost:8080/ptm/api/reports/member/${memberId}`, {
+		await Axios.get(`${process.env.BACK_END_URL}/reports/member/${memberId}`, {
 			responseType: 'blob',
 			headers: {
 				Accept: 'application/pdf',

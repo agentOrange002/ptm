@@ -1,9 +1,15 @@
 import axios from 'axios';
 
-export const urlBackEnd = 'http://192.168.254.101:8080/ptm/api';
+// export const urlBackEnd = 'http://192.168.254.101:8080/ptm/api';
+
+export const urlBackEnd = process.env.BACK_END_URL;
+
+// export const loginURL = axios.create({
+// 	baseURL: 'http://192.168.254.101:8080/ptm',
+// });
 
 export const loginURL = axios.create({
-	baseURL: 'http://192.168.254.101:8080/ptm',
+	baseURL: process.env.LOGIN_URL,
 });
 
 export const addressURL = axios.create({

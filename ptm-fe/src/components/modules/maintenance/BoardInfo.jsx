@@ -296,7 +296,7 @@ class BoardInfo extends Component {
 	};
 
 	getPDF = async (boardId) => {
-		await Axios.get(`http://localhost:8080/ptm/api/reports/board/${boardId}`, {
+		await Axios.get(`${process.env.BACK_END_URL}/reports/board/${boardId}`, {
 			responseType: 'blob',
 			headers: {
 				Accept: 'application/pdf',
@@ -416,14 +416,7 @@ class BoardInfo extends Component {
 									{/* <Field name='memberId' label='Member ID' component={this.renderInput} /> */}
 									<div className='p-col-12 p-md-12' style={MyStyle.divform}>
 										<span className='p-float-label'>
-											<InputText
-												value={this.state.memberId}
-												id='in'
-												style={MyStyle.divfield}
-												tooltip='Enter Member Id'
-												tooltipOptions={MyStyle.tooltipField}
-												onChange={(e) => this.setState({ memberId: e.target.value })}
-											/>
+											<InputText value={this.state.memberId} id='in' style={MyStyle.divfield} tooltip='Enter Member Id' tooltipOptions={MyStyle.tooltipField} onChange={(e) => this.setState({ memberId: e.target.value })} />
 											<label htmlFor='in'>Member ID:</label>
 										</span>
 									</div>

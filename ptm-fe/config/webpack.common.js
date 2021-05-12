@@ -5,6 +5,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
 const webpack = require('webpack');
 
+const dotenv = require('dotenv');
+
+
 module.exports = {
   // Where webpack looks to start building the bundle
   entry: [paths.src + '/index.js'],
@@ -18,6 +21,10 @@ module.exports = {
 
   // Customize the webpack build process
   plugins: [
+
+    new webpack.DefinePlugin({
+      'process.env': JSON.stringify(dotenv.config().parsed)
+    }),
 
      // (do "npm install process" before running the build)
      new webpack.ProvidePlugin({
