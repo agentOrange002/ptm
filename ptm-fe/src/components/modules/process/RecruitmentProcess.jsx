@@ -64,7 +64,7 @@ class RecruitmentProcess extends Component {
 								<Switch>
 									<Route path='/app/process/recruitment' exact component={RecruitmentData} />
 									<Route path='/app/process/recruitment/register' render={(props) => <RecruitmentForm {...props} title={'Add New Recruitment Form'} />} />
-									<Route path='/app/process/recruitment/view/:RecruitmentId' component={RecruitmentInfo} />
+									<Route path='/app/process/recruitment/view/:recruitmentId' component={RecruitmentInfo} />
 									<Route path='/app/process/recruitment/notfound' component={NotFoundPage} />
 									<Redirect from='/app/process/recruitment/*' to='/app/process/recruitment/notfound' />
 								</Switch>

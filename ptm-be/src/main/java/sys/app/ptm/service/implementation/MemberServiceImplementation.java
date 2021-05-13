@@ -39,6 +39,9 @@ public class MemberServiceImplementation implements MemberService {
 		entity.setLoggedDate(LocalDate.now());
 		entity.setMemberStatus("CREATED");
 		entity.setUserDetails_Member(user);	
+		entity.setFirstName(dto.getFirstName().toUpperCase());
+		entity.setMiddleName(dto.getMiddleName().toUpperCase());
+		entity.setLastName(dto.getLastName().toUpperCase());
 		MemberEntity saveEntity = memberRepository.save(entity);		
 		return new ModelMapper().map(saveEntity, MemberDto.class);
 	}

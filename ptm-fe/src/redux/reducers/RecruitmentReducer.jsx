@@ -1,4 +1,4 @@
-import { RECRUITMENT_ERROR, RECRUITMENT_GET_ALL, RECRUITMENT_GET_BY_ID, RECRUITMENT_SAVE, RECRUITMENT_UPDATE, RECRUITMENT_DELETE, RECRUITMENT_RESET } from '../constants/RecruitmentConstants';
+import { RECRUITMENT_ERROR, RECRUITMENT_GET_ALL, RECRUITMENT_GET_BY_RECRUITMENTID, RECRUITMENT_SAVE, RECRUITMENT_UPDATE, RECRUITMENT_DELETE, RECRUITMENT_RESET } from '../constants/RecruitmentConstants';
 import _ from 'lodash';
 
 const RecruitmentsState = {
@@ -26,7 +26,7 @@ export const RECRUITMENTS = (state = RecruitmentsState, action) => {
 				fetchError: false,
 				fetchErrorMessage: null,
 			};
-		case RECRUITMENT_GET_BY_ID:
+		case RECRUITMENT_GET_BY_RECRUITMENTID:
 			return {
 				...state,
 				recruitmentsResponse: { ...state.recruitmentsResponse, [action.payload.recruitmentId]: action.payload },

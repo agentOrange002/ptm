@@ -38,14 +38,34 @@ const MyStyle = {
 class RecruitmentInfo extends Component {
 	state = {};
 
-	componentDidMount() {}
+	componentDidMount() {
+		const { recruitmentId } = this.props.match.params;
+		this.props.getRecruitmentByRecruitmentId(recruitmentId);
+	}
 
 	onClickUpdate = () => {};
 
 	addMembersRecruited = () => {};
 
 	renderInformation = () => {
-		return <h1>wawawwee</h1>;
+		return (
+			<div className='p-fluid p-grid'>
+				<div className='p-field p-col-12 p-md-6'>
+					<h2>{this.props.RECRUITMENT.memberRecruitmentDetails.memberId}</h2>
+					<br />
+					<label>{this.props.RECRUITMENT.memberRecruitmentDetails.id}</label>
+					<br />
+					<label>{this.props.RECRUITMENT.memberRecruitmentDetails.fullName}</label>
+				</div>
+				<div className='p-field p-col-12 p-md-6'>
+					<label>Status: {this.props.RECRUITMENT.memberRecruitmentDetails.memberStatus}</label>
+					<br />
+					<label>Date Joined: {this.props.RECRUITMENT.memberRecruitmentDetails.dateJoined}</label>
+					<br />
+					<label>Logged Date: {this.props.RECRUITMENT.memberRecruitmentDetails.loggedDate}</label>
+				</div>
+			</div>
+		);
 	};
 
 	renderRecruited = () => {
@@ -59,18 +79,13 @@ class RecruitmentInfo extends Component {
 					<Messages ref={(el) => (this.messages = el)}></Messages>
 					<TabView style={{ marginLeft: '0' }} activeIndex={this.state.activeIndex} onTabChange={(e) => this.setState({ activeIndex: e.index })}>
 						<TabPanel header='Recruitment Information' leftIcon='pi pi-fw pi-user'>
-							<Fieldset legend='Member Profile'>{this.renderInformation()}</Fieldset>
-							<div className='button' style={MyStyle.DivButton}>
-								<span>
-									<Button icon='pi pi-save' label='Update Profile' style={MyStyle.Button} onClick={this.onClickUpdateProfile} />
-								</span>
-							</div>
+							<Fieldset legend='Recruiter Profile'>{this.renderInformation()}</Fieldset>
 						</TabPanel>
 						<TabPanel header='Members Recruited' leftIcon='pi pi-fw pi-list'>
-							<Fieldset legend='Member Address'>{this.renderRecruited()}</Fieldset>
+							<Fieldset legend='Members Recruited'>{this.renderRecruited()}</Fieldset>
 							<div className='button' style={MyStyle.DivButton}>
 								<span>
-									<Button icon='pi pi-plus' label='Add Address' style={MyStyle.Button} onClick={this.addMembersRecruited} />
+									<Button icon='pi pi-plus' label='Add Member' style={MyStyle.Button} onClick={this.addMembersRecruited} />
 								</span>
 							</div>
 						</TabPanel>
@@ -84,7 +99,7 @@ class RecruitmentInfo extends Component {
 const mapStateToProps = (state, ownProps) => {
 	const { recruitmentId } = ownProps.match.params;
 	return {
-		RECRUITMENTS: state.RECRUITMENTS.recruitmentsResponse[recruitmentId],
+		RECRUITMENT: state.RECRUITMENTS.recruitmentsResponse[recruitmentId],
 		FETCHTYPE: state.RECRUITMENTS.fetchType,
 		ERROR: state.RECRUITMENTS.fetchError,
 		ERROR_MESSAGE: state.RECRUITMENTS.fetchErrorMessage,
