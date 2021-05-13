@@ -30,6 +30,7 @@ class BoardData extends Component {
 				command: (event) => this.viewBoard(this.state.selectedBoard),
 			},
 		],
+		globalFilter: null,
 	};
 
 	async componentDidMount() {
