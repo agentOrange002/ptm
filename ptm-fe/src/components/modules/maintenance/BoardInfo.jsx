@@ -202,7 +202,7 @@ class BoardInfo extends Component {
 	header = () => {
 		return (
 			<div style={MyStyle.datatableButton}>
-				<Button icon='pi pi-plus' type='button' label='Add Board Member' onClick={this.addBoardMember} disabled={this.props.BOARD.boardStatus === 'PAYOUT' ? true : false} />
+				<Button icon='pi pi-plus' type='button' className='p-button-success' label='Add Board Member' onClick={this.addBoardMember} disabled={this.props.BOARD.boardStatus === 'PAYOUT' ? true : false} />
 			</div>
 		);
 	};
@@ -410,7 +410,7 @@ class BoardInfo extends Component {
 						})()}
 
 						{/* //<form onSubmit={this.props.handleSubmit(this.onSubmit)}> */}
-						<Dialog header={this.header()} visible={this.state.BoardMemberVisible} style={MyStyle.ShortDialogStyle} modal={true} onHide={this.hideDialog}>
+						<Dialog header='Apply Board Member' visible={this.state.BoardMemberVisible} style={MyStyle.ShortDialogStyle} modal={true} onHide={this.hideDialog}>
 							<Fieldset legend='Board Member Form'>
 								<div className='p-grid p-fluid'>
 									{/* <Field name='memberId' label='Member ID' component={this.renderInput} /> */}

@@ -50,7 +50,6 @@ const MyStyle = {
 
 class RecruitmentInfo extends Component {
 	state = {
-		globalFilter: null,
 		RecruitmentDialog: false,
 		recruitmentValues: [],
 	};
@@ -63,17 +62,6 @@ class RecruitmentInfo extends Component {
 	onClickUpdate = () => {};
 
 	addMembersRecruited = () => {};
-
-	renderHeader = () => {
-		return (
-			<div style={{ display: 'flex', justifyContent: 'space-between' }}>
-				<span className='p-input-icon-left'>
-					<i className='pi pi-search' />
-					<InputText style={{ width: '50vw', float: 'left' }} type='search' onInput={(e) => this.setState({ globalFilter: e.target.value })} placeholder='Search Specific Member Data' />
-				</span>
-			</div>
-		);
-	};
 
 	displaySelection(data) {
 		if (!data || data.length === 0) {
@@ -105,6 +93,18 @@ class RecruitmentInfo extends Component {
 
 	hideDialog = () => {
 		this.setState({ RecruitmentDialog: false });
+	};
+
+	openDialog = () => {
+		this.setState({ RecruitmentDialog: true });
+	};
+
+	header = () => {
+		return (
+			<div style={{ display: 'flex', justifyContent: 'space-between' }}>
+				<Button style={{ width: '300px', float: 'left' }} icon='pi pi-plus' type='button' className='p-button-success' label='Add Recruited Member' onClick={this.openDialog} />
+			</div>
+		);
 	};
 
 	render() {
@@ -142,9 +142,7 @@ class RecruitmentInfo extends Component {
 							sortOrder={-1}
 							scrollable={true}
 							selectionMode='single'
-							header={this.renderHeader()}
-							responsive
-							globalFilter={this.state.globalFilter}
+							header={this.header()}
 							footer={this.displaySelection(this.state.selectedMember)}
 							selection={this.state.selectedMember}
 							onSelectionChange={(e) => this.setState({ selectedMember: e.value })}
@@ -170,7 +168,7 @@ class RecruitmentInfo extends Component {
 							<Column field='loggedDate' header='Logged Date' style={MyStyle.loggedDate} />
 							<Column field='dateOut' header='Date Out' style={MyStyle.dateOut} />
 						</DataTable>
-						<Dialog header={this.header()} visible={this.state.RecruitmentDialog} style={MyStyle.ShortDialogStyle} modal={true} onHide={this.hideDialog}>
+						<Dialog header='Recruitment Dialog' visible={this.state.RecruitmentDialog} style={MyStyle.ShortDialogStyle} modal={true} onHide={this.hideDialog}>
 							<Fieldset legend='Recruitment Form'>
 								<div className='p-grid p-fluid'>
 									<div className='p-col-12 p-md-12' style={MyStyle.divform}>
