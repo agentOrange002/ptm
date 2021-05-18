@@ -11,6 +11,7 @@ import UILoader from '../tools/UILoader';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { getRecruitmentByRecruitmentId } from '../../../redux/actions/RecruitmentActions';
+import { Chips } from 'primereact/chips';
 
 const MyStyle = {
 	Panel: { paddingBottom: '1em' },
@@ -50,6 +51,8 @@ const MyStyle = {
 class RecruitmentInfo extends Component {
 	state = {
 		globalFilter: null,
+		RecruitmentDialog: false,
+		recruitmentValues: [],
 	};
 
 	componentDidMount() {
@@ -92,6 +95,16 @@ class RecruitmentInfo extends Component {
 		event.preventDefault();
 		const { recruitmentId } = this.props.match.params;
 		this.props.getRecruitmentByRecruitmentId(recruitmentId);
+	};
+
+	onSubmit = async () => {
+		const formValues = { memberId: this.state.memberId };
+		this.setState({ RecruitmentDialog: false });
+		this.setState({ memberId: '' });
+	};
+
+	hideDialog = () => {
+		this.setState({ RecruitmentDialog: false });
 	};
 
 	render() {
@@ -157,6 +170,25 @@ class RecruitmentInfo extends Component {
 							<Column field='loggedDate' header='Logged Date' style={MyStyle.loggedDate} />
 							<Column field='dateOut' header='Date Out' style={MyStyle.dateOut} />
 						</DataTable>
+						<Dialog header={this.header()} visible={this.state.RecruitmentDialog} style={MyStyle.ShortDialogStyle} modal={true} onHide={this.hideDialog}>
+							<Fieldset legend='Recruitment Form'>
+								<div className='p-grid p-fluid'>
+									<div className='p-col-12 p-md-12' style={MyStyle.divform}>
+										<span className='p-float-label'>
+											<InputText value={this.state.memberId} id='in' style={MyStyle.divfield} tooltip='Enter Member Id' tooltipOptions={MyStyle.tooltipField} onChange={(e) => this.setState({ memberId: e.target.value })} />
+											<label htmlFor='in'>Member ID:</label>
+
+											<Chips value={this.state.recruitmentValues} onChange={(e) => this.setState({ recruitmentValues: e.value })} separator=',' />
+										</span>
+									</div>
+								</div>
+							</Fieldset>
+							<div className='button' style={MyStyle.fieldDivButton}>
+								<span>
+									<Button icon='pi pi-plus' label='Add' style={MyStyle.fieldButton} onClick={this.onSubmit} />
+								</span>
+							</div>
+						</Dialog>
 					</div>
 				</div>
 			</UILoader>

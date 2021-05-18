@@ -173,7 +173,7 @@ class BoardInfo extends Component {
 			memberId: this.state.memberId,
 		};
 		const tm = this.getFirstElement(this.props.BOARDMEMBERS);
-		console.log(JSON.stringify(formValues) + ' :' + tm.boardMemberId);
+		//console.log(JSON.stringify(formValues) + ' :' + tm.boardMemberId);
 		await this.props.save1_auto(formValues, tm.boardMemberId);
 		this.setState({
 			BoardMemberVisible: false,
