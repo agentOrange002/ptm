@@ -82,16 +82,16 @@ public class RecruitmentServiceImplementation implements RecruitmentService{
 		
 		RecruitmentEntity recruitment = recruitmentRepository.findByRecruitmentId(recruitmentId);		
 		
-		List<MemberEntity> newlist = new ArrayList<MemberEntity>();
+		//List<MemberEntity> newlist = new ArrayList<MemberEntity>();
+		List<MemberEntity> newlist = recruitment.getMembersRecruited();
 		for(String id: request.getMembers()) {
 			MemberEntity member = memberRepository.findByMemberId(id);
 			member.setRecruitmentDetails(recruitment);
 			MemberEntity savedMember = memberRepository.save(member);
 			newlist.add(savedMember);
-		}		
+		}			
 		
-		
-		recruitment.setMembersRecruited(newlist);		
+		recruitment.setMembersRecruited(newlist);
 		RecruitmentEntity updatedEntity = recruitmentRepository.save(recruitment);	
 		return new ModelMapper().map(updatedEntity,RecruitmentDto.class);
 	}

@@ -7,6 +7,7 @@ export const RECRUITMENT_UPDATE = 'RECRUITMENT_UPDATE';
 export const RECRUITMENT_DELETE = 'RECRUITMENT_DELETE';
 export const RECRUITMENT_LOADING = 'RECRUITMENT_LOADING';
 export const RECRUITMENT_RESET = 'RECRUITMENT_RESET';
+export const RECRUITMENT_APPLY_MEMBER = 'RECRUITMENT_APPLY_MEMBER';
 
 export const RecruitmentLoading = () => {
 	return {
@@ -58,6 +59,13 @@ export const RecruitmentSave = (data) => {
 export const RecruitmentUpdate = (data) => {
 	return {
 		type: RECRUITMENT_UPDATE,
+		payload: data,
+	};
+};
+
+export const RecruitmentApplyMember = (data) => {
+	return {
+		type: RECRUITMENT_APPLY_MEMBER,
 		payload: data,
 	};
 };

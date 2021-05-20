@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { InputText } from 'primereact/inputtext';
 import { Panel } from 'primereact/panel';
 import { Button } from 'primereact/button';
 import { Fieldset } from 'primereact/fieldset';
@@ -46,6 +45,12 @@ const MyStyle = {
 	memberStatus: { width: '150px' },
 	loggedDate: { width: '350px' },
 	userDetails_Member: { width: '500px' },
+	divform: { paddingTop: '20px' },
+	ShortDialogStyle: { width: '50vw', borderStyle: 'solid', borderColor: 'white', borderWidth: '1px' },
+	fieldDivButton: { paddingTop: '10px', paddingBottom: '35px' },
+	fieldButton: { marginRight: '.25em', float: 'right', width: '250px' },
+	headerDiv: { display: 'flex', justifyContent: 'space-between' },
+	headerButton: { width: '250px', float: 'left' },
 };
 
 class RecruitmentInfo extends Component {
@@ -59,9 +64,13 @@ class RecruitmentInfo extends Component {
 		this.props.getRecruitmentByRecruitmentId(recruitmentId);
 	}
 
-	onClickUpdate = () => {};
+	componentDidUpdate(prevProps) {}
 
-	addMembersRecruited = () => {};
+	addMembersRecruited = () => {
+		const formValues = { memberId: this.state.memberId };
+		this.setState({ RecruitmentDialog: false });
+		this.setState({ memberId: '' });
+	};
 
 	displaySelection(data) {
 		if (!data || data.length === 0) {
@@ -85,12 +94,6 @@ class RecruitmentInfo extends Component {
 		this.props.getRecruitmentByRecruitmentId(recruitmentId);
 	};
 
-	onSubmit = async () => {
-		const formValues = { memberId: this.state.memberId };
-		this.setState({ RecruitmentDialog: false });
-		this.setState({ memberId: '' });
-	};
-
 	hideDialog = () => {
 		this.setState({ RecruitmentDialog: false });
 	};
@@ -101,8 +104,8 @@ class RecruitmentInfo extends Component {
 
 	header = () => {
 		return (
-			<div style={{ display: 'flex', justifyContent: 'space-between' }}>
-				<Button style={{ width: '300px', float: 'left' }} icon='pi pi-plus' type='button' className='p-button-success' label='Add Recruited Member' onClick={this.openDialog} />
+			<div style={MyStyle.headerDiv}>
+				<Button style={MyStyle.headerButton} icon='pi pi-plus' type='button' className='p-button-success' label='Add Recruited Member' onClick={this.openDialog} />
 			</div>
 		);
 	};
@@ -169,21 +172,16 @@ class RecruitmentInfo extends Component {
 							<Column field='dateOut' header='Date Out' style={MyStyle.dateOut} />
 						</DataTable>
 						<Dialog header='Recruitment Dialog' visible={this.state.RecruitmentDialog} style={MyStyle.ShortDialogStyle} modal={true} onHide={this.hideDialog}>
-							<Fieldset legend='Recruitment Form'>
+							<Fieldset legend='Enter Recruited Members'>
 								<div className='p-grid p-fluid'>
 									<div className='p-col-12 p-md-12' style={MyStyle.divform}>
-										<span className='p-float-label'>
-											<InputText value={this.state.memberId} id='in' style={MyStyle.divfield} tooltip='Enter Member Id' tooltipOptions={MyStyle.tooltipField} onChange={(e) => this.setState({ memberId: e.target.value })} />
-											<label htmlFor='in'>Member ID:</label>
-
-											<Chips value={this.state.recruitmentValues} onChange={(e) => this.setState({ recruitmentValues: e.value })} separator=',' />
-										</span>
+										<Chips value={this.state.recruitmentValues} onChange={(e) => this.setState({ recruitmentValues: e.value })} separator=',' />
 									</div>
 								</div>
 							</Fieldset>
 							<div className='button' style={MyStyle.fieldDivButton}>
 								<span>
-									<Button icon='pi pi-plus' label='Add' style={MyStyle.fieldButton} onClick={this.onSubmit} />
+									<Button icon='pi pi-plus' label='Add Recruited Member' style={MyStyle.fieldButton} onClick={this.addMembersRecruited} />
 								</span>
 							</div>
 						</Dialog>

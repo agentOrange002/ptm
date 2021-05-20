@@ -1,5 +1,5 @@
 import { recruitmentURL as apiURL } from '../config/ConfigURL';
-import { RecruitmentError, RecruitmentSave, RecruitmentLoading, RecruitmentReset, RecruitmentGetAll, RecruitmentGetByRecruitmentID } from '../constants/RecruitmentConstants';
+import { RecruitmentError, RecruitmentSave, RecruitmentLoading, RecruitmentReset, RecruitmentGetAll, RecruitmentGetByRecruitmentID, RecruitmentApplyMember } from '../constants/RecruitmentConstants';
 import { showLoading, hideLoading } from 'react-redux-loading-bar';
 import { ToastSuccess, ToastError } from '../../components/toasts';
 import { reset } from 'redux-form';
@@ -87,6 +87,43 @@ export const saveRecruitment = (formValues) => async (dispatch, getState) => {
 			dispatch(RecruitmentSave(data));
 			dispatch(hideLoading('LOADINGBAR'));
 			dispatch(reset('addNewRecruitment'));
+			ToastSuccess('Successfully Save New Recruitment!');
+		})
+		.catch(function (error) {
+			let errorResponse = error;
+			let errorMessage = error.message;
+
+			if (!_.isEmpty(error.response)) {
+				errorResponse = error.response.data;
+				errorMessage = error.response.data.message;
+			}
+			dispatch(RecruitmentError(errorResponse));
+			dispatch(hideLoading('LOADINGBAR'));
+			ToastError(errorMessage);
+		});
+};
+
+export const applyRecruitedMembers = (formValues) => async (dispatch, getState) => {
+	dispatch(RecruitmentLoading());
+	let uid = getState().LOGIN_AUTHENTICATION.loginState.loginResponse.userid;
+	let token = getState().LOGIN_AUTHENTICATION.loginState.loginResponse.authorization;
+	dispatch(showLoading('LOADINGBAR'));
+	await apiURL
+		.put(
+			'/',
+			{ ...formValues, loggedBy: uid },
+			{
+				headers: {
+					'Content-Type': 'application/json',
+					Accept: 'application/json',
+					Authorization: token,
+				},
+			}
+		)
+		.then(function (response) {
+			let data = response.data;
+			dispatch(RecruitmentApplyMember(data));
+			dispatch(hideLoading('LOADINGBAR'));
 			ToastSuccess('Successfully Save New Recruitment!');
 		})
 		.catch(function (error) {
