@@ -6,8 +6,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-public class RecruitmentMemberListModelRequest {
-	
+public class RecruitmentMemberListModelRequest {	
 	private List<String> members;
-
 }

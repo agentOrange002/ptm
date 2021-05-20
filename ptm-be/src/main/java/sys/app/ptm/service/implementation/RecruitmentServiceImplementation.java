@@ -28,8 +28,12 @@ public class RecruitmentServiceImplementation implements RecruitmentService{
 	private Utility utility;
 	
 	@Override
-	public RecruitmentDto saveRecruitment(String memberId,RecruitmentMemberListModelRequest request) {		
+	public RecruitmentDto saveRecruitment(String memberId,RecruitmentMemberListModelRequest request) {			
+		
 		MemberEntity mement = memberRepository.findByMemberId(memberId);
+		if(mement==null) throw new ApplicationServiceException(ErrorMessages.RECRUITER_NOT_FOUND.getErrorMessage());
+		
+		
 		if(recruitmentRepository.findByMemberRecruitmentDetails(mement)!=null) throw new ApplicationServiceException(ErrorMessages.MEMBER_HAS_ALREADY_AN_EXISTING_RECRUITMENTINFO.getErrorMessage());
 		
 		for(String id: request.getMembers()) {
@@ -83,7 +87,7 @@ public class RecruitmentServiceImplementation implements RecruitmentService{
 		RecruitmentEntity recruitment = recruitmentRepository.findByRecruitmentId(recruitmentId);		
 		
 		//List<MemberEntity> newlist = new ArrayList<MemberEntity>();
-		List<MemberEntity> newlist = recruitment.getMembersRecruited();
+		List<MemberEntity> newlist = new ArrayList<MemberEntity>();
 		for(String id: request.getMembers()) {
 			MemberEntity member = memberRepository.findByMemberId(id);
 			member.setRecruitmentDetails(recruitment);
@@ -91,7 +95,7 @@ public class RecruitmentServiceImplementation implements RecruitmentService{
 			newlist.add(savedMember);
 		}			
 		
-		recruitment.setMembersRecruited(newlist);
+		recruitment.getMembersRecruited().addAll(newlist);		
 		RecruitmentEntity updatedEntity = recruitmentRepository.save(recruitment);	
 		return new ModelMapper().map(updatedEntity,RecruitmentDto.class);
 	}

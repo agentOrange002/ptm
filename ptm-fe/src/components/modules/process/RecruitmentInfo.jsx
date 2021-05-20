@@ -9,8 +9,9 @@ import { Messages } from 'primereact/messages';
 import UILoader from '../tools/UILoader';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
-import { getRecruitmentByRecruitmentId } from '../../../redux/actions/RecruitmentActions';
+import { getRecruitmentByRecruitmentId, applyRecruitedMembers } from '../../../redux/actions/RecruitmentActions';
 import { Chips } from 'primereact/chips';
+import { RECRUITMENT_APPLY_MEMBER } from '../../../redux/constants/RecruitmentConstants';
 
 const MyStyle = {
 	Panel: { paddingBottom: '1em' },
@@ -56,7 +57,7 @@ const MyStyle = {
 class RecruitmentInfo extends Component {
 	state = {
 		RecruitmentDialog: false,
-		recruitmentValues: [],
+		members: [],
 	};
 
 	componentDidMount() {
@@ -64,12 +65,25 @@ class RecruitmentInfo extends Component {
 		this.props.getRecruitmentByRecruitmentId(recruitmentId);
 	}
 
-	componentDidUpdate(prevProps) {}
+	componentDidUpdate(prevProps) {
+		if (this.props.ERROR_MESSAGE !== prevProps.ERROR_MESSAGE) {
+			if (this.props.ERROR) {
+				this.showError(this.props.ERROR_MESSAGE.message);
+			}
+		}
+		if (this.props.RECRUITMENTS !== prevProps.RECRUITMENTS) {
+			if (this.props.FETCHTYPE === RECRUITMENT_APPLY_MEMBER) {
+				this.showSuccess();
+				this.setState({ members: [] });
+				//this.openDialog();
+			}
+		}
+	}
 
-	addMembersRecruited = () => {
-		const formValues = { memberId: this.state.memberId };
-		this.setState({ RecruitmentDialog: false });
-		this.setState({ memberId: '' });
+	addMembersRecruited = async (event) => {
+		event.preventDefault();
+		const { recruitmentId } = this.props.match.params;
+		await this.props.applyRecruitedMembers(recruitmentId, { members: this.state.members });
 	};
 
 	displaySelection(data) {
@@ -110,14 +124,32 @@ class RecruitmentInfo extends Component {
 		);
 	};
 
+	showError(message) {
+		let msg = message;
+		if (_.isEmpty(message)) msg = 'Error Board Registration';
+		this.messages.show({
+			sticky: true,
+			severity: 'error',
+			summary: 'Error Message :',
+			detail: msg,
+		});
+	}
+
+	showSuccess() {
+		this.messages.show({
+			severity: 'success',
+			summary: 'Success Message :',
+			detail: 'Successfully Add Recruited Members!',
+		});
+	}
+
 	render() {
 		const paginatorLeft = <Button icon='pi pi-refresh' onClick={this.refreshTable} />;
 		return (
 			<UILoader blockui='RECRUITMENT_LOADING' unblockui={['RECRUITMENT_GET_BY_RECRUITMENTID', 'RECRUITMENT_ERROR']}>
 				<div className='p-grid '>
 					<div className='p-col-12'>
-						<Messages ref={(el) => (this.messages = el)}></Messages>
-						<Panel header='Recruitment Information'>
+						<Panel header={`Recruitment ID: ${this.props.RECRUITMENT.recruitmentId}`}>
 							<Fieldset legend='Recruiter Profile'>
 								<div className='p-fluid p-grid'>
 									<div className='p-field p-col-12 p-md-6'>
@@ -139,6 +171,7 @@ class RecruitmentInfo extends Component {
 						</Panel>
 					</div>
 					<div className='p-col-12'>
+						<Messages ref={(el) => (this.messages = el)}></Messages>
 						<DataTable
 							value={this.props.RECRUITMENT.membersRecruited}
 							sortField='id'
@@ -175,13 +208,13 @@ class RecruitmentInfo extends Component {
 							<Fieldset legend='Enter Recruited Members'>
 								<div className='p-grid p-fluid'>
 									<div className='p-col-12 p-md-12' style={MyStyle.divform}>
-										<Chips value={this.state.recruitmentValues} onChange={(e) => this.setState({ recruitmentValues: e.value })} separator=',' />
+										<Chips value={this.state.members} onChange={(e) => this.setState({ members: e.value })} separator=',' />
 									</div>
 								</div>
 							</Fieldset>
 							<div className='button' style={MyStyle.fieldDivButton}>
 								<span>
-									<Button icon='pi pi-plus' label='Add Recruited Member' style={MyStyle.fieldButton} onClick={this.addMembersRecruited} />
+									<Button icon='pi pi-plus' disabled={_.isEmpty(this.state.members)} label='Add Recruited Member' style={MyStyle.fieldButton} onClick={this.addMembersRecruited} />
 								</span>
 							</div>
 						</Dialog>
@@ -196,12 +229,13 @@ const mapStateToProps = (state, ownProps) => {
 	const { recruitmentId } = ownProps.match.params;
 	return {
 		RECRUITMENT: state.RECRUITMENTS.recruitmentsResponse[recruitmentId],
+		RECRUITMENTS: state.RECRUITMENTS.recruitmentsResponse,
 		FETCHTYPE: state.RECRUITMENTS.fetchType,
 		ERROR: state.RECRUITMENTS.fetchError,
 		ERROR_MESSAGE: state.RECRUITMENTS.fetchErrorMessage,
 	};
 };
 
-const mapDispatchToProps = { getRecruitmentByRecruitmentId };
+const mapDispatchToProps = { getRecruitmentByRecruitmentId, applyRecruitedMembers };
 
 export default connect(mapStateToProps, mapDispatchToProps)(RecruitmentInfo);

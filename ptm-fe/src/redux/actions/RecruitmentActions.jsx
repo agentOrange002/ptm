@@ -2,7 +2,6 @@ import { recruitmentURL as apiURL } from '../config/ConfigURL';
 import { RecruitmentError, RecruitmentSave, RecruitmentLoading, RecruitmentReset, RecruitmentGetAll, RecruitmentGetByRecruitmentID, RecruitmentApplyMember } from '../constants/RecruitmentConstants';
 import { showLoading, hideLoading } from 'react-redux-loading-bar';
 import { ToastSuccess, ToastError } from '../../components/toasts';
-import { reset } from 'redux-form';
 import _ from 'lodash';
 
 export const getAllRecruitments = () => async (dispatch, getState) => {
@@ -65,28 +64,22 @@ export const getRecruitmentByRecruitmentId = (recruitmentId) => async (dispatch,
 		});
 };
 
-export const saveRecruitment = (formValues) => async (dispatch, getState) => {
+export const saveRecruitment = (memberId, members) => async (dispatch, getState) => {
 	dispatch(RecruitmentLoading());
-	let uid = getState().LOGIN_AUTHENTICATION.loginState.loginResponse.userid;
 	let token = getState().LOGIN_AUTHENTICATION.loginState.loginResponse.authorization;
 	dispatch(showLoading('LOADINGBAR'));
 	await apiURL
-		.post(
-			'/',
-			{ ...formValues, loggedBy: uid },
-			{
-				headers: {
-					'Content-Type': 'application/json',
-					Accept: 'application/json',
-					Authorization: token,
-				},
-			}
-		)
+		.post(`/save/${memberId}`, members, {
+			headers: {
+				'Content-Type': 'application/json',
+				Accept: 'application/json',
+				Authorization: token,
+			},
+		})
 		.then(function (response) {
 			let data = response.data;
 			dispatch(RecruitmentSave(data));
 			dispatch(hideLoading('LOADINGBAR'));
-			dispatch(reset('addNewRecruitment'));
 			ToastSuccess('Successfully Save New Recruitment!');
 		})
 		.catch(function (error) {
@@ -103,23 +96,18 @@ export const saveRecruitment = (formValues) => async (dispatch, getState) => {
 		});
 };
 
-export const applyRecruitedMembers = (formValues) => async (dispatch, getState) => {
+export const applyRecruitedMembers = (recruitmentId, members) => async (dispatch, getState) => {
 	dispatch(RecruitmentLoading());
-	let uid = getState().LOGIN_AUTHENTICATION.loginState.loginResponse.userid;
 	let token = getState().LOGIN_AUTHENTICATION.loginState.loginResponse.authorization;
 	dispatch(showLoading('LOADINGBAR'));
 	await apiURL
-		.put(
-			'/',
-			{ ...formValues, loggedBy: uid },
-			{
-				headers: {
-					'Content-Type': 'application/json',
-					Accept: 'application/json',
-					Authorization: token,
-				},
-			}
-		)
+		.put(`/applymembers/${recruitmentId}`, members, {
+			headers: {
+				'Content-Type': 'application/json',
+				Accept: 'application/json',
+				Authorization: token,
+			},
+		})
 		.then(function (response) {
 			let data = response.data;
 			dispatch(RecruitmentApplyMember(data));

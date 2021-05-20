@@ -17,6 +17,8 @@ const MyStyle = {
 	remark: { width: '750px' },
 	boardStatus: { width: '150px' },
 	loggedDate: { width: '300px' },
+	headerDiv: { display: 'flex', justifyContent: 'space-between' },
+	headerInput: { width: '50vw', float: 'left' },
 };
 
 class BoardData extends Component {
@@ -73,10 +75,10 @@ class BoardData extends Component {
 
 	renderHeader = () => {
 		return (
-			<div style={{ display: 'flex', justifyContent: 'space-between' }}>
+			<div style={MyStyle.headerDiv}>
 				<span className='p-input-icon-left'>
 					<i className='pi pi-search' />
-					<InputText style={{ width: '50vw', float: 'left' }} type='search' onInput={(e) => this.setState({ globalFilter: e.target.value })} placeholder='Search Specific Board Data' />
+					<InputText style={MyStyle.headerInput} type='search' onInput={(e) => this.setState({ globalFilter: e.target.value })} placeholder='Search Specific Board Data' />
 				</span>
 			</div>
 		);
