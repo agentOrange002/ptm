@@ -1,6 +1,7 @@
 /.git
 /.metadata
 /node_modules
+/dist
 
 
 
