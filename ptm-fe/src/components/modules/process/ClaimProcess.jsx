@@ -5,9 +5,9 @@ import CustomBreadCrumb from '../../breadcrumb';
 import { Menubar } from 'primereact/menubar';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import NotFoundPage from '../error/NotFoundPage';
-import RecruitmentForm from './RecruitmentForm';
-import RecruitmentData from './RecruitmentData';
-import RecruitmentInfo from './RecruitmentInfo';
+import ClaimForm from './ClaimForm';
+import ClaimData from './ClaimData';
+import ClaimInfo from './ClaimInfo';
 
 const urlparam = `${window.location.origin}/#/app/`;
 
@@ -20,7 +20,7 @@ const MyStyle = {
 
 class ClaimProcess extends Component {
 	state = {
-		breadcrumdItems: [{ label: 'Process' }, { label: 'Recruitment Process', url: `${urlparam}process/recruitment` }],
+		breadcrumdItems: [{ label: 'Process' }, { label: 'Claim Process', url: `${urlparam}process/claim` }],
 		home: {
 			icon: 'pi pi-home',
 			command: () => {
@@ -29,21 +29,21 @@ class ClaimProcess extends Component {
 		},
 		menuItems: [
 			{
-				label: 'Recruitments',
+				label: 'Claims',
 				icon: 'pi pi-fw pi-file',
 				items: [
 					{
-						label: 'Add New Recruitment',
+						label: 'Add New Claim',
 						icon: 'pi pi-fw pi-plus',
-						url: `${urlparam}process/recruitment/register`,
+						url: `${urlparam}process/claim/register`,
 					},
 					{
 						separator: true,
 					},
 					{
-						label: 'All Recruitments',
+						label: 'All Claims',
 						icon: 'pi pi-fw pi-table',
-						url: `${urlparam}process/recruitment`,
+						url: `${urlparam}process/claim`,
 					},
 				],
 			},
@@ -64,11 +64,11 @@ class ClaimProcess extends Component {
 								<Menubar style={MyStyle.menubar} model={this.state.menuItems} />
 								<div style={{ paddingTop: '.5em' }}>
 									<Switch>
-										<Route path='/app/process/recruitment' exact component={RecruitmentData} />
-										<Route path='/app/process/recruitment/register' render={(props) => <RecruitmentForm {...props} title={'Add New Recruitment Form'} />} />
-										<Route path='/app/process/recruitment/view/:recruitmentId' component={RecruitmentInfo} />
-										<Route path='/app/process/recruitment/notfound' component={NotFoundPage} />
-										<Redirect from='/app/process/recruitment/*' to='/app/process/recruitment/notfound' />
+										<Route path='/app/process/claim' exact component={ClaimData} />
+										<Route path='/app/process/claim/register' render={(props) => <ClaimForm {...props} title={'Add New Claim Form'} />} />
+										<Route path='/app/process/claim/view/:claimId' component={ClaimInfo} />
+										<Route path='/app/process/claim/notfound' component={NotFoundPage} />
+										<Redirect from='/app/process/claim/*' to='/app/process/claim/notfound' />
 									</Switch>
 								</div>
 							</div>
