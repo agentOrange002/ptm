@@ -5,26 +5,34 @@ volumes:
       driver: local
 
 services:
-  postgresql:
-    image: postgres:alpine
-    volumes:
-     - postgres_data:/var/lib/postgresql/data
-    environment:
-     POSTGRES_DB: ptmdb
-     POSTGRES_USER: jimboy02
-     POSTGRES_PASSWORD: password123
-    container_name: postgresql-compose
-  ptm-be:
+ ptm-be:
     build:
       context: .
       dockerfile: Dockerfile
     image: ptm-be:latest
-    container_name: ptm-be-compose
-    ports:
-     - 8080:8080
-    depends_on:
-     - postgresql
-    environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresql:5432/ptmdb
+    container_name: ptm-be-compose 
+    network_mode: "host"
+    tty: true 
+  #postgresql:
+   # image: postgres:alpine
+   # volumes:
+   #  - postgres_data:/var/lib/postgresql/data
+   # environment:
+   #  POSTGRES_DB: ptmdb
+   #  POSTGRES_USER: jimboy02
+   #  POSTGRES_PASSWORD: password123
+   # container_name: postgresql-compose
+  #ptm-be:
+  #  build:
+   #   context: .
+   #   dockerfile: Dockerfile
+   # image: ptm-be:latest
+   # container_name: ptm-be-compose
+   # ports:
+   #  - 8080:8080
+   # depends_on:
+   #  - postgresql
+   # environment:
+   #   - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresql:5432/ptmdb
 
 

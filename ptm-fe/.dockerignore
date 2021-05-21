@@ -4,4 +4,3 @@ Dockerfile
 package-lock.json
 .vscode
 docker-compose.yml
-dist
