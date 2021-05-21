@@ -34,7 +34,10 @@ import Administration from './components/modules/administration/Administration';
 
 import MemberInfoReport from './components/modules/report/MemberInfoReport';
 import BoardInfoReport from './components/modules/report/BoardInfoReport';
+
 import RecruitmentProcess from './components/modules/process/RecruitmentProcess';
+import ReleaseProcess from './components/modules/process/ReleaseProcess';
+import ClaimProcess from './components/modules/process/ClaimProcess';
 
 class App extends Component {
 	constructor(props) {
@@ -188,6 +191,10 @@ class App extends Component {
 							<AuthorizedRoute path='/app/report/boardinfo' component={BoardInfoReport} checkName='REPORT_BOARD' />
 
 							<AuthorizedRoute path='/app/process/recruitment' component={RecruitmentProcess} checkName='RECRUITMENT_PROCESS' />
+
+							<AuthorizedRoute path='/app/process/release' component={ReleaseProcess} checkName='RELEASE_PROCESS' />
+
+							<AuthorizedRoute path='/app/process/claim' component={ClaimProcess} checkName='CLAIM_PROCESS' />
 
 							<Route path='/app/accountprofile' component={AccountProfile} />
 							<Route path='/app/unauthorized401' component={UnauthorizedPage} />

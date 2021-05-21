@@ -112,7 +112,7 @@ export const applyRecruitedMembers = (recruitmentId, members) => async (dispatch
 			let data = response.data;
 			dispatch(RecruitmentApplyMember(data));
 			dispatch(hideLoading('LOADINGBAR'));
-			ToastSuccess('Successfully Save New Recruitment!');
+			ToastSuccess('Successfully Save New Recruited Members!');
 		})
 		.catch(function (error) {
 			let errorResponse = error;

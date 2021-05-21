@@ -75,7 +75,7 @@ class RecruitmentInfo extends Component {
 			if (this.props.FETCHTYPE === RECRUITMENT_APPLY_MEMBER) {
 				this.showSuccess();
 				this.setState({ members: [] });
-				//this.openDialog();
+				this.hideDialog();
 			}
 		}
 	}
@@ -146,7 +146,7 @@ class RecruitmentInfo extends Component {
 	render() {
 		const paginatorLeft = <Button icon='pi pi-refresh' onClick={this.refreshTable} />;
 		return (
-			<UILoader blockui='RECRUITMENT_LOADING' unblockui={['RECRUITMENT_GET_BY_RECRUITMENTID', 'RECRUITMENT_ERROR']}>
+			<UILoader blockui='RECRUITMENT_LOADING' unblockui={['RECRUITMENT_GET_BY_RECRUITMENTID', 'RECRUITMENT_APPLY_MEMBER', 'RECRUITMENT_ERROR']}>
 				<div className='p-grid '>
 					<div className='p-col-12'>
 						<Panel header={`Recruitment ID: ${this.props.RECRUITMENT.recruitmentId}`}>

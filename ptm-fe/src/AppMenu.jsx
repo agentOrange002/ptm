@@ -56,8 +56,8 @@ class AppMenu extends Component {
 						icon: 'pi pi-fw pi-file',
 						items: [
 							{ label: 'Recruitment Process', icon: 'pi pi-fw pi-file', to: '/app/process/recruitment' },
-							{ label: 'Release Process', icon: 'pi pi-fw pi-file', to: '/app/process/#' },
-							{ label: 'Claim Process', icon: 'pi pi-fw pi-file', to: '/app/process/#' },
+							{ label: 'Release Process', icon: 'pi pi-fw pi-file', to: '/app/process/release' },
+							{ label: 'Claim Process', icon: 'pi pi-fw pi-file', to: '/app/process/claim' },
 						],
 					},
 				]),

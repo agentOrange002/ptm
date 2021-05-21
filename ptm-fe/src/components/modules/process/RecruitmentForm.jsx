@@ -55,7 +55,7 @@ class RecruitmentForm extends Component {
 		}
 		if (this.props.RECRUITMENTS !== prevProps.RECRUITMENTS) {
 			if (this.props.FETCHTYPE === RECRUITMENT_SAVE) {
-				this.setState({ memberId: null });
+				this.setState({ memberId: '' });
 				this.setState({ members: [] });
 				this.showSuccess();
 			}
@@ -96,7 +96,7 @@ class RecruitmentForm extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-		RECRUITMENTS: state.RECRUITMENTS.membersResponse,
+		RECRUITMENTS: state.RECRUITMENTS.recruitmentsResponse,
 		ERROR: state.RECRUITMENTS.fetchError,
 		ERROR_MESSAGE: state.RECRUITMENTS.fetchErrorMessage,
 		FETCHTYPE: state.RECRUITMENTS.fetchType,
