@@ -7,7 +7,6 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.stereotype.Component;
 
 import lombok.AllArgsConstructor;
-import lombok.extern.log4j.Log4j2;
 import sys.app.ptm.dto.BoardDto;
 import sys.app.ptm.tool.JimboyHelper;
 
@@ -15,7 +14,6 @@ import sys.app.ptm.tool.JimboyHelper;
 @Component
 @EnableAspectJAutoProxy(proxyTargetClass=true)
 @Aspect
-@Log4j2
 public class BoardAspect {	
 	
 	private JimboyHelper helper;
@@ -31,14 +29,14 @@ public class BoardAspect {
     public void afterSavingTeam(JoinPoint pjp,Object retVal) throws Throwable {
 		// log.info(" Check Get Issue By IssueId :" + issueId +" ---- "+pjp);
 		/* log.info(" Log Save Category....... "+((CategoryDto)retVal).toString()); */
-		log.info(".......................Log Board Saving Aspect.......................");
+		//log.info(".......................Log Board Saving Aspect.......................");
 		BoardDto dto = (BoardDto) retVal;
 		helper.generateBoardMembersByBoard(dto.getBoardId());			
     }
 	
 	@AfterReturning(pointcut="execution(public * sys.app.ptm.service.implementation.BoardServiceImplementation.payoutBoard(..))",returning="retVal")
     public void afterPayout(JoinPoint pjp,Object retVal) throws Throwable {		
-		log.info(".......................Log Board Payout Aspect.......................");
+		//log.info(".......................Log Board Payout Aspect.......................");
 		BoardDto dto = (BoardDto) retVal;
 		helper.processPayout(dto.getBoardId());			
     }

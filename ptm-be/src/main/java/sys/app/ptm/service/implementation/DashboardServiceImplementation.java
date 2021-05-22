@@ -8,7 +8,6 @@ import java.util.function.Supplier;
 import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
-import lombok.extern.log4j.Log4j2;
 import sys.app.ptm.dto.ChartDto;
 import sys.app.ptm.dto.DashboardDto;
 import sys.app.ptm.repository.BoardMemberRepository;
@@ -17,7 +16,7 @@ import sys.app.ptm.repository.MemberRepository;
 import sys.app.ptm.service.DashboardService;
 import sys.app.ptm.tool.ThisLocalizedWeek;
 
-@Log4j2
+//@Log4j2
 @AllArgsConstructor
 @Service
 public class DashboardServiceImplementation implements DashboardService {
@@ -72,10 +71,12 @@ public class DashboardServiceImplementation implements DashboardService {
 		LocalDate saturday = thisWeek.getLastDay();		
 		
 		
-		  log.info("Sunday:"+sunday); log.info("Monday:"+monday);
-		  log.info("Tuesday:"+tuesday); log.info("Wednesday:"+wednesday);
-		  log.info("Thursday:"+thursday); log.info("Friday:"+friday);
-		  log.info("Saturday:"+saturday);
+			/*
+			 * log.info("Sunday:"+sunday); log.info("Monday:"+monday);
+			 * log.info("Tuesday:"+tuesday); log.info("Wednesday:"+wednesday);
+			 * log.info("Thursday:"+thursday); log.info("Friday:"+friday);
+			 * log.info("Saturday:"+saturday);
+			 */
 		
 		
 		Long c1 = boardRepository.countByBoardStatusAndLoggedDate("CREATED",sunday);
