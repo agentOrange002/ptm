@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lombok.AllArgsConstructor;
 import sys.app.ptm.dto.ReleaseDto;
+import sys.app.ptm.dto.shortdto.ShortReleaseDto;
 import sys.app.ptm.model.request.ReleaseModelRequest;
 import sys.app.ptm.model.response.ReleaseModelResponse;
 import sys.app.ptm.model.shortresponse.ShortReleaseModelResponse;
@@ -34,10 +35,10 @@ public class ReleaseController {
 	
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<ShortReleaseModelResponse> getAll() {
-		List<ReleaseDto> dtoList = releaseService.getAll();
+		List<ShortReleaseDto> dtoList = releaseService.getAll();
 		List<ShortReleaseModelResponse> responseList = new ArrayList<ShortReleaseModelResponse>();
 		ModelMapper mapper = new ModelMapper();
-		for(ReleaseDto dto: dtoList) {
+		for(ShortReleaseDto dto: dtoList) {
 			responseList.add(mapper.map(dto, ShortReleaseModelResponse.class));
 		}
 		return responseList;

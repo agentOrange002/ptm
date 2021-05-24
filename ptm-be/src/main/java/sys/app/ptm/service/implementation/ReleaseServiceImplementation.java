@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import lombok.AllArgsConstructor;
 import sys.app.ptm.dto.ReleaseDto;
+import sys.app.ptm.dto.shortdto.ShortReleaseDto;
 import sys.app.ptm.entity.BoardEntity;
 import sys.app.ptm.entity.ReleaseEntity;
 import sys.app.ptm.entity.UserEntity;
@@ -75,12 +76,12 @@ public class ReleaseServiceImplementation implements ReleaseService {
 	}
 
 	@Override
-	public List<ReleaseDto> getAll() {
+	public List<ShortReleaseDto> getAll() {
 		List<ReleaseEntity> list = releaseRepository.findAll();
-		List<ReleaseDto> listDto = new ArrayList<ReleaseDto>();
+		List<ShortReleaseDto> listDto = new ArrayList<ShortReleaseDto>();
 		ModelMapper mapper = new ModelMapper();
 		for (ReleaseEntity entity : list) {
-			listDto.add(mapper.map(entity, ReleaseDto.class));
+			listDto.add(mapper.map(entity, ShortReleaseDto.class));
 		}
 		return listDto;
 	}

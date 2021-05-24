@@ -58,13 +58,9 @@ class RecruitmentData extends Component {
 						))}
 					</ul>
 				);
-			else return <div style={{ textAlign: 'left' }}>Selected Recruitment: {data.recruitmentId + ' - ' + data.recruitmentName + ' - ' + data.recruitmentStatus + ' - ' + data.loggedDate}</div>;
+			else return <div style={{ textAlign: 'left' }}>Selected Recruitment: {data.recruitmentId + ' - ' + data.id + ' - ' + data.memberRecruitmentDetails.fullName}</div>;
 		}
 	}
-
-	statusBody = (rowData) => {
-		return <span className={`recruitmentstatus-badge status-${rowData.recruitmentStatus.toLowerCase()}`}>{rowData.recruitmentStatus}</span>;
-	};
 
 	render() {
 		const paginatorLeft = <Button icon='pi pi-refresh' onClick={this.refreshTable} />;

@@ -1,4 +1,4 @@
-import { RELEASE_ERROR, RELEASE_GET_ALL, RELEASE_GET_BY_ID, RELEASE_SAVE, RELEASE_UPDATE, RELEASE_DELETE, RELEASE_RESET } from '../constants/ReleaseConstants';
+import { RELEASE_ERROR, RELEASE_GET_ALL, RELEASE_GET_BY_RELEASEID, RELEASE_SAVE, RELEASE_UPDATE, RELEASE_DELETE, RELEASE_RESET } from '../constants/ReleaseConstants';
 import _ from 'lodash';
 
 const ReleasesState = {
@@ -26,7 +26,7 @@ export const RELEASES = (state = ReleasesState, action) => {
 				fetchError: false,
 				fetchErrorMessage: null,
 			};
-		case RELEASE_GET_BY_ID:
+		case RELEASE_GET_BY_RELEASEID:
 			return {
 				...state,
 				releasesResponse: { ...state.releasesResponse, [action.payload.releaseId]: action.payload },
