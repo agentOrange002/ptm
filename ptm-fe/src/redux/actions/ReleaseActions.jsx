@@ -1,7 +1,7 @@
 import { releaseURL as apiURL } from '../config/ConfigURL';
 import { ReleaseError, ReleaseSave, ReleaseLoading, ReleaseReset, ReleaseGetAll, ReleaseGetByReleaseID } from '../constants/ReleaseConstants';
 import { showLoading, hideLoading } from 'react-redux-loading-bar';
-import { ToastInfo, ToastSuccess, ToastError } from '../../components/toasts';
+import { ToastSuccess, ToastError } from '../../components/toasts';
 import { reset } from 'redux-form';
 import _ from 'lodash';
 
@@ -73,7 +73,7 @@ export const saveRelease = (formValues) => async (dispatch, getState) => {
 	await apiURL
 		.post(
 			'/',
-			{ ...formValues, loggedBy: uid },
+			{ ...formValues, userId: uid },
 			{
 				headers: {
 					'Content-Type': 'application/json',

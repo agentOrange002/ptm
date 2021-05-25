@@ -4,11 +4,12 @@ import { connect } from 'react-redux';
 import UILoader from '../tools/UILoader';
 import { saveRelease } from '../../../redux/actions/ReleaseActions';
 import { Button } from 'primereact/button';
-import { InputText } from 'primereact/inputtext';
+import { InputNumber } from 'primereact/inputnumber';
 import { Messages } from 'primereact/messages';
 import { RELEASE_SAVE } from '../../../redux/constants/ReleaseConstants';
 import _ from 'lodash';
 import { Chips } from 'primereact/chips';
+import { Fieldset } from 'primereact/fieldset';
 
 const MyStyle = {
 	ButtonStyle: { paddingTop: '10px', paddingBottom: '35px' },
@@ -23,8 +24,8 @@ const MyStyle = {
 
 class ReleaseForm extends Component {
 	state = {
-		memberId: '',
-		members: [],
+		totalAmount: 0.0,
+		boards: [],
 	};
 
 	showError(message) {
@@ -47,7 +48,7 @@ class ReleaseForm extends Component {
 		});
 	}
 
-	componentDidUpdate(prevProps, prevState) {
+	componentDidUpdate(prevProps) {
 		if (this.props.ERROR_MESSAGE !== prevProps.ERROR_MESSAGE) {
 			if (this.props.ERROR) {
 				this.showError(this.props.ERROR_MESSAGE.message);
@@ -55,8 +56,8 @@ class ReleaseForm extends Component {
 		}
 		if (this.props.RELEASES !== prevProps.RELEASES) {
 			if (this.props.FETCHTYPE === RELEASE_SAVE) {
-				this.setState({ memberId: '' });
-				this.setState({ members: [] });
+				this.setState({ totalAmount: 0.0 });
+				this.setState({ boards: [] });
 				this.showSuccess();
 			}
 		}
@@ -64,7 +65,7 @@ class ReleaseForm extends Component {
 
 	onSave = async (event) => {
 		event.preventDefault();
-		await this.props.saveRelease(this.state.memberId, { members: this.state.members });
+		await this.props.saveRelease({ totalAmount: this.state.totalAmount, boards: this.state.boards });
 	};
 
 	render() {
@@ -74,18 +75,18 @@ class ReleaseForm extends Component {
 				<Panel header={this.props.title}>
 					<div className='p-grid p-fluid'>
 						<div className='p-col-12 p-md-12' style={MyStyle.divPaddingTop}>
-							<span className='p-float-label'>
-								<InputText in='recruiter' tooltip='EnterRecruiter' tooltipOptions={MyStyle.ttop} style={MyStyle.twidth} value={this.state.memberId} onChange={(e) => this.setState({ memberId: e.target.value })} />
-								<label htmlFor='recruiter'>Enter Recruiter</label>
-							</span>
-						</div>
-						<div className='p-col-12 p-md-12' style={MyStyle.divPaddingTop}>
-							<Chips value={this.state.members} onChange={(e) => this.setState({ members: e.value })} separator=',' />
+							<Fieldset legend='Total Amount'>
+								<InputNumber in='amount' mode='decimal' minFractionDigits={2} maxFracionDigits={4} tooltip='Enter Amount' tooltipOptions={MyStyle.ttop} style={MyStyle.twidth} value={this.state.totalAmount} onValueChange={(e) => this.setState({ totalAmount: e.target.value })} />
+							</Fieldset>
+							<br />
+							<Fieldset legend='Boards'>
+								<Chips value={this.state.boards} onChange={(e) => this.setState({ boards: e.value })} separator=',' />
+							</Fieldset>
 						</div>
 					</div>
 					<div className='button' style={MyStyle.ButtonStyle}>
 						<span>
-							<Button disabled={_.isEmpty(this.state.memberId || this.state.members)} icon='pi pi-save' label='Save' style={MyStyle.Button} onClick={this.onSave} />
+							<Button disabled={_.isEmpty(this.state.boards) || this.state.totalAmount < 0} icon='pi pi-save' label='Save' style={MyStyle.Button} onClick={this.onSave} />
 						</span>
 					</div>
 				</Panel>

@@ -4,11 +4,17 @@ import { Panel } from 'primereact/panel';
 import { Button } from 'primereact/button';
 import { Fieldset } from 'primereact/fieldset';
 import _ from 'lodash';
-import { Messages } from 'primereact/messages';
 import UILoader from '../tools/UILoader';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { getReleaseByReleaseId } from '../../../redux/actions/ReleaseActions';
+import { TabMenu } from 'primereact/tabmenu';
+import Axios from 'axios';
+
+const items = [
+	{ label: 'Release Information', icon: 'pi pi-fw pi-info-circle' },
+	{ label: 'Release Report', icon: 'pi pi-fw pi-file-pdf' },
+];
 
 const MyStyle = {
 	Panel: { paddingBottom: '1em' },
@@ -46,21 +52,16 @@ const MyStyle = {
 
 class ReleaseInfo extends Component {
 	state = {
+		activeItem: {},
+		activeLabel: '',
 		ReleaseDialog: false,
 		members: [],
+		reportBlob: {},
 	};
 
 	componentDidMount() {
 		const { releaseId } = this.props.match.params;
 		this.props.getReleaseByReleaseId(releaseId);
-	}
-
-	componentDidUpdate(prevProps) {
-		if (this.props.ERROR_MESSAGE !== prevProps.ERROR_MESSAGE) {
-			if (this.props.ERROR) {
-				this.showError(this.props.ERROR_MESSAGE.message);
-			}
-		}
 	}
 
 	displaySelection(data) {
@@ -97,85 +98,108 @@ class ReleaseInfo extends Component {
 		this.setState({ ReleaseDialog: true });
 	};
 
-	showError(message) {
-		let msg = message;
-		if (_.isEmpty(message)) msg = 'Error Board Registration';
-		this.messages.show({
-			sticky: true,
-			severity: 'error',
-			summary: 'Error Message :',
-			detail: msg,
-		});
-	}
-
-	showSuccess() {
-		this.messages.show({
-			severity: 'success',
-			summary: 'Success Message :',
-			detail: 'Successfully Add Recruited Members!',
-		});
-	}
-
-	render() {
+	renderInfo = () => {
 		const paginatorLeft = <Button icon='pi pi-refresh' onClick={this.refreshTable} />;
 		return (
 			<UILoader blockui='RELEASE_LOADING' unblockui={['RELEASE_GET_BY_RELEASEID', 'RELEASE_ERROR']}>
-				<div className='p-grid '>
-					<div className='p-col-12'>
-						<Panel header={`Release ID: ${this.props.RELEASE.releaseId}`}>
-							<Fieldset legend='Recruiter Profile'>
-								<div className='p-fluid p-grid'>
-									<div className='p-field p-col-12 p-md-6'>
-										<h2>{this.props.RELEASE.releaseId}</h2>
-										<br />
-										<label>{this.props.RELEASE.id}</label>
-										<br />
-										<label>{this.props.RELEASE.loggedDate}</label>
-										<br />
-										<label>{this.props.RELEASE.totalAmount}</label>
-									</div>
-									<div className='p-field p-col-12 p-md-6'>
-										<label>User ID: {this.props.RELEASE.userDetails_Release.userId}</label>
-										<br />
-										<label>ID: {this.props.RELEASE.userDetails_Release.id}</label>
-										<br />
-										<label>Logged By: {this.props.RELEASE.userDetails_Release.fullName}</label>
-									</div>
-								</div>
-							</Fieldset>
-						</Panel>
-					</div>
-					<div className='p-col-12'>
-						<Messages ref={(el) => (this.messages = el)}></Messages>
-						<DataTable
-							value={this.props.RELEASE.boards}
-							sortField='id'
-							sortOrder={-1}
-							scrollable={true}
-							selectionMode='single'
-							header='List of Boards'
-							footer={this.displaySelection(this.state.selectedBoard)}
-							selection={this.state.selectedBoard}
-							onSelectionChange={(e) => this.setState({ selectedBoard: e.value })}
-							paginator={true}
-							paginatorLeft={paginatorLeft}
-							paginatorTemplate='FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown'
-							currentPageReportTemplate='Showing {first} to {last} of {totalRecords} entries'
-							rows={10}
-							rowsPerPageOptions={[5, 10, 20]}
-							contextMenuSelection={this.state.selectedBoard}
-							onContextMenuSelectionChange={(e) => this.setState({ selectedBoard: e.value })}
-							onContextMenu={(e) => this.cm.show(e.originalEvent)}>
-							<Column field='id' header='ID' style={MyStyle.id} />
-							<Column field='boardId' header='Board ID' style={MyStyle.boardId} />
-							<Column field='boardName' header='Board Name' style={MyStyle.boardName} />
-							<Column field='boardStatus' header='Board Status' body={this.statusBody} style={MyStyle.boardStatus} />
-							<Column field='remark' header='Remark' style={MyStyle.remark} />
-							<Column field='loggedDate' header='Logged Date' style={MyStyle.loggedDate} />
-						</DataTable>
-					</div>
-				</div>
+				<Panel header={`Release ID: ${this.props.RELEASE.releaseId}`}>
+					<Fieldset legend='Recruiter Profile'>
+						<div className='p-fluid p-grid'>
+							<div className='p-field p-col-12 p-md-6'>
+								<h2>{this.props.RELEASE.releaseId}</h2>
+								<br />
+								<label>{this.props.RELEASE.id}</label>
+								<br />
+								<label>{this.props.RELEASE.loggedDate}</label>
+								<br />
+								<label>{this.props.RELEASE.totalAmount}</label>
+							</div>
+							<div className='p-field p-col-12 p-md-6'>
+								<label>User ID: {this.props.RELEASE.userDetails_Release.userId}</label>
+								<br />
+								<label>ID: {this.props.RELEASE.userDetails_Release.id}</label>
+								<br />
+								<label>Logged By: {this.props.RELEASE.userDetails_Release.fullName}</label>
+							</div>
+						</div>
+					</Fieldset>
+				</Panel>
+
+				<DataTable
+					style={MyStyle.DivButton}
+					value={this.props.RELEASE.boards}
+					sortField='id'
+					sortOrder={-1}
+					scrollable={true}
+					selectionMode='single'
+					header='List of Boards'
+					footer={this.displaySelection(this.state.selectedBoard)}
+					selection={this.state.selectedBoard}
+					onSelectionChange={(e) => this.setState({ selectedBoard: e.value })}
+					paginator={true}
+					paginatorLeft={paginatorLeft}
+					paginatorTemplate='FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown'
+					currentPageReportTemplate='Showing {first} to {last} of {totalRecords} entries'
+					rows={10}
+					rowsPerPageOptions={[5, 10, 20]}
+					contextMenuSelection={this.state.selectedBoard}
+					onContextMenuSelectionChange={(e) => this.setState({ selectedBoard: e.value })}
+					onContextMenu={(e) => this.cm.show(e.originalEvent)}>
+					<Column field='id' header='ID' style={MyStyle.id} />
+					<Column field='boardId' header='Board ID' style={MyStyle.boardId} />
+					<Column field='boardName' header='Board Name' style={MyStyle.boardName} />
+					<Column field='boardStatus' header='Board Status' body={this.statusBody} style={MyStyle.boardStatus} />
+					<Column field='remark' header='Remark' style={MyStyle.remark} />
+					<Column field='loggedDate' header='Logged Date' style={MyStyle.loggedDate} />
+				</DataTable>
 			</UILoader>
+		);
+	};
+
+	renderReport = () => {
+		return <iframe title='Release Info Report' id='boardinforeport' type='application/pdf' src={_.isEmpty(this.state.reportBlob) ? null : this.state.reportBlob} height='700px' width='100%' loading='lazy' />;
+	};
+
+	getPDF = async (boardId) => {
+		await Axios.get(`${process.env.BACK_END_URL}/reports/release/${releaseId}`, {
+			responseType: 'blob',
+			headers: {
+				Accept: 'application/pdf',
+				Authorization: this.props.TOKEN,
+			},
+		})
+			.then((response) => {
+				const file = new Blob([response.data], { type: 'application/pdf', title: 'ReleaseInfoReport' });
+				const fileURL = URL.createObjectURL(file);
+				this.setState({ reportBlob: fileURL });
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+	};
+
+	render() {
+		return (
+			<div className='p-grid '>
+				<div className='p-col-12'>
+					<TabMenu
+						model={items}
+						activeItem={this.state.activeItem}
+						onTabChange={(e) => {
+							this.setState({ activeItem: e.value });
+							this.setState({ activeLabel: e.value.label });
+						}}
+					/>
+					{(() => {
+						switch (this.state.activeLabel) {
+							case 'Release Report':
+								return this.renderReport();
+							default:
+								return this.renderInfo();
+						}
+					})()}
+				</div>
+			</div>
 		);
 	}
 }
