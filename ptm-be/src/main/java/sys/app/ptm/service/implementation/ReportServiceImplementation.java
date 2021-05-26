@@ -18,8 +18,10 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import sys.app.ptm.entity.MemberEntity;
+import sys.app.ptm.entity.ReleaseEntity;
 import sys.app.ptm.entity.BoardEntity;
 import sys.app.ptm.repository.MemberRepository;
+import sys.app.ptm.repository.ReleaseRepository;
 import sys.app.ptm.repository.BoardRepository;
 import sys.app.ptm.service.ReportService;
 
@@ -33,6 +35,9 @@ public class ReportServiceImplementation implements ReportService {
 	BoardRepository boardRepository;
 	
 	@Autowired
+	ReleaseRepository releaseRepository;
+	
+	@Autowired
 	ResourceLoader resourceLoader;	
 	
 	@Value("classpath:reports/MemberInfo.jrxml")
@@ -40,6 +45,10 @@ public class ReportServiceImplementation implements ReportService {
 	
 	@Value("classpath:reports/BoardInfo.jrxml")
 	Resource loadBoardInfoReport;
+	
+	@Value("classpath:reports/ReleaseInfo.jrxml")
+	Resource loadReleaseInfoReport;
+	
 	
 	@Override
 	public byte[] generateMemberInfo(String memberId) {
@@ -68,6 +77,24 @@ public class ReportServiceImplementation implements ReportService {
 		try {	
 			JRBeanCollectionDataSource data = new JRBeanCollectionDataSource(collection);
 			JasperDesign jdReport = JRXmlLoader.load(loadBoardInfoReport.getInputStream());
+			JasperReport jrReport = JasperCompileManager.compileReport(jdReport);			
+			JasperPrint jpReport = JasperFillManager.fillReport(jrReport, null, data);
+			bytes = JasperExportManager.exportReportToPdf(jpReport);			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return bytes;
+	}
+
+	@Override
+	public byte[] generateReleaseInfo(String releaseId) {
+		byte[] bytes = null;		
+		ReleaseEntity entity = releaseRepository.findByReleaseId(releaseId);
+		List<ReleaseEntity> collection = new ArrayList<ReleaseEntity>();
+		collection.add(entity);				
+		try {	
+			JRBeanCollectionDataSource data = new JRBeanCollectionDataSource(collection);
+			JasperDesign jdReport = JRXmlLoader.load(loadReleaseInfoReport.getInputStream());
 			JasperReport jrReport = JasperCompileManager.compileReport(jdReport);			
 			JasperPrint jpReport = JasperFillManager.fillReport(jrReport, null, data);
 			bytes = JasperExportManager.exportReportToPdf(jpReport);			

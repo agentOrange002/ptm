@@ -62,6 +62,7 @@ class ReleaseInfo extends Component {
 	componentDidMount() {
 		const { releaseId } = this.props.match.params;
 		this.props.getReleaseByReleaseId(releaseId);
+		this.getPDF(releaseId);
 	}
 
 	displaySelection(data) {
@@ -160,7 +161,7 @@ class ReleaseInfo extends Component {
 		return <iframe title='Release Info Report' id='boardinforeport' type='application/pdf' src={_.isEmpty(this.state.reportBlob) ? null : this.state.reportBlob} height='700px' width='100%' loading='lazy' />;
 	};
 
-	getPDF = async (boardId) => {
+	getPDF = async (releaseId) => {
 		await Axios.get(`${process.env.BACK_END_URL}/reports/release/${releaseId}`, {
 			responseType: 'blob',
 			headers: {
@@ -212,6 +213,7 @@ const mapStateToProps = (state, ownProps) => {
 		FETCHTYPE: state.RELEASES.fetchType,
 		ERROR: state.RELEASES.fetchError,
 		ERROR_MESSAGE: state.RELEASES.fetchErrorMessage,
+		TOKEN: state.LOGIN_AUTHENTICATION.loginState.loginResponse.authorization,
 	};
 };
 

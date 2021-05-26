@@ -40,6 +40,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 
 		http.cors().and().csrf().disable().authorizeRequests()				
+				//.antMatchers(HttpMethod.GET, SecurityConstants.REPORT_RELEASE).permitAll()
 				//.antMatchers(HttpMethod.GET, SecurityConstants.REPORT_MEMBER).permitAll()
 				//.antMatchers(HttpMethod.GET, SecurityConstants.REPORT_BOARD).permitAll()
 				//.antMatchers(HttpMethod.DELETE, SecurityConstants.DELETE_USER).hasRole("ADMIN")
@@ -48,6 +49,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.GET, SecurityConstants.DASHBOARD_CHART).hasAuthority("DASHBOARD_CHART")
 				.antMatchers(HttpMethod.GET, SecurityConstants.REPORT_MEMBER).hasAuthority("REPORT_MEMBER")
 				.antMatchers(HttpMethod.GET, SecurityConstants.REPORT_BOARD).hasAuthority("REPORT_BOARD")
+				.antMatchers(HttpMethod.GET, SecurityConstants.REPORT_RELEASE).hasAuthority("REPORT_RELEASE")
 				.antMatchers(HttpMethod.GET, SecurityConstants.CATEGORY_GETBY_CATEGORYID).hasAuthority("CATEGORY_GETBY_CATEGORYID")
 				.antMatchers(HttpMethod.GET, SecurityConstants.CATEGORY_ALL).hasAuthority("CATEGORY_ALL")
 				.antMatchers(HttpMethod.POST, SecurityConstants.CATEGORY_SAVE).hasAuthority("CATEGORY_SAVE")

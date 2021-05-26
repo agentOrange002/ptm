@@ -101,6 +101,8 @@ public class InitialSetup {
 		AuthorityEntity a63 = createAuthority("RECRUITMENT_PROCESS");
 		AuthorityEntity a64 = createAuthority("RELEASE_PROCESS");
 		AuthorityEntity a65 = createAuthority("CLAIM_PROCESS");
+		
+		AuthorityEntity a66 = createAuthority("REPORT_RELEASE");
  
 		RoleEntity roleAdmin = createRole(Roles.ROLE_ADMIN.name(),
 				Arrays.asList( a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,
@@ -109,7 +111,7 @@ public class InitialSetup {
 						 a31,a32,a33,a34,a35,a36,a37,a38,a39,a40,
 						 a41,a42,a43,a44,a45,a46,a47,a48,a49,a50,
 						 a51,a52,a53,a54,a55,a56,a57,a58,a59,a60,
-						 a61,a62,a63,a64,a65
+						 a61,a62,a63,a64,a65,a66
 						));
  
 		if (roleAdmin == null) return;

@@ -22,6 +22,7 @@ public class SecurityConstants {
 	 */		
 	public static final String REPORT_BOARD = "/api/reports/board/*";
 	public static final String REPORT_MEMBER = "/api/reports/member/*";
+	public static final String REPORT_RELEASE = "/api/reports/release/*";
 	
 	/*
 	 * Category:
@@ -171,6 +172,10 @@ public class SecurityConstants {
 	public static final String ROLE_ALL_BY_USER = "/api/roles/user/*";	
 	public static final String AUTHORITY_ALL_BY_ROLE = "/api/authorities/byrole/*";	
 	public static final String USER_APPLY_ROLE = "/api/users/applyrole/*";
+	
+	
+	
+	
 	
 	/* public static final String TOKEN_SECRET = "dimple"; */
 

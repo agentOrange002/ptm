@@ -18,22 +18,32 @@ public class ReportController {
 
 	private ReportService reportService;
 
-	@GetMapping(path = "/member/{id}")
-	public ResponseEntity<byte[]> generateMemberInfo(@PathVariable String id) {
-		byte[] bytes = reportService.generateMemberInfo(id);
+	@GetMapping(path = "/member/{memberId}")
+	public ResponseEntity<byte[]> generateMemberInfo(@PathVariable String memberId) {
+		byte[] bytes = reportService.generateMemberInfo(memberId);
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Content-Disposition", "inline; filename=MemberInfoReport.pdf");
 		headers.setContentType(MediaType.APPLICATION_PDF);
 		return ResponseEntity.ok().headers(headers).body(bytes);
 	}
 
-	@GetMapping(path = "/board/{id}")
-	public ResponseEntity<byte[]> generateBoardInfo(@PathVariable String id) {
-		byte[] bytes = reportService.generateBoardInfo(id);		
+	@GetMapping(path = "/board/{boardId}")
+	public ResponseEntity<byte[]> generateBoardInfo(@PathVariable String boardId) {
+		byte[] bytes = reportService.generateBoardInfo(boardId);		
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Content-Disposition", "inline; filename=BoardInfoReport.pdf");
 		headers.setContentType(MediaType.APPLICATION_PDF);
 		return ResponseEntity.ok().headers(headers).body(bytes);
 	}
+	
+	@GetMapping(path = "/release/{releaseId}")
+	public ResponseEntity<byte[]> generateReleaseInfo(@PathVariable String releaseId) {
+		byte[] bytes = reportService.generateReleaseInfo(releaseId);		
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Content-Disposition", "inline; filename=ReleaseInfoReport.pdf");
+		headers.setContentType(MediaType.APPLICATION_PDF);
+		return ResponseEntity.ok().headers(headers).body(bytes);
+	}
+	
 
 }
