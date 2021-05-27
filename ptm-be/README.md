@@ -34,6 +34,7 @@ In the project directory, you can run:
 
 Before you start: Tell Maven to allow downloading from your insecure repository of jasper report by adding this mirror to your ~/.m2/settings.xml
 
+```
 <settings>
   ...
   <mirrors>
@@ -46,6 +47,7 @@ Before you start: Tell Maven to allow downloading from your insecure repository 
   </mirrors>
   ...
 </settings>
+```
 
 
 

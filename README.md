@@ -8,7 +8,7 @@
 # PTM Full Stack [![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/agentOrange002/ptm#readme)
 > PTM Full Stack
 
-Payout Team Management - Containerize Full Stack Web Application built with WebPack 5, ReactJS, Redux-Thunk and Primereact UI with Back End is a Restfull Web API Services built with Spring Boot, Spring Data JPA, Spring Security, JasperReport, Gradle, PostreSQL and GraalVM Native Image. 
+Payout Team Management - Containerize Full Stack Web Application built with WebPack 5, ReactJS, Redux-Thunk and Primereact UI with Back End is a Restfull Web API Services built with Spring Boot, Spring Data JPA, Spring Security, JasperReport, Maven, PostreSQL and GraalVM Native Image. 
 
 It's an application that can administer and manage Boards and BoardMembers. It allows users, supports and administrators to manage payouts and commissions.
 
@@ -34,7 +34,7 @@ It's an application that can administer and manage Boards and BoardMembers. It a
 
 [<img align="left" alt="PostgreSQL" width="26px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/postgresql.svg"/>][website]
 
-[<img align="left" alt="Gradle" width="26px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/gradle.svg"/>][website]
+[<img align="left" alt="Maven" width="26px" src="https://cdn.jsdelivr.net/npm/simple-icons@3.13.0/icons/apachemaven.svg"/>][website]
 
 
 <br />
