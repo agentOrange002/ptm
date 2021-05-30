@@ -1,6 +1,7 @@
 package sys.app.ptm.entity;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import javax.persistence.Column;
@@ -53,6 +54,9 @@ public class ClaimEntity implements Serializable {
 	@Column(name="date_claimed",nullable=false)
 	@JsonFormat(pattern="yyyy-MM-dd")	
 	private LocalDate claimedDate;
+	
+	@Column(name="claimed_amount",precision=8, scale=2,nullable=false)
+	private BigDecimal claimedAmount;
 	
 	@Column(name="remark",nullable=true)
 	private String remark;

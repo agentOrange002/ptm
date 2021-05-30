@@ -1,6 +1,7 @@
 package sys.app.ptm.repository;
 
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -29,5 +30,7 @@ public interface BoardRepository extends JpaRepository<BoardEntity, Long> {
 	 * //look for board that ready for payout
 	 */	
 	List<BoardEntity> findByBoardMembers_MemberIsNotNullAndBoardMembers_Status(String status);
+	
+	List<BoardEntity> findByBoardIdAndBoardStatusIn(String boardId, Collection<String> collection);
 
 }

@@ -45,5 +45,14 @@ public class ReportController {
 		return ResponseEntity.ok().headers(headers).body(bytes);
 	}
 	
+	@GetMapping(path = "/claim/form/{releaseId}")
+	public ResponseEntity<byte[]> generateClaimForm(@PathVariable String claimId) {
+		byte[] bytes = reportService.generateClaimForm(claimId);		
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Content-Disposition", "inline; filename=ClaimForm.pdf");
+		headers.setContentType(MediaType.APPLICATION_PDF);
+		return ResponseEntity.ok().headers(headers).body(bytes);
+	}
+	
 
 }

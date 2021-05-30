@@ -1,6 +1,7 @@
 package sys.app.ptm.entity;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -47,7 +48,7 @@ public class ReleaseEntity implements Serializable {
 	private LocalDate loggedDate;
 	
 	@Column(name="total_amount",precision=8, scale=2,nullable=false)
-	private float totalAmount;
+	private BigDecimal totalAmount;
 	
 	@JsonBackReference
 	@ManyToOne

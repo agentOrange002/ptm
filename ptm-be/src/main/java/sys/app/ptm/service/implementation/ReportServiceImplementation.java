@@ -20,9 +20,11 @@ import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import sys.app.ptm.entity.MemberEntity;
 import sys.app.ptm.entity.ReleaseEntity;
 import sys.app.ptm.entity.BoardEntity;
+import sys.app.ptm.entity.ClaimEntity;
 import sys.app.ptm.repository.MemberRepository;
 import sys.app.ptm.repository.ReleaseRepository;
 import sys.app.ptm.repository.BoardRepository;
+import sys.app.ptm.repository.ClaimRepository;
 import sys.app.ptm.service.ReportService;
 
 @Service
@@ -38,6 +40,9 @@ public class ReportServiceImplementation implements ReportService {
 	ReleaseRepository releaseRepository;
 	
 	@Autowired
+	ClaimRepository claimRepository;
+	
+	@Autowired
 	ResourceLoader resourceLoader;	
 	
 	@Value("classpath:reports/MemberInfo.jrxml")
@@ -48,6 +53,9 @@ public class ReportServiceImplementation implements ReportService {
 	
 	@Value("classpath:reports/ReleaseInfo.jrxml")
 	Resource loadReleaseInfoReport;
+	
+	@Value("classpath:reports/ClaimForm.jrxml")
+	Resource loadClaimForm;
 	
 	
 	@Override
@@ -91,6 +99,24 @@ public class ReportServiceImplementation implements ReportService {
 		byte[] bytes = null;		
 		ReleaseEntity entity = releaseRepository.findByReleaseId(releaseId);
 		List<ReleaseEntity> collection = new ArrayList<ReleaseEntity>();
+		collection.add(entity);				
+		try {	
+			JRBeanCollectionDataSource data = new JRBeanCollectionDataSource(collection);
+			JasperDesign jdReport = JRXmlLoader.load(loadReleaseInfoReport.getInputStream());
+			JasperReport jrReport = JasperCompileManager.compileReport(jdReport);			
+			JasperPrint jpReport = JasperFillManager.fillReport(jrReport, null, data);
+			bytes = JasperExportManager.exportReportToPdf(jpReport);			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return bytes;
+	}
+
+	@Override
+	public byte[] generateClaimForm(String claimId) {
+		byte[] bytes = null;		
+		ClaimEntity entity = claimRepository.findByClaimId(claimId);
+		List<ClaimEntity> collection = new ArrayList<ClaimEntity>();
 		collection.add(entity);				
 		try {	
 			JRBeanCollectionDataSource data = new JRBeanCollectionDataSource(collection);

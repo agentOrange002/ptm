@@ -1,6 +1,7 @@
 package sys.app.ptm.dto;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -23,7 +24,7 @@ public class ReleaseDto implements Serializable {
 	private String releaseId;	
 	@JsonFormat(pattern="yyyy-MM-dd")	
 	private LocalDate loggedDate;
-	private float totalAmount;
+	private BigDecimal totalAmount;
 	private ShortUserDto userDetails_Release;
 	private List<ShortBoardDto> boards;
 }

@@ -1,6 +1,7 @@
 package sys.app.ptm.dto.shortdto;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -18,6 +19,6 @@ public class ShortReleaseDto implements Serializable  {
 	private String releaseId;	
 	@JsonFormat(pattern="yyyy-MM-dd")	
 	private LocalDate loggedDate;
-	private float totalAmount;
+	private BigDecimal totalAmount;
 	private ShortUserDto userDetails_Release;	
 }

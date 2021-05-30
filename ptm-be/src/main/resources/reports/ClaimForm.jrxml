@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.16.0.final using JasperReports Library version 6.16.0-48579d909b7943b64690c65c71e07e0b80981928  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ClaimForm" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9d389c96-0241-42a1-aa58-d475e5deddba">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="boardClaimDetails" class="sys.app.ptm.entity.BoardEntity">
+		<fieldDescription><![CDATA[boardClaimDetails]]></fieldDescription>
+	</field>
+	<field name="claimedDate" class="java.time.LocalDate">
+		<fieldDescription><![CDATA[claimedDate]]></fieldDescription>
+	</field>
+	<field name="modeOfClaim" class="sys.app.ptm.enums.ModeOfClaim">
+		<fieldDescription><![CDATA[modeOfClaim]]></fieldDescription>
+	</field>
+	<field name="details" class="java.lang.String">
+		<fieldDescription><![CDATA[details]]></fieldDescription>
+	</field>
+	<field name="remark" class="java.lang.String">
+		<fieldDescription><![CDATA[remark]]></fieldDescription>
+	</field>
+	<field name="claimId" class="java.lang.String">
+		<fieldDescription><![CDATA[claimId]]></fieldDescription>
+	</field>
+	<field name="id" class="java.lang.Long">
+		<fieldDescription><![CDATA[id]]></fieldDescription>
+	</field>
+	<field name="claimedAmount" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[claimedAmount]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="26" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="230" height="20" uuid="04031294-c793-4e54-896d-2225c34e77a4">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Claim Form]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="0" y="18" width="555" height="5" backcolor="#030202" uuid="7e76569c-a57d-4610-b3ca-fa22493e39c5">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineColor="#000000"/>
+				</graphicElement>
+			</rectangle>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="5" width="100" height="30" uuid="5a68a9bd-b092-47d0-9b36-59883ff0be90">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="63cfe569-cb01-4f5e-9e2b-c7192315c0b9"/>
+				</reportElement>
+				<text><![CDATA[id]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="120" y="5" width="100" height="30" uuid="beeee7df-374a-410f-af75-eb6a3fb9eb46">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="63cfe569-cb01-4f5e-9e2b-c7192315c0b9"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="10" y="10" width="100" height="30" uuid="d71d8824-b5bd-4eba-86c3-1aa2a81437df">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="aa75253f-e0b8-4916-a5df-6b03b4cee08b"/>
+				</reportElement>
+				<text><![CDATA[claimId]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="120" y="10" width="100" height="30" uuid="3031cfd7-3258-40f7-bd94-2aedd5d636d7">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="aa75253f-e0b8-4916-a5df-6b03b4cee08b"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{claimId}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="131" splitType="Stretch">
+			<textField>
+				<reportElement x="10" y="50" width="410" height="30" uuid="c2968cf4-bc50-4b3f-9040-88ef20d7e7a3">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="17ab1eec-116c-4ca0-8661-17864fcfe922"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{boardClaimDetails}.getBoardMembers().get(0).getFullName()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="9" width="100" height="30" uuid="8c02574a-5008-40f4-a500-d29fd4464409">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="17ab1eec-116c-4ca0-8661-17864fcfe922"/>
+				</reportElement>
+				<text><![CDATA[Board Leader Name:]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

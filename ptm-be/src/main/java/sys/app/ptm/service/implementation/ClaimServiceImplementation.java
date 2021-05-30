@@ -2,6 +2,7 @@ package sys.app.ptm.service.implementation;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
@@ -29,9 +30,9 @@ public class ClaimServiceImplementation implements ClaimService {
 	@Override
 	public ClaimDto saveRecruitment(String boardId, ClaimDto dto) {
 		
-		if(boardRepository.findByBoardIdAndBoardStatus(boardId,"RELEASE")==null) throw new ApplicationServiceException(ErrorMessages.BOARD_NOT_READY_FOR_CLAIM.getErrorMessage());
+		if(boardRepository.findByBoardIdAndBoardStatusIn(boardId,Arrays.asList("CREATED","PAYOUT"))==null) throw new ApplicationServiceException(ErrorMessages.BOARD_NOT_READY_FOR_CLAIM.getErrorMessage());
+		if(boardRepository.findByBoardIdAndBoardStatus(boardId,"CLAIMED")!=null) throw new ApplicationServiceException(ErrorMessages.BOARD_HAS_ALREADY_CLAIMED.getErrorMessage());
 		
-		dto.setModeOfClaim(dto.getModeOfClaim().toUpperCase());
 		BoardEntity board = boardRepository.findByBoardId(boardId);
 		ClaimEntity claim = new ModelMapper().map(dto, ClaimEntity.class);
 		claim.setClaimId(utility.generateClaimId(10));

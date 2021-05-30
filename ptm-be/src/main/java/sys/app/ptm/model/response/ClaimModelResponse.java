@@ -1,5 +1,6 @@
 package sys.app.ptm.model.response;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import lombok.Getter;
@@ -13,6 +14,7 @@ public class ClaimModelResponse {
 	private String mode;
 	private String details;
 	private LocalDate claimedDate;
+	private BigDecimal claimedAmount;
 	private String remark;
 	private ShortBoardModelResponse boardClaimDetails;
 }
