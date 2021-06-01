@@ -12,7 +12,8 @@ import { ContextMenu } from 'primereact/contextmenu';
 const MyStyle = {
 	id: { width: '150px' },
 	claimId: { width: '250px' },
-	recruiter: { width: '750px' },
+	boardStatus: { width: '250px' },
+	boardName: { width: '750px' },
 };
 
 class ClaimData extends Component {
@@ -54,13 +55,17 @@ class ClaimData extends Component {
 				return (
 					<ul style={{ textAlign: 'left', margin: 0 }}>
 						{data.map((claim, i) => (
-							<li key={claim.claimId}>{claim.claimId + ' - ' + claim.id + ' - ' + claim.memberClaimDetails.fullName}</li>
+							<li key={claim.claimId}>{claim.claimId + ' - ' + claim.id + ' - ' + claim.boardClaimDetails.boardName}</li>
 						))}
 					</ul>
 				);
-			else return <div style={{ textAlign: 'left' }}>Selected Claim: {data.claimId + ' - ' + data.id + ' - ' + data.memberClaimDetails.fullName}</div>;
+			else return <div style={{ textAlign: 'left' }}>Selected Claim: {data.claimId + ' - ' + data.id + ' - ' + data.boardClaimDetails.boardName}</div>;
 		}
 	}
+
+	statusBody = (rowData) => {
+		return <span className={`boardstatus-badge status-${rowData.boardClaimDetails.boardStatus.toLowerCase()}`}>{rowData.boardClaimDetails.boardStatus}</span>;
+	};
 
 	render() {
 		const paginatorLeft = <Button icon='pi pi-refresh' onClick={this.refreshTable} />;
@@ -89,7 +94,8 @@ class ClaimData extends Component {
 						onContextMenu={(e) => this.cm.show(e.originalEvent)}>
 						<Column field='id' header='ID' style={MyStyle.id} />
 						<Column field='claimId' header='Claim ID' style={MyStyle.claimId} />
-						<Column field='memberClaimDetails.fullName' header='Recruiter' style={MyStyle.recruiter} />
+						<Column field='boardClaimDetails.boardStatus' header='Status' body={this.statusBody} style={MyStyle.boardStatus} />
+						<Column field='boardClaimDetails.boardName' header='Board Name' style={MyStyle.boardName} />
 					</DataTable>
 				</UILoader>
 			</div>
