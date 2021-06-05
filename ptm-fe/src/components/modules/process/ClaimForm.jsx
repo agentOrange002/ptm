@@ -79,7 +79,7 @@ class ClaimForm extends Component {
 
 	onSave = async (event) => {
 		event.preventDefault();
-		await this.props.saveClaim(this.state.memberId, { members: this.state.members });
+		await this.props.saveClaim(this.state.boardId, { modeOfClaim: this.state.modeOfClaim, details: this.state.details, remark: this.state.remark, claimedAmount: this.state.claimedAmount });
 	};
 
 	modeChange = (event) => {

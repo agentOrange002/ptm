@@ -104,7 +104,7 @@ class ReleaseInfo extends Component {
 		return (
 			<UILoader blockui='RELEASE_LOADING' unblockui={['RELEASE_GET_BY_RELEASEID', 'RELEASE_ERROR']}>
 				<Panel header={`Release ID: ${this.props.RELEASE.releaseId}`}>
-					<Fieldset legend='Recruiter Profile'>
+					<Fieldset legend='Release Details'>
 						<div className='p-fluid p-grid'>
 							<div className='p-field p-col-12 p-md-6'>
 								<h2>{this.props.RELEASE.releaseId}</h2>

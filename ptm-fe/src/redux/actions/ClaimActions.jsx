@@ -65,23 +65,19 @@ export const getClaimByClaimId = (claimId) => async (dispatch, getState) => {
 		});
 };
 
-export const saveClaim = (formValues) => async (dispatch, getState) => {
+export const saveClaim = (boardId, formdata) => async (dispatch, getState) => {
 	dispatch(ClaimLoading());
 	let uid = getState().LOGIN_AUTHENTICATION.loginState.loginResponse.userid;
 	let token = getState().LOGIN_AUTHENTICATION.loginState.loginResponse.authorization;
 	dispatch(showLoading('LOADINGBAR'));
 	await apiURL
-		.post(
-			'/',
-			{ ...formValues, loggedBy: uid },
-			{
-				headers: {
-					'Content-Type': 'application/json',
-					Accept: 'application/json',
-					Authorization: token,
-				},
-			}
-		)
+		.post(`/${boardId}`, formdata, {
+			headers: {
+				'Content-Type': 'application/json',
+				Accept: 'application/json',
+				Authorization: token,
+			},
+		})
 		.then(function (response) {
 			let data = response.data;
 			dispatch(ClaimSave(data));
