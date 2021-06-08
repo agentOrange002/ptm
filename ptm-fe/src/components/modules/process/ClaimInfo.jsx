@@ -54,6 +54,22 @@ class ClaimInfo extends Component {
 		this.getPDF(claimId);
 	}
 
+	// id(pin): 2
+	// claimId(pin): "UCLIDhwIt7Br0JE"
+	// mode(pin): "PERSONAL"
+	// details(pin): "Personal Claim"
+	// claimedDate(pin): "2021-05-30"
+	// claimedAmount(pin): 1900.55
+	// remark(pin): "Cash"
+	//boardClaimDetails
+	// 		id(pin): "BID00002"
+	// 		boardId(pin): "UBID20KNCs4YEk"
+	// 		boardName(pin): "Team One Piece"
+	// 		remark(pin): "Team One Piece Weekly"
+	// 		boardStatus(pin): "CLAIMED"
+	// 		loggedDate(pin): "2021-05-06"
+	// 		payoutDate(pin): "2021-05-06"
+
 	renderInfo = () => {
 		return (
 			<Panel header={`Claim ID: ${this.props.CLAIM.claimId}`}>
@@ -64,16 +80,22 @@ class ClaimInfo extends Component {
 							<br />
 							<label>{this.props.CLAIM.id}</label>
 							<br />
-							<label>{this.props.CLAIM.loggedDate}</label>
+							<label>{this.props.CLAIM.mode}</label>
 							<br />
-							<label>{this.props.CLAIM.totalAmount}</label>
+							<label>{this.props.CLAIM.claimedDate}</label>
+							<br />
+							<label>{this.props.CLAIM.claimedAmount}</label>
+							<br />
+							<label>{this.props.CLAIM.details}</label>
+							<br />
+							<label>{this.props.CLAIM.remark}</label>
 						</div>
 						<div className='p-field p-col-12 p-md-6'>
-							<label>User ID: {this.props.CLAIM.userDetails_Claim.userId}</label>
+							<label>Board ID: {this.props.CLAIM.boardClaimDetails.boardId}</label>
 							<br />
-							<label>ID: {this.props.CLAIM.userDetails_Claim.id}</label>
+							<label>ID: {this.props.CLAIM.boardClaimDetails.id}</label>
 							<br />
-							<label>Logged By: {this.props.CLAIM.userDetails_Claim.fullName}</label>
+							<label>Board Name: {this.props.CLAIM.boardClaimDetails.boardName}</label>
 						</div>
 					</div>
 				</Fieldset>
@@ -82,7 +104,7 @@ class ClaimInfo extends Component {
 	};
 
 	renderReport = () => {
-		return <iframe title='Claim Info Report' id='boardinforeport' type='application/pdf' src={_.isEmpty(this.state.reportBlob) ? null : this.state.reportBlob} height='700px' width='100%' loading='lazy' />;
+		return <iframe title='Claim Info Report' id='claiminforeport' type='application/pdf' src={_.isEmpty(this.state.reportBlob) ? null : this.state.reportBlob} height='700px' width='100%' loading='lazy' />;
 	};
 
 	getPDF = async (claimId) => {
