@@ -45,7 +45,7 @@ public class ReportController {
 		return ResponseEntity.ok().headers(headers).body(bytes);
 	}
 	
-	@GetMapping(path = "/claim/form/{releaseId}")
+	@GetMapping(path = "/claim/form/{claimId}")
 	public ResponseEntity<byte[]> generateClaimForm(@PathVariable String claimId) {
 		byte[] bytes = reportService.generateClaimForm(claimId);		
 		HttpHeaders headers = new HttpHeaders();

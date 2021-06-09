@@ -108,7 +108,7 @@ class ClaimInfo extends Component {
 	};
 
 	getPDF = async (claimId) => {
-		await Axios.get(`${process.env.BACK_END_URL}/reports/claim/${claimId}`, {
+		await Axios.get(`${process.env.BACK_END_URL}/reports/claim/form/${claimId}`, {
 			responseType: 'blob',
 			headers: {
 				Accept: 'application/pdf',

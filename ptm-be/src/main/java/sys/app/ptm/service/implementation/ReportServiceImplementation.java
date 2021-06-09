@@ -120,7 +120,7 @@ public class ReportServiceImplementation implements ReportService {
 		collection.add(entity);				
 		try {	
 			JRBeanCollectionDataSource data = new JRBeanCollectionDataSource(collection);
-			JasperDesign jdReport = JRXmlLoader.load(loadReleaseInfoReport.getInputStream());
+			JasperDesign jdReport = JRXmlLoader.load(loadClaimForm.getInputStream());
 			JasperReport jrReport = JasperCompileManager.compileReport(jdReport);			
 			JasperPrint jpReport = JasperFillManager.fillReport(jrReport, null, data);
 			bytes = JasperExportManager.exportReportToPdf(jpReport);			

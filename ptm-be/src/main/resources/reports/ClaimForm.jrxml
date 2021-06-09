@@ -14,6 +14,9 @@
 	<field name="modeOfClaim" class="sys.app.ptm.enums.ModeOfClaim">
 		<fieldDescription><![CDATA[modeOfClaim]]></fieldDescription>
 	</field>
+	<field name="boardId" class="java.lang.String">
+		<fieldDescription><![CDATA[boardId]]></fieldDescription>
+	</field>
 	<field name="details" class="java.lang.String">
 		<fieldDescription><![CDATA[details]]></fieldDescription>
 	</field>
@@ -43,71 +46,182 @@
 				</textElement>
 				<text><![CDATA[Claim Form]]></text>
 			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="64" splitType="Stretch">
 			<rectangle>
-				<reportElement x="0" y="18" width="555" height="5" backcolor="#030202" uuid="7e76569c-a57d-4610-b3ca-fa22493e39c5">
+				<reportElement x="0" y="3" width="555" height="5" backcolor="#030202" uuid="7e76569c-a57d-4610-b3ca-fa22493e39c5">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<graphicElement>
 					<pen lineColor="#000000"/>
 				</graphicElement>
 			</rectangle>
-		</band>
-	</title>
-	<pageHeader>
-		<band height="35" splitType="Stretch">
-			<staticText>
-				<reportElement x="0" y="5" width="100" height="30" uuid="5a68a9bd-b092-47d0-9b36-59883ff0be90">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="63cfe569-cb01-4f5e-9e2b-c7192315c0b9"/>
-				</reportElement>
-				<text><![CDATA[id]]></text>
-			</staticText>
 			<textField>
-				<reportElement x="120" y="5" width="100" height="30" uuid="beeee7df-374a-410f-af75-eb6a3fb9eb46">
+				<reportElement x="84" y="15" width="126" height="15" uuid="beeee7df-374a-410f-af75-eb6a3fb9eb46">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="63cfe569-cb01-4f5e-9e2b-c7192315c0b9"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="0" y="15" width="80" height="15" uuid="5a68a9bd-b092-47d0-9b36-59883ff0be90">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="63cfe569-cb01-4f5e-9e2b-c7192315c0b9"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<text><![CDATA[ID:]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="1" y="55" width="555" height="5" backcolor="#030202" uuid="463f535a-86e7-4b1f-aa5f-5474889aa8b8">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineColor="#000000"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="33" width="80" height="15" uuid="d71d8824-b5bd-4eba-86c3-1aa2a81437df">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="aa75253f-e0b8-4916-a5df-6b03b4cee08b"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<text><![CDATA[Claim ID:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="84" y="33" width="126" height="15" uuid="3031cfd7-3258-40f7-bd94-2aedd5d636d7">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="aa75253f-e0b8-4916-a5df-6b03b4cee08b"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{claimId}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="450" y="15" width="106" height="15" uuid="cbe8a7fc-be44-4240-a5cf-680e612a960d">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{claimedDate}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="346" y="15" width="100" height="15" uuid="26cd81f9-ed36-4e4c-bc12-a6a884021298">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="63cfe569-cb01-4f5e-9e2b-c7192315c0b9"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<text><![CDATA[Claimed Date:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="450" y="33" width="106" height="15" uuid="f87f0cfb-a80e-4a5d-a186-409b8dfe9d0c">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{modeOfClaim}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="346" y="33" width="100" height="15" uuid="8d3adec6-dd98-4c62-a5a0-b7e4c3cc4948">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="63cfe569-cb01-4f5e-9e2b-c7192315c0b9"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<text><![CDATA[Mode of Claim:]]></text>
+			</staticText>
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="61" splitType="Stretch">
-			<staticText>
-				<reportElement x="10" y="10" width="100" height="30" uuid="d71d8824-b5bd-4eba-86c3-1aa2a81437df">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="aa75253f-e0b8-4916-a5df-6b03b4cee08b"/>
-				</reportElement>
-				<text><![CDATA[claimId]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="120" y="10" width="100" height="30" uuid="3031cfd7-3258-40f7-bd94-2aedd5d636d7">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="aa75253f-e0b8-4916-a5df-6b03b4cee08b"/>
-				</reportElement>
-				<textFieldExpression><![CDATA[$F{claimId}]]></textFieldExpression>
-			</textField>
-		</band>
+		<band height="7" splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="131" splitType="Stretch">
+		<band height="136" splitType="Stretch">
 			<textField>
-				<reportElement x="10" y="50" width="410" height="30" uuid="c2968cf4-bc50-4b3f-9040-88ef20d7e7a3">
+				<reportElement x="0" y="24" width="410" height="15" uuid="c2968cf4-bc50-4b3f-9040-88ef20d7e7a3">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="17ab1eec-116c-4ca0-8661-17864fcfe922"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
-				<textFieldExpression><![CDATA[$F{boardClaimDetails}.getBoardMembers().get(0).getFullName()]]></textFieldExpression>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{boardClaimDetails}.getBoardMembers().get(0).getMember().getFullName()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="9" width="100" height="30" uuid="8c02574a-5008-40f4-a500-d29fd4464409">
+				<reportElement x="0" y="4" width="180" height="15" uuid="8c02574a-5008-40f4-a500-d29fd4464409">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="17ab1eec-116c-4ca0-8661-17864fcfe922"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
+				<textElement verticalAlignment="Middle"/>
 				<text><![CDATA[Board Leader Name:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="70" width="264" height="60" uuid="be3664b1-c893-4bc5-8b37-2a8dc1a85eb7"/>
+				<textFieldExpression><![CDATA[$F{details}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="51" width="170" height="15" uuid="e2838bbc-1002-40c2-a47c-3bd947346d05">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="17ab1eec-116c-4ca0-8661-17864fcfe922"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Details:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="300" y="70" width="254" height="60" uuid="42411a18-03e9-4042-9823-dced8436c506"/>
+				<textFieldExpression><![CDATA[$F{remark}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="301" y="51" width="170" height="15" uuid="9ff3b888-8a8c-4b5f-862a-a545f6e07b4e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="17ab1eec-116c-4ca0-8661-17864fcfe922"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Remarks:]]></text>
 			</staticText>
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="45" splitType="Stretch"/>
+		<band height="12" splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="54" splitType="Stretch"/>
+		<band height="12" splitType="Stretch"/>
 	</pageFooter>
 	<summary>
-		<band height="42" splitType="Stretch"/>
+		<band height="44" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="2" width="264" height="15" uuid="5ccf294e-0d7f-4655-9ff0-07a0074a2119">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="17ab1eec-116c-4ca0-8661-17864fcfe922"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{boardClaimDetails}.getBoardMembers().get(0).getMember().getFullName()]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="0" y="20" width="263" height="1" backcolor="#000000" uuid="c021301c-a50a-44ef-a5a7-272481bc2069"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="70" y="24" width="100" height="15" uuid="aa3593f9-2858-43b3-8b6b-fe0f04e4b9ed">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Claimed By:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="334" y="9" width="100" height="15" uuid="5dba93af-6788-4128-b17b-105b0f0b1338">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="63cfe569-cb01-4f5e-9e2b-c7192315c0b9"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Claimed Amount:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="438" y="9" width="106" height="15" uuid="c823f373-963a-4a7c-8d9d-c000ad2c2c61">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{claimedAmount}]]></textFieldExpression>
+			</textField>
+		</band>
 	</summary>
 </jasperReport>
