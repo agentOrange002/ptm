@@ -2,13 +2,18 @@ package sys.app.ptm.dto;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Set;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import sys.app.ptm.dto.shortdto.ShortBoardMemberDto;
+import sys.app.ptm.dto.shortdto.ShortCategoryDto;
+import sys.app.ptm.dto.shortdto.ShortClaimDto;
+import sys.app.ptm.dto.shortdto.ShortReleaseDto;
+import sys.app.ptm.dto.shortdto.ShortUserDto;
 
 @ToString
 @Getter @Setter
@@ -24,9 +29,9 @@ public class BoardDto implements Serializable {
 	private LocalDate loggedDate;
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	private LocalDate payoutDate;
-	private Set<BoardMemberDto> boardMembers;	
-	private UserDto userDetails_Board;	
-	private CategoryDto boardCategoryDetails;
-    private RecruitmentDto recruitment;		
-	private ClaimDto claim;	
+	private List<ShortBoardMemberDto> boardMembers;	
+	private ShortUserDto userDetails_Board;	
+	private ShortCategoryDto boardCategoryDetails;
+    private ShortReleaseDto boardReleaseDetails;		
+	private ShortClaimDto claim;	
 }

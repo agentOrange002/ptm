@@ -54,7 +54,12 @@ public class BoardServiceImplementation implements BoardService {
 	@Override
 	public BoardDto getBoardByBoardId(String boardId) {
 		BoardEntity entity = boardRepository.findByBoardId(boardId);
-		return new ModelMapper().map(entity, BoardDto.class);
+		BoardDto dto = new BoardDto();
+		dto = new ModelMapper().map(entity, BoardDto.class);
+		
+		
+		//log.info("BoardEntity: "+entity.toString());
+		return dto;
 	}
 
 	@Override

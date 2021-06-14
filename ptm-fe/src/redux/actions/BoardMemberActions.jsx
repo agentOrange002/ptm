@@ -106,7 +106,6 @@ export const saveBoardMember = (formValues) => async (dispatch, getState) => {
 export const save1_auto = (formValues, boardMemberId) => async (dispatch, getState) => {
 	dispatch(BoardMemberLoading());
 	dispatch(showLoading('LOADINGBAR'));
-	const { memberId } = formValues;
 	let userId = getState().LOGIN_AUTHENTICATION.loginState.loginResponse.userid;
 	let token = getState().LOGIN_AUTHENTICATION.loginState.loginResponse.authorization;
 	await apiURL
