@@ -143,4 +143,10 @@ public class Utility {
 		str.append("UBMID").append(generateRandomString(i));
 		return str.toString();
 	}
+
+	public String generateRecruitmentCommissionId(int length) {
+		StringBuilder str = new StringBuilder();
+		str.append("URCID").append(generateRandomString(length));
+		return str.toString();
+	}
 }

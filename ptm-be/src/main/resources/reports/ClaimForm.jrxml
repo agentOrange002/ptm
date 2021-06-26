@@ -184,7 +184,7 @@
 		<band height="12" splitType="Stretch"/>
 	</pageFooter>
 	<summary>
-		<band height="44" splitType="Stretch">
+		<band height="103" splitType="Stretch">
 			<textField>
 				<reportElement x="0" y="2" width="264" height="15" uuid="5ccf294e-0d7f-4655-9ff0-07a0074a2119">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="17ab1eec-116c-4ca0-8661-17864fcfe922"/>
@@ -222,6 +222,16 @@
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{claimedAmount}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="71" y="77" width="100" height="15" uuid="99540a8e-29b7-4c78-b709-32f433308f34">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Approved By:]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="1" y="73" width="263" height="1" backcolor="#000000" uuid="14711864-c202-4e58-ac11-315d4311ce2a"/>
+			</rectangle>
 		</band>
 	</summary>
 </jasperReport>

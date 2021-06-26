@@ -51,6 +51,10 @@ public class RecruitmentEntity implements Serializable{
 	@OneToMany(mappedBy = "recruitmentDetails", cascade = CascadeType.ALL)
 	private List<MemberEntity> membersRecruited;
 	
+	@JsonManagedReference
+	@OneToMany(mappedBy = "recruitmentCommissionDetails", cascade = CascadeType.ALL)
+	private List<RecruitmentCommissionEntity> recruitmentCommissions;
+	
 	@JsonProperty
 	public String getMemberId() {
 		return memberRecruitmentDetails.getId();

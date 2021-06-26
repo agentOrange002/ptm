@@ -5,6 +5,7 @@ import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 import sys.app.ptm.model.shortresponse.ShortMemberModelResponse;
+import sys.app.ptm.model.shortresponse.ShortRecruitmentCommissionModelResponse;
 
 @Getter @Setter
 public class RecruitmentModelResponse {
@@ -12,4 +13,5 @@ public class RecruitmentModelResponse {
 	private String recruitmentId;	
 	private ShortMemberModelResponse memberRecruitmentDetails;
 	private List<ShortMemberModelResponse> membersRecruited;
+	private List<ShortRecruitmentCommissionModelResponse> recruitmentCommissions;
 }

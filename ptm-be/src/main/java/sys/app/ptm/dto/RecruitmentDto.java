@@ -7,10 +7,11 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import sys.app.ptm.dto.shortdto.ShortMemberDto;
+import sys.app.ptm.dto.shortdto.ShortRecruitmentCommissionDto;
 
 @ToString
 @Getter @Setter
-public class RecruitmentDto  implements Serializable {
+public class RecruitmentDto implements Serializable {
 
 	/**
 	 * 
@@ -20,4 +21,5 @@ public class RecruitmentDto  implements Serializable {
 	private String recruitmentId;	
 	private ShortMemberDto memberRecruitmentDetails;
 	private List<ShortMemberDto> membersRecruited;
+	private List<ShortRecruitmentCommissionDto> recruitmentCommissions;
 }
