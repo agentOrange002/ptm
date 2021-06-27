@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
 import sys.app.ptm.dto.RecruitmentCommissionDto;
+import sys.app.ptm.dto.shortdto.ShortRecruitmentCommissionDto;
 import sys.app.ptm.entity.RecruitmentCommissionEntity;
 import sys.app.ptm.entity.RecruitmentEntity;
 import sys.app.ptm.repository.RecruitmentCommissionRepository;
@@ -37,17 +38,17 @@ public class RecruitmentCommissionServiceImplementation implements RecruitmentCo
 
 	@Override
 	public RecruitmentCommissionDto getByRcid(String rcId) {
-		RecruitmentCommissionEntity entity = rcRepository.findByRcid(rcId);
+		RecruitmentCommissionEntity entity = rcRepository.findByRcId(rcId);
 		return new ModelMapper().map(entity, RecruitmentCommissionDto.class);
 	}
 
 	@Override
-	public List<RecruitmentCommissionDto> getAllRecruitmentCommission() {
-		List<RecruitmentCommissionDto> dtoList = new ArrayList<RecruitmentCommissionDto>();
+	public List<ShortRecruitmentCommissionDto> getAllRecruitmentCommission() {
+		List<ShortRecruitmentCommissionDto> dtoList = new ArrayList<ShortRecruitmentCommissionDto>();
 		ModelMapper mapper = new ModelMapper();
 		List<RecruitmentCommissionEntity> entityList = rcRepository.findAll();
 		for(RecruitmentCommissionEntity entity: entityList) {
-			dtoList.add(mapper.map(entity, RecruitmentCommissionDto.class));
+			dtoList.add(mapper.map(entity, ShortRecruitmentCommissionDto.class));
 		}
 		return dtoList;
 	}

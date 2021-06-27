@@ -26,7 +26,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 @Table(name = "recruitment_commissions")
-public class RecruitmentCommissionEntity implements Serializable{
+public class RecruitmentCommissionEntity implements Serializable {
 
 	/**
 	 * 

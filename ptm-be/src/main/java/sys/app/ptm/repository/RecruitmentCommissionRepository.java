@@ -10,6 +10,6 @@ import sys.app.ptm.entity.RecruitmentCommissionEntity;
 @Transactional
 public interface RecruitmentCommissionRepository extends JpaRepository<RecruitmentCommissionEntity, Long> {
 
-	RecruitmentCommissionEntity findByRcid(String rcId);
+	RecruitmentCommissionEntity findByRcId(String rcId);
 
 }
